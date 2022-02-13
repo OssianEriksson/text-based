@@ -34,11 +34,11 @@ type GameEnvironment = {
 
 type Choice = {
   text: string;
-  action: () => void;
+  action: () => { text?: string } | void;
 };
 
 type RoomInfo = {
-  roomInfo?: string;
+  text?: string;
   choices: Choice[];
   disableReturnChoice?: boolean;
 };

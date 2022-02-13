@@ -6,11 +6,11 @@ export default class Sittningslokal implements Room {
   private assignedAbilitiesCount: number = 0;
 
   getInfo({ setRoom, character, setCharacter }: GameEnvironment) {
-    let roomInfo: string = "";
+    let text: string = "";
     let choices: Choice[] = [];
     if (this.stage == "introduction") {
-      roomInfo =
-        "Du befinner dig på en sittning med faddergruppen 256. Det är trevligt men lite tråkigt och du känner hur lusten för ett episkt äventyr bubblar inom dig (eller är det bara förrätten?)\n" +
+      text =
+        "Du befinner dig på en sittning med phaddergruppen 256. Det är trevligt men lite tråkigt och du känner hur lusten för ett episkt äventyr bubblar inom dig (eller är det bara förrätten?)\n" +
         "  Plötsligt dyker en mystisk gubbe upp från tomma intet och börjar prata högt.\n\n" +
         "[Ababau den ändlige]: Mitt namn är Ababau den ändlige. Jag söker någon med ett heroiskt intellekt som kan rädda världen. Finns här någon sådan?";
       const choicesList: {
@@ -37,59 +37,58 @@ export default class Sittningslokal implements Room {
         ([characterClass, { player, ababou }]): Choice => ({
           text: player,
           action: () => {
-            console.log(`[Ababau den ändlige]: ${ababou}`);
             setCharacter({ ...character, class: characterClass as CharacterClass });
             this.stage = "call to action";
+            return { text: `[Ababau den ändlige]: ${ababou}` };
           },
         })
       );
     } else if (this.stage == "call to action") {
       const denialStages = [
         {
-          roomInfo:
-            "[Ababau den ändlige]: Det heliga riket Blank svävar i stor och omedelbar fara och bara du kan rädda det. Om du gör detta kommer du prisas som episk hjälte till tidens ända och få ett oöverträffbart CV. Vad säger du, vill du Joina det hypersfäriska bordet och rädda världen?",
+          text: "[Ababau den ändlige]: Det heliga riket Blank svävar i stor och omedelbar fara och bara du kan rädda det. Om du gör detta kommer du prisas som episk hjälte till tidens ända och få ett oöverträffbart CV. Vad säger du, vill du Joina det hypersfäriska bordet och rädda världen?",
           player: "Mjäh, låter jobbigt. Nån annan får göra det.",
         },
         {
-          roomInfo: "[Ababau den ändlige]: Va! Men bara du kan göra det! Utan dig kommer Blank att gå under!",
+          text: "[Ababau den ändlige]: Va! Men bara du kan göra det! Utan dig kommer Blank att gå under!",
           player: "Njaa, det är nog inget för mig asså. Sorry.",
         },
         {
-          roomInfo:
+          text:
             "När sittningen är slut och du är på väg ut dyker Ababau den ändlige upp utanför dörren.\n\n" +
             "[Ababau den ändlige]: Är du verkligen säker på ditt val? Du kommer ha flera triljoner liv på ditt samvete om du tackar nej! Du måste göra det!",
           player: "Nej, jag har tenta snart, det är viktigare. Sluta tjata.",
         },
         {
-          roomInfo:
+          text:
             "När du väl kommit hem och precis öppnat dörren ser du Ababau den ändlige i din hall. Hur kom han in där?\n\n" +
             "[Ababau den ändlige]: Snälla, kan du inte rädda Blank? Snälla snälla jättesnälla? Med socker på?",
           player: "Nej, ett nej är ett nej. Försvinn härifrån!",
         },
         {
-          roomInfo:
+          text:
             "Efter att du kört iväg den irriterande trollkarlen känner du nöden kalla och försvinner in till in din peronliga porslinstron. Innan du hinner uträtta dina bihov ser du dock två stora lysande ögon stirra in genom badrumsfönstret.\n\n" +
             "[Ababau den ändlige]: Snäääääääääälla!",
           player: "Ring polisen och rapportera en skum filur stalkar dig.",
           action: () => {
-            console.log(
-              "Polisen kommer och arresterar Ababau den ändlige som ropar:\n\n" +
-                "[Ababau den arresterade]: Inser du vad du har gjort! Nu kommer Blank gå under!"
-            );
             setRoom(GameOver);
+            return (
+              "Polisen kommer och arresterar Ababau den ändlige som ropar:\n\n" +
+              "[Ababau den arresterade]: Inser du vad du har gjort! Nu kommer Blank gå under!"
+            );
           },
         },
       ];
 
       if (this.denyCount <= denialStages.length) {
         const denialStage = denialStages[this.denyCount];
-        roomInfo = denialStage.roomInfo;
+        text = denialStage.text;
         choices = [
           {
             text: "Episkt äventyr? Sign me up!",
             action: () => {
-              console.log("[Ababau den ändlige]: Fantastiskt att du ställer upp!");
               this.stage = "abilities";
+              return { text: "[Ababau den ändlige]: Fantastiskt att du ställer upp!" };
             },
           },
           {
@@ -128,10 +127,10 @@ export default class Sittningslokal implements Room {
 
       let player: (option: Ability) => string;
       if (this.assignedAbilitiesCount == 0) {
-        roomInfo = `[Ababau den ändlige]: Så, du säger att du är ${character.class}, då måste du vara duktig på ${assumption}?`;
+        text = `[Ababau den ändlige]: Så, du säger att du är ${character.class}, då måste du vara duktig på ${assumption}?`;
         player = (option) => `Ja, och jag har också en del erfarenhet av ${option}!`;
       } else {
-        roomInfo = `[Ababau den ändlige]: Jasså, du kan både ${character.abilities.join(
+        text = `[Ababau den ändlige]: Jasså, du kan både ${character.abilities.join(
           " och "
         )}. Du råkar inte ha fler förmågor?`;
         player = (option) => `Jo, jag vet vad ${option} är för något.`;
@@ -147,11 +146,10 @@ export default class Sittningslokal implements Room {
           });
 
           if (this.assignedAbilitiesCount > 0) {
-            console.log(
-              `[Ababau den ändlige]: Du är då mer lärd än jag förväntade mig av en ${character.class}. Jag ser fram emot våra äventyr tillsammans.`
-            );
-
             setRoom(GameOver);
+            return {
+              text: `[Ababau den ändlige]: Du är då mer lärd än jag förväntade mig av en ${character.class}. Jag ser fram emot våra äventyr tillsammans.`,
+            };
           }
 
           this.assignedAbilitiesCount = nextAbilities.length;
@@ -160,7 +158,7 @@ export default class Sittningslokal implements Room {
     }
 
     return {
-      roomInfo,
+      text,
       choices,
       disableReturnChoice: true,
     };

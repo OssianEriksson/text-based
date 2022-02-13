@@ -14,6 +14,10 @@ class Builder {
   }
 }
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export class Game {
   private builder: Builder;
   private room: Room;
@@ -37,7 +41,25 @@ export class Game {
     this.visitedRooms = [];
   }
 
-  start() {
+  async start(letterDelay: number = 5) {
+    const display = async (text?: string) => {
+      if (letterDelay > 0) {
+        if (text) {
+          for (const letter of text) {
+            process.stdout.write(letter);
+            await sleep(letterDelay);
+          }
+        }
+        process.stdout.write("\n");
+      } else {
+        if (text) {
+          console.log(text);
+        } else {
+          console.log();
+        }
+      }
+    };
+
     const setRoomInstance = (room: Room) => {
       if (room != this.room) {
         this.visitedRooms.push(this.room);
@@ -54,9 +76,9 @@ export class Game {
       };
 
       const {
-        roomInfo,
         choices,
         disableReturnChoice = false,
+        ...roomInfo
       } = this.room.getInfo({
         character: this.character,
         setCharacter: (character) => (this.character = character),
@@ -77,20 +99,20 @@ export class Game {
         });
       }
 
-      if (roomInfo) {
-        console.log(`${roomInfo}\n`);
+      if (roomInfo.text) {
+        await display(`${roomInfo.text}\n`);
       }
 
       if (choices.length > 0) {
-        choices.forEach((choice, i) => {
-          console.log(`${i + 1}. ${choice.text}`);
-        });
+        for (let i = 0; i < choices.length; i++) {
+          await display(`${i + 1}. ${choices[i].text}`);
+        }
 
         let choiceIndex: number;
         let input: string | null = null;
         do {
           if (input !== null) {
-            console.log(`${input} är inte ett tillgängligt val.`);
+            await display(`${input} är inte ett tillgängligt val.`);
           }
           input = readlineSync.prompt();
 
@@ -102,8 +124,11 @@ export class Game {
         } while (choiceIndex % 1 != 0 || choiceIndex < 1 || choiceIndex > choices.length);
 
         const choice = choices[choiceIndex - 1];
-        console.log();
-        choice.action();
+        const response = choice.action();
+        await display();
+        if (response && response.text) {
+          await display(`${response.text}\n`);
+        }
       } else {
         setRoom(this.gameOverRoom);
       }
