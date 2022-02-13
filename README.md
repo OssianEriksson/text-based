@@ -16,5 +16,5 @@ npm install
 för att installera bibliotek och Typescript-motorn. Kör sedan programmet med
 
 ```
-npx ts-node index.ts
+npx ts-node src/index.ts
 ```

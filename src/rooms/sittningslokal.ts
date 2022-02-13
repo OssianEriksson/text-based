@@ -1,4 +1,6 @@
-export class Sittningslokal implements Room {
+import GameOver from "./game-over";
+
+export default class Sittningslokal implements Room {
   private stage: "introduction" | "call to action" | "abilities" = "introduction";
   private denyCount: number = 0;
   private assignedAbilitiesCount: number = 0;
@@ -160,21 +162,6 @@ export class Sittningslokal implements Room {
     return {
       roomInfo,
       choices,
-      disableReturnChoice: true,
-    };
-  }
-}
-
-export class GameOver implements Room {
-  getInfo({ setRoom }: GameEnvironment) {
-    return {
-      roomInfo: "Spelet är slut!",
-      choices: [
-        {
-          text: "Spela igen.",
-          action: () => setRoom(Sittningslokal),
-        },
-      ] as Choice[],
       disableReturnChoice: true,
     };
   }

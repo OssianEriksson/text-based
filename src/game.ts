@@ -1,11 +1,7 @@
 import readlineSync from "readline-sync";
 
-import "./types";
-
-import { Sittningslokal, GameOver } from "./rooms";
-
 class Builder {
-  alreadyCreatedRooms: { [key: string]: Room } = {};
+  private alreadyCreatedRooms: { [key: string]: Room } = {};
 
   build<R extends Room>(roomClass: Class<R>): R {
     if (roomClass.name in this.alreadyCreatedRooms) {
@@ -18,16 +14,16 @@ class Builder {
   }
 }
 
-class Game {
-  builder: Builder;
-  room: Room;
-  character: Character;
-  inventory: Inventory;
+export class Game {
+  private builder: Builder;
+  private room: Room;
+  private character: Character;
+  private inventory: Inventory;
 
-  visitedRooms: Room[];
+  private visitedRooms: Room[];
 
-  initialRoom: Class<Room>;
-  gameOverRoom: Class<Room>;
+  private initialRoom: Class<Room>;
+  private gameOverRoom: Class<Room>;
 
   constructor(initialRoom: Class<Room>, gameOverRoom: Class<Room>) {
     this.initialRoom = initialRoom;
@@ -57,7 +53,11 @@ class Game {
         setRoomInstance(this.builder.build(room));
       };
 
-      const { roomInfo, choices, disableReturnChoice = false } = this.room.getInfo({
+      const {
+        roomInfo,
+        choices,
+        disableReturnChoice = false,
+      } = this.room.getInfo({
         character: this.character,
         setCharacter: (character) => (this.character = character),
 
@@ -110,6 +110,3 @@ class Game {
     }
   }
 }
-
-const game: Game = new Game(Sittningslokal, GameOver);
-game.start();
