@@ -1,4 +1,5 @@
 import GameOver from "./game-over";
+import ExitSittningslokal from "./exit-sittningslokal"
 
 export default class Sittningslokal implements Room {
   private stage: "introduction" | "call to action" | "abilities" = "introduction";
@@ -146,7 +147,7 @@ export default class Sittningslokal implements Room {
           });
 
           if (this.assignedAbilitiesCount > 0) {
-            setRoom(GameOver);
+            setRoom(ExitSittningslokal);
             return {
               text: `[Ababau den ändlige]: Du är då rungande lärd, även för att vara ${character.class}. Res dig upp och kom med ut. Vi har stora saker att utföra.`,
             };
