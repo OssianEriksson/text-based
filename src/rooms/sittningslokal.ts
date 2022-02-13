@@ -5,7 +5,7 @@ export default class Sittningslokal implements Room {
   private denyCount: number = 0;
   private assignedAbilitiesCount: number = 0;
 
-  getInfo({ setRoom, character, setCharacter }: GameEnvironment) {
+  getRoom({ setRoom, character, setCharacter }: GameEnvironment) {
     let text: string = "";
     let choices: Choice[] = [];
     if (this.stage == "introduction") {
@@ -148,7 +148,7 @@ export default class Sittningslokal implements Room {
           if (this.assignedAbilitiesCount > 0) {
             setRoom(GameOver);
             return {
-              text: `[Ababau den ändlige]: Du är då mer lärd än jag förväntade mig av en ${character.class}. Jag ser fram emot våra äventyr tillsammans.`,
+              text: `[Ababau den ändlige]: Du är då rungande lärd, även för att vara ${character.class}. Res dig upp och kom med ut. Vi har stora saker att utföra.`,
             };
           }
 
@@ -160,7 +160,7 @@ export default class Sittningslokal implements Room {
     return {
       text,
       choices,
-      disableReturnChoice: true,
+      returnChoice: null,
     };
   }
 }

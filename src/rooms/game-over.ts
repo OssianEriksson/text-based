@@ -1,7 +1,7 @@
 import Sittningslokal from "./sittningslokal";
 
 export default class GameOver implements Room {
-  getInfo({ setRoom }: GameEnvironment) {
+  getRoom({ setRoom }: GameEnvironment) {
     return {
       text: "Spelet är slut!",
       choices: [
@@ -13,7 +13,7 @@ export default class GameOver implements Room {
           },
         },
       ] as Choice[],
-      disableReturnChoice: true,
+      returnChoice: null,
     };
   }
 }

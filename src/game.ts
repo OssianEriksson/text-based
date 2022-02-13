@@ -14,13 +14,17 @@ class Builder {
   }
 }
 
+function isInlineRoom(room: Room | Class<Room> | InlineRoom): room is InlineRoom {
+  return "choices" in room;
+}
+
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export class Game {
   private builder: Builder;
-  private room: Room;
+  private room: Room | InlineRoom;
   private character: Character;
   private inventory: Inventory;
 
@@ -38,7 +42,7 @@ export class Game {
     this.character = { class: "fysiker", abilities: [] };
     this.inventory = {};
 
-    this.visitedRooms = [];
+    this.visitedRooms = [this.room];
   }
 
   async start(letterDelay: number = 5) {
@@ -60,43 +64,51 @@ export class Game {
       }
     };
 
-    const setRoomInstance = (room: Room) => {
-      if (room != this.room) {
-        this.visitedRooms.push(this.room);
-        this.room = room;
+    const setRoomInstance = (room: Room | InlineRoom) => {
+      if (room != this.room && !isInlineRoom(room)) {
+        this.visitedRooms.push(room);
       }
+      this.room = room;
     };
 
     gameLoop: while (true) {
-      const setRoom = (room: Class<Room>) => {
+      const setRoom = (room: Class<Room> | InlineRoom) => {
         if (room == this.gameOverRoom) {
           Object.assign(this, new Game(this.initialRoom, this.gameOverRoom));
         }
-        setRoomInstance(this.builder.build(room));
+        setRoomInstance(isInlineRoom(room) ? room : this.builder.build(room));
       };
 
-      const {
+      let {
         choices,
-        disableReturnChoice = false,
+        returnChoice = { text: "Gå tillbaks" },
         ...roomInfo
-      } = this.room.getInfo({
-        character: this.character,
-        setCharacter: (character) => (this.character = character),
+      }: InlineRoom = isInlineRoom(this.room)
+        ? this.room
+        : this.room.getRoom({
+            character: this.character,
+            setCharacter: (character) => (this.character = character),
 
-        inventory: this.inventory,
-        setInventory: (inventory) => (this.inventory = inventory),
+            inventory: this.inventory,
+            setInventory: (inventory) => (this.inventory = inventory),
 
-        setRoom,
-      });
+            setRoom,
+          });
 
-      if (!disableReturnChoice && this.visitedRooms.length > 0) {
-        choices.push({
-          text: "Gå tillbaks",
-          action: () => {
-            const lastRoom = this.visitedRooms.pop();
-            lastRoom && setRoomInstance(lastRoom);
+      if (returnChoice && this.visitedRooms.length > 1) {
+        choices = [
+          ...choices,
+          {
+            text: returnChoice.text,
+            action: () => {
+              if (!isInlineRoom(this.room)) {
+                this.visitedRooms.pop();
+              }
+              const lastRoom = this.visitedRooms.pop();
+              lastRoom && setRoomInstance(lastRoom);
+            },
           },
-        });
+        ];
       }
 
       if (roomInfo.text) {

@@ -6,15 +6,20 @@ import Sittningslokal from "./rooms/sittningslokal";
 import GameOver from "./rooms/game-over";
 
 type Arguments = {
-  "--letter-delay"?: number;
+  letterDelay?: number;
 };
 
-const args: Arguments = Object.fromEntries(
-  process.argv.slice(2).map((arg) => {
-    const parts = arg.split("=", 2);
-    return [parts[0], parts.length < 2 || parts];
-  })
-);
+const args: Arguments = {};
+for (const arg of process.argv.slice(2)) {
+  const parts = arg.split("=", 2);
+  if (parts.length > 1) {
+    switch (parts[0]) {
+      case "--letter-delay":
+        args.letterDelay = parseInt(parts[1]);
+        break;
+    }
+  }
+}
 
 const game: Game = new Game(Sittningslokal, GameOver);
-game.start(args["--letter-delay"]);
+game.start(args.letterDelay);
