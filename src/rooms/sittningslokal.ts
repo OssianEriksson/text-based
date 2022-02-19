@@ -1,4 +1,5 @@
 import GameOver from "./game-over";
+import Bro1 from "./bro1";
 
 export default class Sittningslokal implements Room {
   private stage: "introduction" | "call to action" | "abilities" = "introduction";
@@ -18,19 +19,19 @@ export default class Sittningslokal implements Room {
       } = {
         matematiker: {
           player: "Jag har mäktiga matteskills, välj mig!",
-          ababou: "Ett mattesnille, helt magnifikt!",
+          ababou: "Ett mattesnille, så makalöst magnifikt!",
         },
         fysiker: {
           player: "Jag har fabulösa fyskförmågor, välj mig!",
-          ababou: "En fysiker, exakt vad jag förväntade mig!",
+          ababou: "En fysiker, fantastiskt! Just vad jag förväntade mig!",
         },
         programmerare: {
           player: "Jag är påfallande bra på att programera, välj mig!",
-          ababou: "En programmerare, det är ju perfekt!",
+          ababou: "En programmerare, det är ju praktiskt taget perfekt!",
         },
         rippad: {
           player: "Intellekt? Vem behöver det? Jag är super-ripped, välj mig!",
-          ababou: "Jag kännder hur dina biceps utstrålar heroism, jag väljer dig!",
+          ababou: "Jag känner hur dina biceps utstrålar heroism, jag väljer dig!",
         },
       };
       choices = Object.entries(choicesList).map(
@@ -46,7 +47,7 @@ export default class Sittningslokal implements Room {
     } else if (this.stage == "call to action") {
       const denialStages = [
         {
-          text: "[Ababau den ändlige]: Det heliga riket Blank svävar i stor och omedelbar fara och bara du kan rädda det. Om du gör detta kommer du prisas som episk hjälte till tidens ända och få ett oöverträffbart CV. Vad säger du, vill du Joina det hypersfäriska bordet och rädda världen?",
+          text: "[Ababau den ändlige]: Det heliga riket Blank svävar i stor och omedelbar fara och bara du kan rädda det. Om du gör detta kommer du prisas som episk hjälte till tidens ända och få ett oöverträffbart CV. Vad säger du, vill du joina det hypersfäriska bordet och rädda världen?",
           player: "Mjäh, låter jobbigt. Nån annan får göra det.",
         },
         {
@@ -55,21 +56,22 @@ export default class Sittningslokal implements Room {
         },
         {
           text:
-            "När sittningen är slut och du är på väg ut dyker Ababau den ändlige upp utanför dörren.\n\n" +
-            "[Ababau den ändlige]: Är du verkligen säker på ditt val? Du kommer ha flera triljoner liv på ditt samvete om du tackar nej! Du måste göra det!",
+            "[Ababau den ändlige]: *Ababau fnyser* Jag förväntade mig mer av dig. Om du inte tänker göra det får jag helt enkelt hitta någon annan. Adjö, din fegis!\n\n" +
+            "Ababau den ändlige löses upp i ett moln av jordgubbsdoftande ånga och du glömmer honom snabbt. När sittningen dock är slut och du är på väg ut dyker Ababau den ändlige upp igen utanför dörren.\n\n" +
+            "[Ababau den ändlige]: Jag har letat i 300 parallella universum och det finns ingen annan som kan göra det! Du kommer ha flera triljoner liv på ditt samvete om du tackar nej! Du måste säga ja!",
           player: "Nej, jag har tenta snart, det är viktigare. Sluta tjata.",
         },
         {
           text:
-            "När du väl kommit hem och precis öppnat dörren ser du Ababau den ändlige i din hall. Hur kom han in där?\n\n" +
+            "Du kör iväg Ababau och går hem. När du väl kommit hem och precis öppnat dörren möter du dock Ababau den ändlige i din hall. Hur kom han in där?\n\n" +
             "[Ababau den ändlige]: Snälla, kan du inte rädda Blank? Snälla snälla jättesnälla? Med socker på?",
           player: "Nej, ett nej är ett nej. Försvinn härifrån!",
         },
         {
           text:
-            "Efter att du kört iväg den irriterande trollkarlen känner du nöden kalla och försvinner in till in din peronliga porslinstron. Innan du hinner uträtta dina bihov ser du dock två stora lysande ögon stirra in genom badrumsfönstret.\n\n" +
+            "Efter att du kört iväg den irriterande trollkarlen ännu en gång känner du nöden kalla och försvinner in till in din peronliga porslinstron. Innan du hinner uträtta dina bihov ser du dock två stora lysande ögon stirra in genom badrumsfönstret.\n\n" +
             "[Ababau den ändlige]: Snäääääääääälla!",
-          player: "Ring polisen och rapportera en skum filur stalkar dig.",
+          player: "Ring polisen och rapportera att en skum filur stalkar dig.",
           action: () => {
             setRoom(GameOver);
             return (
@@ -95,7 +97,7 @@ export default class Sittningslokal implements Room {
             text: denialStage.player,
             action: () => {
               this.denyCount++;
-              denialStage.action && denialStage.action();
+              return { text: denialStage.action && denialStage.action() };
             },
           },
         ];
@@ -146,7 +148,7 @@ export default class Sittningslokal implements Room {
           });
 
           if (this.assignedAbilitiesCount > 0) {
-            setRoom(GameOver);
+            setRoom(Bro1);
             return {
               text: `[Ababau den ändlige]: Du är då mer lärd än jag förväntade mig av en ${character.class}. Jag ser fram emot våra äventyr tillsammans.`,
             };

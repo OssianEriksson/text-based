@@ -35,7 +35,7 @@ export class Game {
 
     this.builder = new Builder();
     this.room = this.builder.build(initialRoom);
-    this.character = { class: "fysiker", abilities: [] };
+    this.character = { class: "fysiker", abilities: [] , hp: 60};
     this.inventory = {};
 
     this.visitedRooms = [];

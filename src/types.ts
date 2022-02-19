@@ -18,6 +18,7 @@ type CharacterClass = "fysiker" | "matematiker" | "programmerare" | "rippad";
 type Character = {
   class: CharacterClass;
   abilities: Ability[];
+  hp: number;
 };
 
 type Inventory = {};
