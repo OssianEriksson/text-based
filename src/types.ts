@@ -30,7 +30,7 @@ type GameEnvironment = {
   inventory: Inventory;
   setInventory(inventory: Inventory): void;
 
-  setRoom(room: Class<Room>): void;
+  setRoom(room: Class<Room> | InlineRoom): void;
 };
 
 type Choice = {
@@ -38,12 +38,12 @@ type Choice = {
   action: () => { text?: string } | void;
 };
 
-type RoomInfo = {
+type InlineRoom = {
   text?: string;
   choices: Choice[];
-  disableReturnChoice?: boolean;
+  returnChoice?: {text: string} | null;
 };
 
 type Room = {
-  getInfo(gameEnvironment: GameEnvironment): RoomInfo;
+  getRoom(gameEnvironment: GameEnvironment): InlineRoom;
 };
