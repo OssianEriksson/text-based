@@ -1,4 +1,4 @@
-import GameOver from "./game-over";
+import Bro3 from "./bro3";
 import abstractBattleRoom from "./abstractBattleRoom";
 import { Game } from "../game";
 
@@ -7,7 +7,7 @@ export default class Bro2 extends abstractBattleRoom {
   private igenMessage : string = "";
   private nextEnemyAttack: "startWait" | "ciliepiska" | "sötvattenmagi" = "startWait";
 
-  override nextRoom = GameOver;
+  override nextRoom = Bro3;
 
   override generateIntroText({}: GameEnvironment){
     return "Efter att ha lyckats undfly Amöban Möbius fortsätter du din vandring och kommer snabbt fram till en ny bro. Den här gången är det en mycket smal bro i sen gotisk stil som löper över en ravin fylld med vassa pålar. Det finns ingen levande varelse så långt du kan se och ingen annan väg över."

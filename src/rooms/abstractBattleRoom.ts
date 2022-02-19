@@ -13,7 +13,7 @@ export default abstract class AbstractBattleRoom implements Room {
 
   protected abstract enemyAttacks(gameEnvironment: GameEnvironment): string;
 
-  getInfo(gameEnvironment : GameEnvironment) {
+  getRoom(gameEnvironment : GameEnvironment) {
     let text: string = "";
     let preChoices: Choice[] = [];
     this.currentHP = gameEnvironment.character.hp;

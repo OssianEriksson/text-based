@@ -4,11 +4,11 @@ export default class Bro1 implements Room {
   private stage: "introduction" | "troll battle" | "troll defeat" = "introduction";
   private igenMessage : string = "";
   private inBattle: boolean = false;
-  private enemyAttack: "fagocytos" | "cellgift" = "fagocytos";
+  private enemyAttack: "startWait" | "fagocytos" | "cellgift" = "startWait";
   private giftCount: number = 0;
   private positionOnBridge: -1 | 0 | 1 = 0;
 
-  getInfo({ setRoom, character, setCharacter }: GameEnvironment) {
+  getRoom({ setRoom, character, setCharacter }: GameEnvironment) {
     let text: string = "";
     let choices: Choice[] = [];
     let currentHP = character.hp;
@@ -47,7 +47,10 @@ export default class Bro1 implements Room {
       ];
     } else if (this.stage == "troll battle") {
       if (this.inBattle) {
-        if (this.enemyAttack == "fagocytos") {
+        if (this.enemyAttack == "startWait") {
+          this.enemyAttack = "fagocytos";
+        }
+        else if (this.enemyAttack == "fagocytos") {
           currentHP -= fagDamage;
           setCharacter({...character, hp: currentHP});
           text = "Amöban Möbius använder fagocytos och fagocyterar en av dina döda hudceller. Du tar " + fagDamage + " hp skada.";

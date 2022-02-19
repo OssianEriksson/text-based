@@ -8,7 +8,7 @@ export default class Bro3 extends abstractBattleRoom {
   private igenMessage : string = "";
   private nextEnemyAttack: "startWait" | "metanmoln" | "hypertermofil blast" = "startWait";
   private enemyConfused: boolean = false;
-  private argumentPath: "before" | "ready" | "last";
+  private argumentPath: "before" | "ready" | "last" = "before";
   override nextRoom = GameOver;
 
   override generateIntroText({}: GameEnvironment){
@@ -61,9 +61,13 @@ export default class Bro3 extends abstractBattleRoom {
         text = "Arkén Kalle framkallar varmluft från vulkaniska källor, dess naturliga habitat. Du tar " + termoDamage + "% av din nuvarande hp som skada.";
         this.nextEnemyAttack = "metanmoln";
       }
+
+      if (this.argumentPath == "before") {
+        this.argumentPath = "ready";
+      }
     }
 
-    text += "\n\nArkén Kalle virvlar fortfarande runt i din väg" + this.enemyConfused ? [", märkbart förvirrad"] : [""] + ". Vad gör du? hp: " + character.hp;
+    text += "\n\nArkén Kalle virvlar fortfarande runt i din väg" + (this.enemyConfused ? [", märkbart förvirrad"] : [""]) + ". Vad gör du? hp: " + character.hp;
 
     return text;
   }
@@ -146,7 +150,7 @@ export default class Bro3 extends abstractBattleRoom {
         },
       },
       ...(character.abilities.includes("logiskt tänkande") ? [{
-          text: "Vänta lite, en Arké kan väl inte prata!?",
+          text: "[Logiskt tänkande]: Vänta lite, en Arké kan väl inte prata!?",
           action: () => {
             this.stage = "enemy defeat";
 
@@ -157,6 +161,7 @@ export default class Bro3 extends abstractBattleRoom {
       ...(this.argumentPath == "ready" ? [{
         text: "Insistera på att han omöjligen kan ha förutsett ALLA dina drag.",
         action: () => {
+          this.argumentPath = "last";
 
           return { text: "Du insisterar på att Kalle inte kan vara så förutseende som han påstår, men han avfärdar dina argument.\n\n" + 
           
