@@ -1,149 +1,139 @@
-import readlineSync from "readline-sync";
+import { Player } from "./player"
+import sleep from "./util/sleep"
+import { DeepReadonly } from "./util/types"
 
-class Builder {
-  private alreadyCreatedRooms: { [key: string]: Room } = {};
+export type RoomInfo = {
+  text?: string
+  choices: Choice[]
+}
 
-  build<R extends Room>(roomClass: Class<R>): R {
-    if (roomClass.name in this.alreadyCreatedRooms) {
-      return this.alreadyCreatedRooms[roomClass.name] as R;
+export type Room<T = undefined> = {
+  (this: { state?: T }, args: StateInterface): RoomInfo
+}
+
+export type Choice = {
+  text: string
+  onChoose: () => Consequence
+}
+
+export type Consequence = {
+  text?: string
+  room?: Room<any>
+}
+
+type State = {
+  room: Room<any>
+  visitedRooms: Room<any>[]
+  states: Map<Room<any>, unknown>
+  player: Player
+}
+
+export type StateInterface = DeepReadonly<Pick<State, "room" | "visitedRooms">> &
+  Omit<State, "room" | "visitedRooms" | "states"> & { reset: () => void }
+
+namespace Game {
+  export async function run({
+    room: initialRoom,
+    letterDelay = 5,
+    shouldExit = (input) => ["exit", "avsluta"].includes(input),
+    getErrorMessage = (input) => `${input} är inte ett tillgängligt val.`,
+  }: {
+    room: Room<any>
+    letterDelay?: number
+    shouldExit?: (input: string) => boolean
+    getErrorMessage?: (input: string) => string
+  }) {
+    let state: State
+
+    function reset() {
+      state = {
+        room: initialRoom,
+        visitedRooms: [],
+        states: new Map<Room<any>, unknown>(),
+        player: {
+          character: "fysiker",
+          attributes: [],
+          hp: 100,
+        },
+      }
+      return state
     }
 
-    const room: R = new roomClass();
-    this.alreadyCreatedRooms[roomClass.name] = room;
-    return room;
-  }
-}
+    state = reset()
 
-function isInlineRoom(room: Room | Class<Room> | InlineRoom): room is InlineRoom {
-  return "choices" in room;
-}
-
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-export class Game {
-  private builder: Builder;
-  private room: Room | InlineRoom;
-  private character: Character;
-  private inventory: Inventory;
-
-  private visitedRooms: Room[];
-
-  private initialRoom: Class<Room>;
-  private gameOverRoom: Class<Room>;
-
-  constructor(initialRoom: Class<Room>, gameOverRoom: Class<Room>) {
-    this.initialRoom = initialRoom;
-    this.gameOverRoom = gameOverRoom;
-
-    this.builder = new Builder();
-    this.room = this.builder.build(initialRoom);
-    this.character = { class: "fysiker", abilities: [] , hp: 60};
-    this.inventory = {};
-
-    this.visitedRooms = [this.room];
-  }
-
-  async start(letterDelay: number = 5) {
-    const display = async (text?: string) => {
-      if (letterDelay > 0) {
-        if (text) {
-          for (const letter of text) {
-            process.stdout.write(letter);
-            await sleep(letterDelay);
+    async function display(text?: string, newines: number = 2) {
+      if (typeof text === "string") {
+        for (const letter of text) {
+          process.stdout.write(letter)
+          if (letterDelay > 0) {
+            await sleep(letterDelay)
           }
         }
-        process.stdout.write("\n");
-      } else {
-        if (text) {
-          console.log(text);
-        } else {
-          console.log();
-        }
+        process.stdout.write("\n".repeat(newines))
       }
-    };
+    }
 
-    const setRoomInstance = (room: Room | InlineRoom) => {
-      if (room != this.room && !isInlineRoom(room)) {
-        this.visitedRooms.push(room);
-      }
-      this.room = room;
-    };
-
-    gameLoop: while (true) {
-      const setRoom = (room: Class<Room> | InlineRoom) => {
-        if (room == this.gameOverRoom) {
-          Object.assign(this, new Game(this.initialRoom, this.gameOverRoom));
-        }
-        setRoomInstance(isInlineRoom(room) ? room : this.builder.build(room));
-      };
-
-      let {
-        choices,
-        returnChoice = { text: "Gå tillbaks" },
-        ...roomInfo
-      }: InlineRoom = isInlineRoom(this.room)
-        ? this.room
-        : this.room.getRoom({
-            character: this.character,
-            setCharacter: (character) => (this.character = character),
-
-            inventory: this.inventory,
-            setInventory: (inventory) => (this.inventory = inventory),
-
-            setRoom,
-          });
-
-      if (returnChoice && this.visitedRooms.length > 1) {
-        choices = [
-          ...choices,
-          {
-            text: returnChoice.text,
-            action: () => {
-              if (!isInlineRoom(this.room)) {
-                this.visitedRooms.pop();
-              }
-              const lastRoom = this.visitedRooms.pop();
-              lastRoom && setRoomInstance(lastRoom);
-            },
+    async function doRoom<T>(room: Room<T>): Promise<boolean> {
+      const { choices, ...info }: RoomInfo = room.call(
+        {
+          get state(): T {
+            return state.states.get(room) as T
           },
-        ];
+          set state(t: T) {
+            state.states.set(room, t)
+          },
+        },
+        {
+          ...state,
+          reset,
+        } as StateInterface
+      )
+
+      await display(info.text)
+
+      if (choices.length == 0) {
+        return false
       }
 
-      if (roomInfo.text) {
-        await display(`${roomInfo.text}\n`);
+      for (let i = 0; i < choices.length; i++) {
+        await display(`${i + 1}. ${choices[i].text}`, 1)
       }
 
-      if (choices.length > 0) {
-        for (let i = 0; i < choices.length; i++) {
-          await display(`${i + 1}. ${choices[i].text}`);
+      let choice: Choice
+      while (true) {
+        process.stdout.write("> ")
+        const input = await new Promise<string>((resolve) =>
+          process.stdin.on("data", (data) => resolve(data.toString().trim()))
+        )
+
+        if (shouldExit(input)) {
+          return false
         }
 
-        let choiceIndex: number;
-        let input: string | null = null;
-        do {
-          if (input !== null) {
-            await display(`${input} är inte ett tillgängligt val.`);
-          }
-          input = readlineSync.prompt();
-
-          if (["exit", "avsluta"].includes(input.toLowerCase())) {
-            break gameLoop;
-          }
-
-          choiceIndex = Number(input);
-        } while (choiceIndex % 1 != 0 || choiceIndex < 1 || choiceIndex > choices.length);
-
-        const choice = choices[choiceIndex - 1];
-        const response = choice.action();
-        await display();
-        if (response && response.text) {
-          await display(`${response.text}\n`);
+        const i = Number(input)
+        if (Number.isInteger(i) && i > 0 && i <= choices.length) {
+          choice = choices[i - 1]
+          break
         }
-      } else {
-        setRoom(this.gameOverRoom);
+
+        await display(getErrorMessage(input), 1)
       }
+
+      const consequence = choice.onChoose()
+
+      await display("", 1)
+      await display(consequence.text)
+
+      if (consequence.room && consequence.room != room) {
+        state.visitedRooms.push(room)
+        state.room = consequence.room
+      }
+
+      return true
     }
+
+    while (await doRoom(state.room)) {}
   }
 }
+
+export default Game
