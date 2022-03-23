@@ -1,8 +1,6 @@
-import { Choice, Room, StateInterface } from "../game"
+import { Choice, Room } from "../game"
 
-type State = {}
-
-const Quebec: Room<State> = function ({ visitedRooms }) {
+const Quebec: Room = function ({ visitedRooms }) {
   const returnChoice: Choice = {
     text: "Vänd tillbaks och gå därifrån.",
     onChoose: () => ({

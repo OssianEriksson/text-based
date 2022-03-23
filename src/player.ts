@@ -6,4 +6,5 @@ export type Player = {
   attributes: Attribute[]
   character: Character
   hp: number
+  gold: number
 }

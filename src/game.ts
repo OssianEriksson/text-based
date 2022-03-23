@@ -54,6 +54,7 @@ namespace Game {
           character: "fysiker",
           attributes: [],
           hp: 100,
+          gold: 0,
         },
       }
       return state
