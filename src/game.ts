@@ -107,9 +107,13 @@ namespace Game {
       let choice: Choice
       while (true) {
         process.stdout.write("> ")
-        const input = await new Promise<string>((resolve) =>
-          process.stdin.on("data", (data) => resolve(data.toString().trim()))
-        )
+        const input = await new Promise<string>((resolve) => {
+          const listener = (data: Buffer) => {
+            process.stdin.removeListener('data', listener)
+            resolve(data.toString().trim())
+          }
+          process.stdin.on("data", listener)
+        })
 
         if (shouldExit(input)) {
           return false
