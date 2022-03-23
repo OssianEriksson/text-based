@@ -38,7 +38,7 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
         {
           text: "Gå tillbaks upp ur sänkan.",
           onChoose: () => ({
-            text: "Du klättar ur sänkan och går tillbaks in i ödemarken.",
+            text: "Du klättar ur sänkan och går tillbaks in i träsket.",
             room: visitedRooms[visitedRooms.indexOf(Ni) - 1],
           }),
         },
@@ -49,7 +49,7 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
   const fleeChoice: Choice = {
     text: "Fly från sänkan.",
     onChoose: () => ({
-      text: "Du vänder om så snabbt du kan och rusar tillbaks genom dimman. Snart når du kanten på sänkan och klättrar tacksamt upp och går tillbaks in i ödemarken.",
+      text: "Du vänder om så snabbt du kan och rusar tillbaks genom dimman. Snart når du kanten på sänkan och klättrar tacksamt upp och går tillbaks in i träsket.",
       room: visitedRooms[visitedRooms.indexOf(Ni) - 1],
     }),
   }
@@ -85,7 +85,7 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
           return {
             text:
               "Du bugar dig och säger till riddarna att de är stora och rättvisa och att du ska återvända med en buske åt dem. Du går tillbaks några hundra meter till en fin, död, avbruten buske som du lagt märke till på vägen och tar med den tillbaks till riddarnas läger.\n\n" +
-              "[Riddare som säger Ni]: Det är en god buske. Jag gillar speciellt bladen. Med denna buske ska vi ställa upp i blanks formklippningstävling där den säkert kommer att vinna! Vi ger oss av direkt! Farväl!",
+              "[Riddare som säger Ni]: Det är en god buske. Jag gillar speciellt bladen. Med denna buske ska vi ställa upp i lagomgårds formklippningstävling där den säkert kommer att vinna! Vi ger oss av direkt! Farväl!",
           }
         },
       },

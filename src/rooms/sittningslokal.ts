@@ -62,11 +62,11 @@ const Sittningslokal: Room<State> = function ({ player }) {
   } else if (state.stage == "call to action") {
     const denialStages: { text: string; choiceText: string }[] = [
       {
-        text: "[Ababau den ändlige]: Det heliga riket Blank svävar i stor och omedelbar fara och bara du kan rädda det. Om du gör detta kommer du prisas som episk hjälte till tidens ända och få ett oöverträffbart CV. Vad säger du, vill du joina det hypersfäriska bordet och rädda världen?",
+        text: "[Ababau den ändlige]: Det heliga riket Lagomgård svävar i stor och omedelbar fara och bara du kan rädda det. Om du gör detta kommer du prisas som episk hjälte till tidens ända och få ett oöverträffbart CV. Vad säger du, vill du joina det hypersfäriska bordet och rädda världen?",
         choiceText: "Mjäh, låter jobbigt. Nån annan får göra det.",
       },
       {
-        text: "[Ababau den ändlige]: Va! Men bara du kan göra det! Utan dig kommer Blank att gå under!",
+        text: "[Ababau den ändlige]: Va! Men bara du kan göra det! Utan dig kommer Lagomgård att gå under!",
         choiceText: "Njaa, det är nog inget för mig asså. Sorry.",
       },
       {
@@ -79,7 +79,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
       {
         text:
           "Du kör iväg Ababau och går hem. När du väl kommit hem och precis öppnat dörren möter du dock Ababau den ändlige i din hall. Hur kom han in där?\n\n" +
-          "[Ababau den ändlige]: Snälla, kan du inte rädda Blank? Snälla snälla jättesnälla? Med socker på?",
+          "[Ababau den ändlige]: Snälla, kan du inte rädda Lagomgård? Snälla snälla jättesnälla? Med socker på?",
         choiceText: "Nej, ett nej är ett nej. Försvinn härifrån!",
       },
       {
@@ -114,7 +114,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
             return {
               text:
                 "Polisen kommer och arresterar Ababau den ändlige som ropar:\n\n" +
-                "[Ababau den arresterade]: Inser du vad du har gjort! Nu kommer Blank gå under!",
+                "[Ababau den arresterade]: Inser du vad du har gjort! Nu kommer Lagomgård gå under!",
               room: createGameOverRoom(),
             }
           },

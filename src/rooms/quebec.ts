@@ -4,7 +4,7 @@ const Quebec: Room = function ({ visitedRooms }) {
   const returnChoice: Choice = {
     text: "Vänd tillbaks och gå därifrån.",
     onChoose: () => ({
-      text: "Du lämar slottet bakom dig och återvänder tillbaks till ödemarken.",
+      text: "Du lämar slottet bakom dig och återvänder tillbaks till träsket.",
       room: visitedRooms[visitedRooms.indexOf(Quebec) - 1],
     }),
   }
@@ -24,7 +24,7 @@ const Quebec: Room = function ({ visitedRooms }) {
       {
         text: "Fråga om du kan få passera igenom slottet",
         onChoose: () => ({
-          text: "[Soldat]: Så klahrt inte, du är blank-typ. Kanske om du kan betala oss i guld...",
+          text: "[Soldat]: Så klahrt inte, du är lagomgård-typ. Kanske om du kan betala oss i guld...",
           room: () => ({
             choices: [
               {
