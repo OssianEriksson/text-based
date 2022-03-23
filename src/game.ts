@@ -74,6 +74,10 @@ namespace Game {
     }
 
     async function doRoom<T>(room: Room<T>): Promise<boolean> {
+      if (state.visitedRooms.length == 0 || state.visitedRooms[state.visitedRooms.length - 1] != room) {
+        state.visitedRooms.push(room)
+      }
+
       const { choices, ...info }: RoomInfo = room.call(
         {
           get state(): T {
@@ -124,8 +128,7 @@ namespace Game {
       await display("", 1)
       await display(consequence.text)
 
-      if (consequence.room && consequence.room != room) {
-        state.visitedRooms.push(room)
+      if (consequence.room) {
         state.room = consequence.room
       }
 
