@@ -4,7 +4,7 @@ type State = {
   emptyCamp: boolean
   canFlee: boolean
   campHasGold: boolean
-  firstVisit: boolean
+  visited: boolean
 }
 
 const Ni: Room<State> = function ({ visitedRooms, player }) {
@@ -13,8 +13,10 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
       emptyCamp: false,
       canFlee: true,
       campHasGold: true,
-      firstVisit: true,
+      visited: false,
     }
+  } else {
+    this.state.visited = true
   }
 
   const state = this.state as State
@@ -54,13 +56,13 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
     }),
   }
 
-  const ri: RoomInfo = {
-    text: state.firstVisit
-      ? "Du kommer ned i en dimmig sänka. Dimman är så tjock att solen skymms och det blir märkbart mörkare. Plötsligt tycker du dig se en gestalt röra sig bakom en gren, men den försvinner snabbt ur synhåll. Du har en stark känsla av att någon eller några betraktar dig.\n\n" +
+  return {
+    text: state.visited
+      ? "Du befinner dig i Riddarna som säger Nis läger, och riddarna står runt om kring dig. De kräver en buske av dig."
+      : "Du kommer ned i en dimmig sänka. Dimman är så tjock att solen skymms och det blir märkbart mörkare. Plötsligt tycker du dig se en gestalt röra sig bakom en gren, men den försvinner snabbt ur synhåll. Du har en stark känsla av att någon eller några betraktar dig.\n\n" +
         "Plötsligt står en lång skepnad framför dig.\n\n" +
         "[Riddare som säger Ni]: Vi är riddarna som säger Ni! Ni! Ni! Ni! Vi är väktarna av de heliga orden Ni, Ping, and Nee-womm! \n\n" +
-        "[Riddare som säger Ni]: Vi kräver av dig ett offer, du måste hitta en buske åt oss!"
-      : "Du befinner dig i Riddarna som säger Nis läger, och riddarna står runt om kring dig. De kräver en buske av dig.",
+        "[Riddare som säger Ni]: Vi kräver av dig ett offer, du måste hitta en buske åt oss!",
     choices: [
       {
         text: "Säg att du inte är rädd och kan stå emot deras krafter.",
@@ -96,10 +98,6 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
       ...(state.canFlee ? [fleeChoice] : []),
     ],
   }
-
-  state.firstVisit = false
-
-  return ri
 }
 
 export default Ni
