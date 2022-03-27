@@ -1,4 +1,3 @@
-import { stat } from "fs"
 import { Room } from "../game"
 import Ni from "./ni"
 import Quebec from "./quebec"

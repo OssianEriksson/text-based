@@ -15,7 +15,7 @@ function concat(a: string, b: string) {
   return (a ? `${a}\n\n` : "") + b
 }
 
-const BroMobius: Room<State> = function (args) {
+const BroMöbius: Room<State> = function (args) {
   const { player } = args
 
   if (this.state === undefined) {
@@ -51,7 +51,7 @@ const BroMobius: Room<State> = function (args) {
 
   if (state.stage == "introduction") {
     return {
-      text: "Efter den långa vandringen genom skogen kommer du fram till en kort men bred bro i tidig antik stil med höga marmorkolonner och statyer föreställande lättklädda mikroorganismer. Bron går över en djup och bred å med en stark ström. Det finns ingen levande varelse så långt du kan se och ingen annan väg över.",
+      text: "Du kommer fram till en kort men bred bro i tidig antik stil med höga marmorkolonner och statyer föreställande lättklädda mikroorganismer. Bron går över en djup och bred å med en stark ström. Det finns ingen levande varelse så långt du kan se och ingen annan väg över.",
       choices: [
         {
           text: "Försök gå över bron.",
@@ -214,4 +214,4 @@ const BroMobius: Room<State> = function (args) {
   }
 }
 
-export default BroMobius
+export default BroMöbius

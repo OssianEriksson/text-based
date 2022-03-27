@@ -1,6 +1,7 @@
 import { Choice, Room } from "../game"
+import Öken from "./öken"
 
-const Quebec: Room = function ({ visitedRooms }) {
+const Quebec: Room = function ({ player, visitedRooms }) {
   const returnChoice: Choice = {
     text: "Vänd tillbaks och gå därifrån.",
     onChoose: () => ({
@@ -24,16 +25,32 @@ const Quebec: Room = function ({ visitedRooms }) {
       {
         text: "Fråga om du kan få passera igenom slottet",
         onChoose: () => ({
-          text: "[Soldat]: Så klahrt inte, du är lagomgård-typ. Kanske om du kan betala oss i guld...",
+          text:
+            "[Soldat]: Så klahrt inte, du är lagomgård-typ. Kanske om du kan betala oss i guld, två guldmynt bohrde räcka..." +
+            (player.gold < 2 ? `\n\nDu känner efter i dina fickor men du har bara ${player.gold} guldmynt.` : ""),
           room: () => ({
             choices: [
               {
                 text: "Fråga vilken typ soldaten är.",
                 onChoose: () => ({
-                  text: "[Soldat]: Jag ehr Quebecansk! Detta ehr staden Quebec! Vad vi göhr hehr angåhr inte dig!",
-                  room: MainConversation
+                  text: "[Soldat]: Jag ehr Quebecansk! Detta ehr staden Quebec! Vad vi göhr hehr ehr inte ditt phroblem!",
+                  room: MainConversation,
                 }),
               },
+              ...(player.gold >= 2
+                ? [
+                    {
+                      text: "Betala två guldbynt för att passera över lavafloden.",
+                      onChoose: () => {
+                        player.gold -= 2
+                        return {
+                          text: "Du visar upp två guldmynt och efter en minut öppnas porten för dig. Efter att du betalat dina två guldmynt blir du ledd genom slottet och sedan utknuffad genom en bakdörr på andra sidan lavafloden. Dörren slås igen med en smäll och det enda ljudet som hörs kommer innifrån Quebec. Du upptar direkt din vandring åt öster.",
+                          room: Öken,
+                        }
+                      },
+                    } as Choice,
+                  ]
+                : []),
               returnChoice,
             ],
           }),

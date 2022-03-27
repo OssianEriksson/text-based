@@ -1,4 +1,4 @@
-import { Choice, Room, RoomInfo } from "../game"
+import { Choice, Room } from "../game"
 
 type State = {
   emptyCamp: boolean
@@ -30,8 +30,8 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
           onChoose: () => {
             if (state.campHasGold) {
               state.campHasGold = false
-              player.gold += 100
-              return { text: "Du hittar 100 guldmynt!" }
+              player.gold += 10
+              return { text: "Du hittar 10 guldmynt!" }
             } else {
               return { text: "Du hittar ingenting nytt av värde." }
             }
