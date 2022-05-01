@@ -1,10 +1,10 @@
 import { Room } from "../game"
 
-const Vetenskapsperson: Room = function() {
+const VetenskapspersonA: Room = function() {
   return {
     text: "TODO",
     choices: []
   }
 }
 
-export default Vetenskapsperson
+export default VetenskapspersonA

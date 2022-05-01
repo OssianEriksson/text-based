@@ -1,12 +1,44 @@
 import { Choice, Room } from "../game";
+import battleChoices, { AttacksBattleState, generatePlayerAttacks } from "../helpers/batteChoices";
+import { createGameOverRoom } from "../helpers/gameOver";
 import { Character } from "../player";
-import Vetenskapsperson from "./vetenskapsperson";
+import VetenskapspersonA from "./vetenskapsperson-a";
+import VetenskapspersonB from "./vetenskapsperson-b";
 
-const LarpDvärghBattle: Room = function () {
-  // Hugger med hackan
+type LarpDvärghBattleState = AttacksBattleState;
+
+const LarpDvärghBattle: Room<LarpDvärghBattleState> = function (args) {
+  if (!this.state) {
+    this.state = {
+      opponentHp: 100,
+      opponentName: "dvärghen",
+    };
+  }
+
+  const state = this.state as LarpDvärghBattleState;
+
+  const onDefeat = () => ({
+    text: "Du har tagit så mycket skada att du dör. Dvärghen har besegrat dig.",
+    room: createGameOverRoom(),
+  });
+
   return {
-    text: "text",
-    choices: [],
+    text: "Dvärghen står ursinning framför dig, på väg att gå till anfall! Vad gör du?",
+    choices: battleChoices(
+      args,
+      state,
+      generatePlayerAttacks(args, state, VetenskapspersonB, [
+        {
+          onChoose: () => {
+            args.player.hp -= 15;
+            return {
+              text: "Dvärghen hugger dig med sin hacka. Du tar 15 hp skada.",
+            };
+          },
+          onDefeat,
+        },
+      ])
+    ),
   };
 };
 
@@ -27,7 +59,7 @@ const LarpDvärgh: Room<State> = function ({ player }) {
       {
         text: "Gå och prata med vetenskapspersonhen",
         onChoose: () => ({
-          room: Vetenskapsperson,
+          room: VetenskapspersonA,
         }),
       },
     ],
@@ -161,12 +193,12 @@ const LarpDvärgh: Room<State> = function ({ player }) {
         }),
       },
       {
-        text: "Försök lura bort dvärgen med förföring.",
+        text: "Försök lura bort dvärghen med förföring.",
         onChoose: () =>
           player.attributes.includes("förföra") || player.attributes.includes("smyga")
             ? {
                 text: 'Du roppar flörtigt åt dvärghen att hen ska komma och hjälpa dig med din Warhammer-karaktär och dvärghen svarar omdelbart på dina rop efter hjälp, du tror att det var eftersom du lade till att du inte lyckat måla din Warhammer karaktärer rätt. När hen springer iväg för att hjälpa "dig" går du lungt in genom dörren.',
-                room: Vetenskapsperson,
+                room: VetenskapspersonA,
               }
             : {
                 text:
@@ -182,14 +214,14 @@ const LarpDvärgh: Room<State> = function ({ player }) {
           player.attributes.includes("tunnla")
             ? {
                 text: "Du lyckas tunnla genom dörren!",
-                room: Vetenskapsperson,
+                room: VetenskapspersonA,
               }
             : {
                 text: "Din tunnling misslyckas, men dvärghen har fortfarande inte upptäckt dig.",
               },
       },
       {
-        text: "Försök ta dvärgens hacka.",
+        text: "Försök ta dvärghens hacka.",
         onChoose: () =>
           player.attributes.includes("smyga")
             ? {
@@ -200,7 +232,7 @@ const LarpDvärgh: Room<State> = function ({ player }) {
               }
             : {
                 text: "Du lyckades med dina smygförmågor sno hackan och du gör en tunnel med den och behöver inte bli upptäkt genom att använda dörren!",
-                room: Vetenskapsperson,
+                room: VetenskapspersonA,
               },
       },
     ],
