@@ -1,7 +1,7 @@
 import { Choice, Consequence, Room, RoomInfo } from "../game"
 import battleChoices, { BattleState, OpponentAttack } from "../helpers/batteChoices"
 import { createGameOverRoom } from "../helpers/gameOver"
-import Sittningslokal from "./sittningslokal"
+import LarpDvärgh from "./larp-dvärgh"
 
 type State = {
   stage: "introduction" | "battle"
@@ -34,7 +34,7 @@ const BroKalle: Room<State> = function (args) {
 
   const onWin = () => ({
     text: "Du besegrade Arkén Kalle!",
-    room: Sittningslokal,
+    room: LarpDvärgh,
   })
 
   const GameOver = createGameOverRoom(
@@ -44,13 +44,13 @@ const BroKalle: Room<State> = function (args) {
   const onDefeat = () => ({ room: GameOver })
 
   const swimChoice: Choice = {
-    text: `Försök simma över lavafloden${state.againMsg}.`,
+    text: `Försök simma över lavaån${state.againMsg}.`,
     onChoose: () => {
       const swimDamage: number = 5
 
       player.hp -= swimDamage
       const consequence: Consequence = {
-        text: `Du försöker simma över lavafloden${state.againMsg} men bränner dig på lavan${state.againMsg}. Du misslyckas och tar ${swimDamage} hp skada${state.againMsg}.`,
+        text: `Du försöker simma över lavaån${state.againMsg} men bränner dig på lavan${state.againMsg}. Du misslyckas och tar ${swimDamage} hp skada${state.againMsg}.`,
         ...(player.hp <= 0 && { room: GameOver }),
       }
       state.againMsg = " igen"
@@ -60,7 +60,9 @@ const BroKalle: Room<State> = function (args) {
 
   if (state.stage == "introduction") {
     return {
-      text: "Duellen mot Toffoleau lämnar dig skakad när du fortsätter genom skogen. Efter ett tag ser du en god och en dålig nyhet. Den goda nyheten är att du ser skogens slut på andra sidan en flod, den dåliga är att floden består av lava. Över lavafloden går en lagom bred bro i art nouveau stil. Det finns återigen ingen levande varelse så långt du kan se och ingen annan väg över.",
+      text:
+        "Duellen mot Toffoleau lämnar dig skakad när du fortsätter genom skogen. Efter ett tag ser du en god och en dålig nyhet. Den goda nyheten är att du ser skogens slut på andra sidan en å, den dåliga är att ån består av lava. Det måste vara en gren av den stora lavaflod du nyligen passerat över.\n\n" +
+        "Över lavaån går en lagom bred bro i art nouveau stil. Det finns återigen ingen levande varelse så långt du kan se och ingen annan väg över.",
       choices: [
         swimChoice,
         {

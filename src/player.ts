@@ -1,5 +1,4 @@
-export type Attribute = "förföra" | "lösa gåtor" | "tänka logiskt" | "fajtas" | "tunnla" | "vara uthållig" | "baguette" 
-| "pinne" | "GPS" | "excalibur" | "räfs den legendariska krattan"
+export type Attribute = "förföra" | "lösa gåtor" | "tänka logiskt" | "fajtas" | "tunnla" | "vara uthållig" | "baguette" | "smyga" | "pinne" | "GPS" | "excalibur" | "räfs den legendariska krattan"
 
 export type Character = "fysiker" | "matematiker" | "programmerare" | "rippad"
 

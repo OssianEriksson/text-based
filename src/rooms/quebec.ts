@@ -40,7 +40,7 @@ const Quebec: Room = function ({ player, visitedRooms }) {
               ...(player.gold >= 2
                 ? [
                     {
-                      text: "Betala två guldbynt för att passera över lavafloden.",
+                      text: "Betala två guldmynt för att passera över lavafloden.",
                       onChoose: () => {
                         player.gold -= 2
                         return {

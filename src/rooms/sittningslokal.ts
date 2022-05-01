@@ -128,7 +128,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
     } = {
       matematiker: {
         assumption: "tänka logiskt",
-        options: ["lösa gåtor", "tunnla", "vara uthållig"],
+        options: ["lösa gåtor", "tunnla", "vara uthållig", "smyga"],
       },
       fysiker: {
         assumption: "tunnla",
@@ -136,7 +136,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
       },
       programmerare: {
         assumption: "lösa gåtor",
-        options: ["fajtas", "tunnla", "tänka logiskt"],
+        options: ["fajtas", "tunnla", "tänka logiskt", "smyga"],
       },
       rippad: {
         assumption: "fajtas",
