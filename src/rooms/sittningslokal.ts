@@ -1,6 +1,7 @@
 import { Choice, Consequence, Room, RoomInfo } from "../game"
 import { createGameOverRoom } from "../helpers/gameOver"
 import { Attribute, Character } from "../player"
+import SkogStart from "./SkogStart"
 
 type State = {
   stage: "introduction" | "call to action" | "abilities" | "way out"
@@ -268,7 +269,16 @@ const Sittningslokal: Room<State> = function ({ player }) {
         //     /* */
         //   },
         // },
-      ],
+        {
+          text: "Följ med Ababau",
+          onChoose: () => {
+            return {
+              text: "Du följer med Ababau på en episk resa genom tid och rum!",
+              room: SkogStart,
+            }
+          },
+        },
+      ]
     }
 
     state.wayOutVisited = true
