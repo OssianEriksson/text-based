@@ -2,8 +2,7 @@ import { Choice, Room } from "../game";
 import battleChoices, { AttacksBattleState, generatePlayerAttacks } from "../helpers/batteChoices";
 import { createGameOverRoom } from "../helpers/gameOver";
 import { Character } from "../player";
-import VetenskapspersonA from "./vetenskapsperson-a";
-import VetenskapspersonB from "./vetenskapsperson-b";
+import { VetenskapspersonA, VetenskapspersonB } from "./vetenskapsperson";
 
 type LarpDvärghBattleState = AttacksBattleState;
 

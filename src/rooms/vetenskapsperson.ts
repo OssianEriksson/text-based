@@ -1,41 +1,8 @@
 import { Choice, Consequence, Room } from "../game";
-import VetenskapspersonFajt from "./vetenskapsperson-fajt";
 import AbabouFajt from "./ababou-fajt";
 import { createGameOverRoom } from "../helpers/gameOver";
 
-const VetenskapspersonA: Room = function ({ player }) {
-  const IntegralRoom: Room = () => ({
-    text:
-      "Dvärgen verkar mycket intresserad.\n\n" +
-      "[Slartibartfast]: Inte-graalen kan hjälpa oss se till att vi utvinner nog med energi! Jag heter Slartibartfast förresten.\n\n" +
-      "Ni sätter er ner för att försöka lösa integralen som lyder\n\n" +
-      "/(π/4)  1     \n" +
-      "|     ----- dx\n" +
-      "/0    cos x   \n\n" +
-      "Vad är värdet av denna integral",
-    choices: [
-      wrongIntegralSolution("1"),
-      wrongIntegralSolution("3 cos(sin(π/8))/2"),
-      {
-        text: "2 arctanh⁻¹(tan(π/8))",
-        onChoose: () => ({
-          text: "Det var rätt lösning! Allt fungerar, ni kommer nu att kunna få nog med energi. Just när ni ska jubla hör ni oväsen. Du går ut ur berget för att ta reda på var uppståndelsen beror på.",
-          room: AbabouFajt,
-        }),
-      },
-      wrongIntegralSolution("Γ(e)/2"),
-      wrongIntegralSolution("Matematik är en illusion, endast gud kan veta svaret."),
-    ],
-  });
-
-  const AbabouEnd: Room = () => ({
-    text:
-      "Väl utanför berget vänder du dig om och ser hur hela berget kollapsar med ett brak. Dvärgarna är utrotade. Ababaou har dykt upp och går fram till dig med ett belåtet uttryck.\n\n" +
-      "[Ababou]: Du har räddat Amazonerna och utrotat de fruktansvärda dvärgarna och deras fruktansvärda vetenskap. Nu är det dags för dig att resa hem.\n\n" +
-      "Plötsligt är du tillbaka i sittningslokalen, nöjd med ditt äventyr. Men dina kamrater på sittningen är mindre nöjda, eftersom du inte varit med och städat...",
-    choices: [],
-  });
-
+const Integrallösning: Room = ({ player }) => {
   const wrongIntegralSolution = (text: string): Choice => {
     const consequence: Consequence = {
       text: "Det var fel lösning! Inte-graalen exploderar i dina händer och du dör.",
@@ -49,7 +16,7 @@ const VetenskapspersonA: Room = function ({ player }) {
       },
       {
         text: "Nej.",
-        onChoose: () => ({ room: IntegralRoom }),
+        onChoose: () => ({ room: Integrallösning }),
       },
     ];
 
@@ -84,6 +51,47 @@ const VetenskapspersonA: Room = function ({ player }) {
   };
 
   return {
+    text:
+      "Dvärgen verkar mycket intresserad.\n\n" +
+      "[Slartibartfast]: Inte-graalen kan hjälpa oss se till att vi utvinner nog med energi! Jag heter Slartibartfast förresten.\n\n" +
+      "Ni sätter er ner för att försöka lösa integralen som lyder\n\n" +
+      "/(π/4)  1     \n" +
+      "|     ----- dx\n" +
+      "/0    cos x   \n\n" +
+      "Vad är värdet av denna integral",
+    choices: [
+      wrongIntegralSolution("1"),
+      wrongIntegralSolution("3 cos(sin(π/8))/2"),
+      {
+        text: "2 arctanh⁻¹(tan(π/8))",
+        onChoose: () => ({
+          text: "Det var rätt lösning! Allt fungerar, ni kommer nu att kunna få nog med energi. Just när ni ska jubla hör ni oväsen. Du går ut ur berget för att ta reda på var uppståndelsen beror på.",
+          room: AbabouFajt,
+        }),
+      },
+      wrongIntegralSolution("Γ(e)/2"),
+      wrongIntegralSolution("Matematik är en illusion, endast gud kan veta svaret."),
+    ],
+  };
+};
+
+const VetenskapspersonFajt: Room = function () {
+  return {
+    text: "TODO",
+    choices: [],
+  };
+};
+
+export const VetenskapspersonA: Room = function ({ player }) {
+  const AbabouEnd: Room = () => ({
+    text:
+      "Väl utanför berget vänder du dig om och ser hur hela berget kollapsar med ett brak. Dvärgarna är utrotade. Ababaou har dykt upp och går fram till dig med ett belåtet uttryck.\n\n" +
+      "[Ababou]: Du har räddat Amazonerna och utrotat de fruktansvärda dvärgarna och deras fruktansvärda vetenskap. Nu är det dags för dig att resa hem.\n\n" +
+      "Plötsligt är du tillbaka i sittningslokalen, nöjd med ditt äventyr. Men dina kamrater på sittningen är mindre nöjda, eftersom du inte varit med och städat...",
+    choices: [],
+  });
+
+  return {
     text: "En bit in i berget kommer du in i ett laboratorium, En väggen har massa fula tavlor med orangea löv på sig och en annan har en whiteboardtavla med massa ekvationer, de andra har massa dragskåp och någravanliga skåp. Mitt i allt står en dvärg med vilt långt skägg och hår.",
     choices: [
       {
@@ -107,7 +115,7 @@ const VetenskapspersonA: Room = function ({ player }) {
                       {
                         text: "Påpeka för dvärghen att du menade om kärnkraften... du har ju den heliga inte-graalen om ni behöver hjä...",
                         onChoose: () => ({
-                          room: IntegralRoom,
+                          room: Integrallösning,
                         }),
                       },
                     ],
@@ -150,4 +158,40 @@ const VetenskapspersonA: Room = function ({ player }) {
   };
 };
 
-export default VetenskapspersonA;
+export const VetenskapspersonB: Room = function () {
+  const NuclearRoom: Room = () => ({
+    text: "[Slartibartfast] Integralen kan vara till hjälp för att utveckla kärnkraft åt oss dvärghar!",
+    choices: [
+      {
+        text: "Kärnkraft? Nej tack!",
+        onChoose: () => ({
+          text: "Du ser hur Slartibartfasts ansikte mörknar och han blir fullständigt rasande.",
+          room: VetenskapspersonFajt,
+        }),
+      },
+      {
+        text: "Okej, då tar vi väll och löser den så att ni kan ha massa energi.",
+        onChoose: () => ({ room: Integrallösning }),
+      },
+    ],
+  });
+
+  return {
+    text: "Du kommer in i ett laboratorium, En väggen har massa fula tavlor med orangea löv på sig och en annan har en whiteboardtavla med massa ekvationer, de andra har massa dragskåp och någravanliga skåp. Mitt i allt står en dvärg med vilt långt skägg och hår. Du presenterar dig, får veta att dvärghen heter Slartibartfast, och berättar sedan varför du är här...",
+    choices: [
+      {
+        text: "Säg 'Amazonerna ha skickat mig för att döda er, men jag vill inte göra detta. Jag vill stoppa er miljöförstörelse med hjälp av den heliga inte-graalen.'",
+        onChoose: () => ({ room: NuclearRoom }),
+      },
+      {
+        text: "Påstå att du kan lösa alla Slartibartfasts problem.",
+        onChoose: () => ({
+          text:
+            "[Slartibartfast]: TODO: Lång dialog som beskriver anarkism.\n\n" +
+            "Du säger att vad du menade var att du kan hjälpa Slartibartfast sätta stopp för miljöförstörelsen genom forskning och din inte-graal",
+          room: NuclearRoom,
+        }),
+      },
+    ],
+  };
+};
