@@ -2,6 +2,7 @@ import { stat } from "fs";
 import internal from "stream";
 import { FalseLiteral } from "typescript";
 import { Choice, Room } from "../game";
+import StigISkogen from "./stigISkogen";
 
 type State = {
   stage: "introduction" | "speak to amazon";
@@ -253,6 +254,7 @@ const SkogStart: Room<State> = function ({ player }) {
           onChoose: () => {
             return {
               text: "Du följer den dolda stigen ut ur skogen. Äntligen!",
+              room: StigISkogen
             };
           },
         });

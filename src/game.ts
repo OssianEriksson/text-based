@@ -55,6 +55,7 @@ namespace Game {
           attributes: [],
           hp: 100,
           gold: 0,
+          copper: 0,
         },
       }
       return state
