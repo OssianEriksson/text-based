@@ -1,7 +1,7 @@
 import { Choice, Consequence, Room, RoomInfo } from "../game"
 import battleChoices, { BattleState, OpponentAttack } from "../helpers/batteChoices"
 import { createGameOverRoom } from "../helpers/gameOver"
-import Sittningslokal from "./sittningslokal"
+import LarpDvärgh from "./larp-dvärgh"
 
 type State = {
   stage: "introduction" | "battle"
@@ -34,7 +34,7 @@ const BroKalle: Room<State> = function (args) {
 
   const onWin = () => ({
     text: "Du besegrade Arkén Kalle!",
-    room: Sittningslokal,
+    room: LarpDvärgh,
   })
 
   const GameOver = createGameOverRoom(
