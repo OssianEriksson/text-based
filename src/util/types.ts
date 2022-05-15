@@ -5,3 +5,5 @@ export type DeepReadonly<T> = [T] extends [Function]
   : T extends (infer U)[]
   ? ReadonlyArray<DeepReadonly<U>>
   : T
+
+export type JSONSerializable = string | number | boolean | JSONSerializable[] | { [key: string]: JSONSerializable }

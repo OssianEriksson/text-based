@@ -1,14 +1,14 @@
 import { Player } from "./player"
 import sleep from "./util/sleep"
-import { DeepReadonly } from "./util/types"
+import { DeepReadonly, JSONSerializable } from "./util/types"
 
 export type RoomInfo = {
   text?: string
   choices: Choice[]
 }
 
-export type Room<T = undefined> = {
-  (this: { state?: T }, args: StateInterface): RoomInfo
+export type Room<T extends JSONSerializable = {}> = {
+  <U extends T>(this: { state?: U | T }, args: StateInterface): RoomInfo
 }
 
 export type Choice = {
@@ -18,18 +18,16 @@ export type Choice = {
 
 export type Consequence = {
   text?: string
-  room?: Room<any>
+  room?: Room<JSONSerializable>
 }
 
 type State = {
-  room: Room<any>
-  visitedRooms: Room<any>[]
-  states: Map<Room<any>, unknown>
+  room: Room<JSONSerializable>
+  states: { [functionName: string]: JSONSerializable }
   player: Player
 }
 
-export type StateInterface = DeepReadonly<Pick<State, "room" | "visitedRooms">> &
-  Omit<State, "room" | "visitedRooms" | "states"> & { reset: () => void }
+export type StateInterface = DeepReadonly<Pick<State, "room">> & Pick<State, "player"> & { reset: () => void }
 
 namespace Game {
   export async function run({
@@ -38,7 +36,7 @@ namespace Game {
     shouldExit = (input) => ["exit", "avsluta"].includes(input),
     getErrorMessage = (input) => `${input} är inte ett tillgängligt val.`,
   }: {
-    room: Room<any>
+    room: Room<JSONSerializable>
     letterDelay?: number
     shouldExit?: (input: string) => boolean
     getErrorMessage?: (input: string) => string
@@ -48,8 +46,7 @@ namespace Game {
     function reset() {
       state = {
         room: initialRoom,
-        visitedRooms: [],
-        states: new Map<Room<any>, unknown>(),
+        states: {},
         player: {
           character: "fysiker",
           attributes: [],
@@ -75,18 +72,14 @@ namespace Game {
       }
     }
 
-    async function doRoom<T>(room: Room<T>): Promise<boolean> {
-      if (state.visitedRooms.length == 0 || state.visitedRooms[state.visitedRooms.length - 1] != room) {
-        state.visitedRooms.push(room)
-      }
-
-      const { choices, ...info }: RoomInfo = room.call(
+    mainLoop: while (true) {
+      const { choices, ...info }: RoomInfo = state.room.call(
         {
-          get state(): T {
-            return state.states.get(room) as T
+          get state(): JSONSerializable {
+            return state.states[state.room.name]
           },
-          set state(t: T) {
-            state.states.set(room, t)
+          set state(t: JSONSerializable) {
+            state.states[state.room.name] = t
           },
         },
         {
@@ -98,7 +91,7 @@ namespace Game {
       await display(info.text)
 
       if (choices.length == 0) {
-        return false
+        break
       }
 
       for (let i = 0; i < choices.length; i++) {
@@ -110,14 +103,14 @@ namespace Game {
         process.stdout.write("> ")
         const input = await new Promise<string>((resolve) => {
           const listener = (data: Buffer) => {
-            process.stdin.removeListener('data', listener)
+            process.stdin.removeListener("data", listener)
             resolve(data.toString().trim())
           }
           process.stdin.on("data", listener)
         })
 
         if (shouldExit(input)) {
-          return false
+          break mainLoop
         }
 
         const i = Number(input)
@@ -137,11 +130,7 @@ namespace Game {
       if (consequence.room) {
         state.room = consequence.room
       }
-
-      return true
     }
-
-    while (await doRoom(state.room)) {}
   }
 }
 
