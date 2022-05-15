@@ -1,22 +1,19 @@
 import { Room, RoomInfo, StateInterface } from "../game"
 
-export default function gameOver(
-  args: StateInterface,
-  text: string = "Spelet är slut."
-): RoomInfo {
+export default function gameOver(args: StateInterface, text: string = "Spelet är slut."): RoomInfo {
   return {
     text,
     choices: [
       {
         text: "Fortsätt från senaste sparpunkten.",
         onChoose: () => ({
-          room: "load savepoint"
+          room: "load savepoint",
         }),
       },
       {
         text: "Starta om från början.",
         onChoose: () => ({
-          room: "reset"
+          room: "reset",
         }),
       },
     ],

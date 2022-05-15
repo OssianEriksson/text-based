@@ -1,4 +1,5 @@
 import { Choice, Room } from "../game"
+import Träsk from "./träsk"
 
 type State = {
   emptyCamp: boolean
@@ -7,7 +8,7 @@ type State = {
   visited: boolean
 }
 
-const Ni: Room<State> = function ({ visitedRooms, player }) {
+const Ni: Room<State> = function ({ player }) {
   if (!this.state) {
     this.state = {
       emptyCamp: false,
@@ -41,7 +42,7 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
           text: "Gå tillbaks upp ur sänkan.",
           onChoose: () => ({
             text: "Du klättar ur sänkan och går tillbaks in i träsket.",
-            room: visitedRooms[visitedRooms.indexOf(Ni) - 1],
+            room: Träsk,
           }),
         },
       ],
@@ -52,7 +53,7 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
     text: "Fly från sänkan.",
     onChoose: () => ({
       text: "Du vänder om så snabbt du kan och rusar tillbaks genom dimman. Snart når du kanten på sänkan och klättrar tacksamt upp och går tillbaks in i träsket.",
-      room: visitedRooms[visitedRooms.indexOf(Ni) - 1],
+      room: Träsk,
     }),
   }
 

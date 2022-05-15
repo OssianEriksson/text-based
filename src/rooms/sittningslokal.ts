@@ -278,7 +278,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
             }
           },
         },
-      ]
+      ],
     }
 
     state.wayOutVisited = true

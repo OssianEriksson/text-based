@@ -1,9 +1,9 @@
 import { Room } from "../game"
 
-const AbabouFajt: Room = function() {
+const AbabouFajt: Room = function () {
   return {
     text: "TODO",
-    choices: []
+    choices: [],
   }
 }
 
