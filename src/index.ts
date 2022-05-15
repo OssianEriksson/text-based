@@ -1,8 +1,12 @@
+import { resolve } from "path"
 import Game from "./game"
+import LarpDvärgh from "./rooms/larp-dvärgh"
 import Sittningslokal from "./rooms/sittningslokal"
 
 type Arguments = {
   letterDelay?: number
+  savepointPath?: string
+  load?: true
 }
 
 const args: Arguments = {}
@@ -13,8 +17,14 @@ for (const arg of process.argv.slice(2)) {
       case "--letter-delay":
         args.letterDelay = parseInt(parts[1])
         break
+      case "--savepoint":
+        args.savepointPath = resolve(parts[1])
+        break
+      case "--load":
+        args.load = true
+        break
     }
   }
 }
 
-Game.run({ room: Sittningslokal, letterDelay: args.letterDelay })
+Game.run({ room: LarpDvärgh, ...args })

@@ -1,5 +1,5 @@
 import { Choice, Room, StateInterface } from "../game";
-import { JSONSerializable } from "../util/types";
+import { Serializable } from "../util/types";
 
 export type BattleState = {
   opponentHp: number;
@@ -15,7 +15,7 @@ export type PlayerAttack = {
   };
   onWin: () => {
     text?: string;
-    room: Room<JSONSerializable>;
+    room: Room<Serializable>;
   };
 };
 
@@ -25,7 +25,7 @@ export type OpponentAttack = {
   };
   onDefeat: () => {
     text?: string;
-    room: Room<JSONSerializable>;
+    room: Room<Serializable>;
   };
 };
 
@@ -36,7 +36,7 @@ function concat(a?: string, b?: string) {
 export function generatePlayerAttacks(
   args: StateInterface,
   state: AttacksBattleState,
-  NextRoom: Room<JSONSerializable>,
+  NextRoom: Room<Serializable>,
   counters: OpponentAttack[]
 ): PlayerAttack[] {
   const randomCounter = () => counters[Math.floor(Math.random() * counters.length)];

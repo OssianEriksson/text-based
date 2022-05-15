@@ -8,11 +8,16 @@ export default function gameOver(
     text,
     choices: [
       {
-        text: "Spela igen",
-        onChoose: () => {
-          args.reset()
-          return {}
-        },
+        text: "Fortsätt från senaste sparpunkten.",
+        onChoose: () => ({
+          room: "load savepoint"
+        }),
+      },
+      {
+        text: "Starta om från början.",
+        onChoose: () => ({
+          room: "reset"
+        }),
       },
     ],
   }

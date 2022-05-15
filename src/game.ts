@@ -1,14 +1,20 @@
 import { Player } from "./player"
 import sleep from "./util/sleep"
-import { DeepReadonly, JSONSerializable } from "./util/types"
+import { DeepReadonly, Serializable } from "./util/types"
+import serialize from "serialize-javascript"
+import { writeFile } from "fs/promises"
+import { createHash } from "crypto"
+import { Console } from "console"
+import { resolve } from "path"
 
 export type RoomInfo = {
   text?: string
   choices: Choice[]
 }
 
-export type Room<T extends JSONSerializable = {}> = {
+export type Room<T extends Serializable = {}> = {
   <U extends T>(this: { state?: U | T }, args: StateInterface): RoomInfo
+  savepoint?: true
 }
 
 export type Choice = {
@@ -18,16 +24,16 @@ export type Choice = {
 
 export type Consequence = {
   text?: string
-  room?: Room<JSONSerializable>
+  room?: Room<Serializable> | "reset" | "load savepoint"
 }
 
 type State = {
-  room: Room<JSONSerializable>
-  states: { [functionName: string]: JSONSerializable }
+  room: Room<Serializable>
+  states: { [functionSrc: string]: Serializable }
   player: Player
 }
 
-export type StateInterface = DeepReadonly<Pick<State, "room">> & Pick<State, "player"> & { reset: () => void }
+export type StateInterface = DeepReadonly<Pick<State, "room">> & Pick<State, "player">
 
 namespace Game {
   export async function run({
@@ -35,13 +41,37 @@ namespace Game {
     letterDelay = 5,
     shouldExit = (input) => ["exit", "avsluta"].includes(input),
     getErrorMessage = (input) => `${input} är inte ett tillgängligt val.`,
+    savepointLoadErrorMessage = "Kunde inte ladda sparpunkten...",
+    savepointPath = resolve("savepoint.js"),
+    load,
   }: {
-    room: Room<JSONSerializable>
+    room: Room<Serializable>
     letterDelay?: number
     shouldExit?: (input: string) => boolean
     getErrorMessage?: (input: string) => string
+    savepointLoadErrorMessage?: string
+    savepointPath?: string
+    load?: true
   }) {
     let state: State
+
+    function md5(text: string): string {
+      return createHash("md5").update(text).digest("hex")
+    }
+
+    async function addSavepoint() {
+      console.log(savepointPath)
+      await writeFile(savepointPath, `module.exports = ${serialize(state)}`, { encoding: "utf-8" })
+    }
+
+    function loadSavepoint(): State | undefined {
+      try {
+        state = require(savepointPath) as State
+        return state
+      } catch {
+        return undefined
+      }
+    }
 
     function reset() {
       state = {
@@ -55,10 +85,20 @@ namespace Game {
           copper: 0,
         },
       }
+      addSavepoint()
       return state
     }
 
-    state = reset()
+    if (load) {
+      const savepoint = loadSavepoint()
+      if (!savepoint) {
+        display(savepointLoadErrorMessage)
+        return
+      }
+      state = savepoint
+    } else {
+      state = reset()
+    }
 
     async function display(text?: string, newines: number = 2) {
       if (typeof text === "string") {
@@ -73,18 +113,26 @@ namespace Game {
     }
 
     mainLoop: while (true) {
+      if (state.room.savepoint) {
+        await addSavepoint()
+        display("(Sparpunkt skapad.)")
+      }
+
+      const statesKey = md5(serialize(state.room))
       const { choices, ...info }: RoomInfo = state.room.call(
         {
-          get state(): JSONSerializable {
-            return state.states[state.room.name]
+          get state(): Serializable {
+            return state.states[statesKey]
           },
-          set state(t: JSONSerializable) {
-            state.states[state.room.name] = t
+          set state(t: Serializable) {
+            state.states[statesKey] = t
           },
         },
         {
           ...state,
           reset,
+          addSavepoint,
+          loadSavepoint,
         } as StateInterface
       )
 
@@ -127,7 +175,13 @@ namespace Game {
       await display("", 1)
       await display(consequence.text)
 
-      if (consequence.room) {
+      if (consequence.room == "load savepoint") {
+        if (!loadSavepoint()) {
+          display(savepointLoadErrorMessage)
+        }
+      } else if (consequence.room == "reset") {
+        reset()
+      } else if (consequence.room) {
         state.room = consequence.room
       }
     }
