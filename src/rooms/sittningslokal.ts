@@ -24,23 +24,27 @@ const Sittningslokal: Room<State> = function ({ player }) {
 
   if (state.stage == "introduction") {
     const choiceScaffolds: {
-      [C in Character]: { text: string; ababou: string }
+      [C in Character]: { text: string; hp: number; ababou: string }
     } = {
       matematiker: {
         text: "Jag har mäktiga matteskills, välj mig!",
         ababou: "Ett mattesnille, så makalöst magnifikt!",
+        hp: 100,
       },
       fysiker: {
         text: "Jag har fabulösa fyskförmågor, välj mig!",
         ababou: "En fysiker, fantastiskt! Just vad jag förväntade mig!",
+        hp: 100,
       },
       programmerare: {
         text: "Jag är påfallande bra på att programera, välj mig!",
         ababou: "En programmerare, det är ju praktiskt taget perfekt!",
+        hp: 100,
       },
       rippad: {
         text: "Intellekt? Vem behöver det? Jag är super-ripped, välj mig!",
         ababou: "Jag känner hur dina biceps utstrålar heroism, jag väljer dig!",
+        hp: 120,
       },
     }
 
@@ -50,10 +54,11 @@ const Sittningslokal: Room<State> = function ({ player }) {
         "Plötsligt dyker en mystisk gubbe upp från tomma intet och börjar prata högt.\n\n" +
         "[Ababau den ändlige]: Mitt namn är Ababau den ändlige. Jag söker någon med ett heroiskt intellekt som kan rädda världen. Finns här någon sådan?",
       choices: Object.entries(choiceScaffolds).map(
-        ([character, { text, ababou }]): Choice => ({
+        ([character, { text, ababou, hp }]): Choice => ({
           text,
           onChoose: () => {
             player.character = character as Character
+            player.hp = hp
             state.stage = "call to action"
             return { text: `[Ababau den ändlige]: ${ababou}` }
           },
