@@ -135,6 +135,76 @@ export function generatePlayerAttacks(
           },
         ]
       : []),
+    {
+      text: `Förskök förföra ${state.opponentName}.`,
+      onChoose: () => {
+        const hasAttribute = args.player.attributes.includes("förföra")
+        const r = Math.random()
+        const success = r < (hasAttribute ? 0.3 : 0.1)
+        if (success) {
+          state.opponentHp = 0
+          return {
+            text: `Du lyckas förföra ${state.opponentName} ${
+              hasAttribute ? "tack vare din stora förföringsförmåga!" : "av ren tur!"
+            } ${state.opponentName} lovar att aldrig störa dig mer i utbyte mot din eviga kärlek!`,
+            counter: randomCounter(),
+          }
+        } else {
+          return {
+            text: `Du viftar så förföriskt du kan på ögonlocken, men ${state.opponentName} låter sig ändå inte luras.`,
+            counter: randomCounter(),
+          }
+        }
+      },
+      onWin,
+    },
+    {
+      text: `Försök överlista ${state.opponentName} med en gåta.`,
+      onChoose: () => {
+        const hasAttribute =
+          args.player.attributes.includes("lösa gåtor") || args.player.attributes.includes("tänka logiskt")
+
+        const possibilities: { question: string; answer: string; difficulty: number }[] = [
+          {
+            question: "Vad är två minus fem?",
+            answer: "Minus tre såklart!",
+            difficulty: 0.3,
+          },
+          {
+            question: "Vad går och går men kommer aldrig fram till dörren?",
+            answer: "Den lätta! Klockan är det ju.",
+            difficulty: 0.4,
+          },
+          {
+            question: "Är 'Detta påstående är sant' ett sant påstående?",
+            answer: "Det beror på din definition av påstående.",
+            difficulty: 0.8,
+          },
+          {
+            question: "Är Riemannhypotesen sann?",
+            answer: "Tror du jag bryr mig? I vilket fall kommer du förlora den här striden!",
+            difficulty: 0.9,
+          },
+        ]
+
+        const rand = hasAttribute ? Math.sqrt(Math.random()) : Math.random()
+        const possibility = possibilities[Math.floor(rand * possibilities.length)]
+        const ability = Math.random()
+        if (ability < possibility.difficulty) {
+          state.opponentHp -= 25
+          return {
+            text: `Du frågar ${state.opponentName} "${possibility.question}"\n\n${state.opponentName} svarar tvekande "Jag vet inte...", och tar 25 hp skada av skammen.`,
+            counter: randomCounter(),
+          }
+        } else {
+          return {
+            text: `Du frågar ${state.opponentName} "${possibility.question}"\n\n${state.opponentName} svara dock säkert "${possibility.answer}" och gör sig redo för sitt nästa anfall.`,
+            counter: randomCounter(),
+          }
+        }
+      },
+      onWin,
+    },
   ]
 }
 
