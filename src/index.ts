@@ -1,6 +1,5 @@
 import { resolve } from "path"
 import Game from "./game"
-import LarpDvärgh from "./rooms/larp-dvärgh"
 import Sittningslokal from "./rooms/sittningslokal"
 
 type Arguments = {
@@ -27,4 +26,4 @@ for (const arg of process.argv.slice(2)) {
   }
 }
 
-Game.run({ room: LarpDvärgh, ...args })
+Game.run({ room: Sittningslokal, savepoints: [], ...args })

@@ -4,8 +4,8 @@ import { DeepReadonly, Serializable } from "./util/types"
 import serialize from "serialize-javascript"
 import { writeFile } from "fs/promises"
 import { createHash } from "crypto"
-import { Console } from "console"
 import { resolve } from "path"
+import Öken from "./rooms/öken"
 
 export type RoomInfo = {
   text?: string
@@ -14,7 +14,6 @@ export type RoomInfo = {
 
 export type Room<T extends Serializable = {}> = {
   <U extends T>(this: { state?: U | T }, args: StateInterface): RoomInfo
-  savepoint?: true
 }
 
 export type Choice = {
@@ -38,6 +37,7 @@ export type StateInterface = DeepReadonly<Pick<State, "room">> & Pick<State, "pl
 namespace Game {
   export async function run({
     room: initialRoom,
+    savepoints: preliminarySavepoints,
     letterDelay = 5,
     shouldExit = (input) => ["exit", "avsluta"].includes(input),
     getErrorMessage = (input) => `${input} är inte ett tillgängligt val.`,
@@ -46,6 +46,7 @@ namespace Game {
     load,
   }: {
     room: Room<Serializable>
+    savepoints: Room<Serializable>[]
     letterDelay?: number
     shouldExit?: (input: string) => boolean
     getErrorMessage?: (input: string) => string
@@ -53,20 +54,34 @@ namespace Game {
     savepointPath?: string
     load?: true
   }) {
+    const savepoints = [initialRoom, ...preliminarySavepoints]
+
     let state: State
 
     function md5(text: string): string {
       return createHash("md5").update(text).digest("hex")
     }
 
-    async function addSavepoint() {
-      console.log(savepointPath)
-      await writeFile(savepointPath, `module.exports = ${serialize(state)}`, { encoding: "utf-8" })
+    async function addSavepoint(): Promise<boolean> {
+      const { room, ...serializable } = state
+      if (savepoints.includes(room)) {
+        await writeFile(savepointPath, `module.exports = ${serialize({ room: room.name, ...serializable })}`, {
+          encoding: "utf-8",
+        })
+        return true
+      }
+      return false
     }
 
     function loadSavepoint(): State | undefined {
       try {
-        state = require(savepointPath) as State
+        const { room: roomName, ...serializable } = require(savepointPath)
+        const room = savepoints.find((savepoint) => savepoint.name == roomName)
+        if (!room) {
+          return undefined
+        }
+
+        state = { room, ...serializable } as State
         return state
       } catch {
         return undefined
@@ -113,9 +128,8 @@ namespace Game {
     }
 
     mainLoop: while (true) {
-      if (state.room.savepoint) {
-        await addSavepoint()
-        display("(Sparpunkt skapad.)")
+      if (state.room != initialRoom && (await addSavepoint())) {
+        await display("(Sparpunkt skapad.)")
       }
 
       const statesKey = md5(serialize(state.room))
