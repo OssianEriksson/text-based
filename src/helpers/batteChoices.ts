@@ -232,7 +232,10 @@ export default function battleChoices(args: StateInterface, state: BattleState, 
         }
 
         return {
-          text: concat(consequence.text, counter.text),
+          text: concat(
+            concat(consequence.text, counter.text),
+            `Du har              ${args.player.hp} hp\nDin motståndare har ${state.opponentHp} hp`
+          ),
         }
       },
     })

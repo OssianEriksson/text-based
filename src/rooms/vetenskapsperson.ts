@@ -136,9 +136,40 @@ const VetenskapspersonBattle: Room<VetenskapspersonBattleState> = function (args
         [
           {
             onChoose: () => {
+              args.player.hp -= 10
+              return {
+                text: "Slartibartfast slänger syra på dig. Du tar 10 hp skada.",
+              }
+            },
+            onDefeat,
+          },
+          {
+            onChoose: () => {
+              args.player.hp -= 1e-14
+              return {
+                text: "Slartibartfast skapar ett mikro-svart-hål i din mage. Du tar 1e-14 skada.",
+              }
+            },
+            onDefeat,
+          },
+          {
+            onChoose: () => {
+              if (args.player.character == "fysiker" || args.player.character == "matematiker") {
+                args.player.hp -= 5
+                return {
+                  text: "Slartibartfast kontrar med att föreläsa om elektrodynamik, men du hänger nästan med och tar bara 5 hp skada.",
+                }
+              }
+
+              if (args.player.character == "rippad") {
+                return {
+                  text: "Slartibartfast kontrar med att föreläsa om elektrodynamik, men du bryr dig inte om sådant trams.",
+                }
+              }
+
               args.player.hp -= 15
               return {
-                text: "Dvärghen hugger dig med sin hacka. Du tar 15 hp skada.",
+                text: "Slartibartfast kontrar med att föreläsa om elektrodynamik och du fattar ingenting. Du tar 15 hp skada av skammen.",
               }
             },
             onDefeat,
