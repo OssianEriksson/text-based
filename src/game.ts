@@ -95,9 +95,11 @@ namespace Game {
         player: {
           character: "fysiker",
           attributes: [],
+          maxHp: 100,
           hp: 100,
           gold: 0,
           copper: 0,
+          healingPotions: 0,
         },
       }
       addSavepoint()

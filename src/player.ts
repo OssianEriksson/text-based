@@ -20,7 +20,9 @@ export type Character = "fysiker" | "matematiker" | "rippad" // | "programmerare
 export type Player = Serializable & {
   attributes: Attribute[]
   character: Character
+  maxHp: number
   hp: number
   gold: number
   copper: number
+  healingPotions: number
 }

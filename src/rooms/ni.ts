@@ -4,7 +4,7 @@ import Träsk from "./träsk"
 type State = {
   emptyCamp: boolean
   canFlee: boolean
-  campHasGold: boolean
+  campHasBeenSearched: boolean
   visited: boolean
 }
 
@@ -13,7 +13,7 @@ const Ni: Room<State> = function ({ player }) {
     this.state = {
       emptyCamp: false,
       canFlee: true,
-      campHasGold: true,
+      campHasBeenSearched: true,
       visited: false,
     }
   } else {
@@ -29,10 +29,11 @@ const Ni: Room<State> = function ({ player }) {
         {
           text: "Sök igenom lägret.",
           onChoose: () => {
-            if (state.campHasGold) {
-              state.campHasGold = false
+            if (state.campHasBeenSearched) {
+              state.campHasBeenSearched = false
               player.gold += 10
-              return { text: "Du hittar 10 guldmynt!" }
+              player.healingPotions++
+              return { text: "Du hittar 10 guldmynt och en helande trolldryck!" }
             } else {
               return { text: "Du hittar ingenting nytt av värde." }
             }

@@ -209,35 +209,51 @@ export function generatePlayerAttacks(
 }
 
 export default function battleChoices(args: StateInterface, state: BattleState, attacks: PlayerAttack[]): Choice[] {
-  return attacks.map(
-    (attack): Choice => ({
-      text: attack.text,
-      onChoose: () => {
-        const consequence = attack.onChoose()
-        if (state.opponentHp <= 0) {
-          const win = attack.onWin()
-          return {
-            text: concat(consequence.text, win.text),
-            room: win.room,
-          }
-        }
+  const healingPotionHp = 40
 
-        const counter = consequence.counter.onChoose()
-        if (args.player.hp <= 0) {
-          const defeat = consequence.counter.onDefeat()
-          return {
-            text: concat(consequence.text, concat(counter.text, defeat.text)),
-            room: defeat.room,
+  return [
+    ...attacks.map(
+      (attack): Choice => ({
+        text: attack.text,
+        onChoose: () => {
+          const consequence = attack.onChoose()
+          if (state.opponentHp <= 0) {
+            const win = attack.onWin()
+            return {
+              text: concat(consequence.text, win.text),
+              room: win.room,
+            }
           }
-        }
 
-        return {
-          text: concat(
-            concat(consequence.text, counter.text),
-            `Du har              ${args.player.hp} hp\nDin motståndare har ${state.opponentHp} hp`
-          ),
-        }
-      },
-    })
-  )
+          const counter = consequence.counter.onChoose()
+          if (args.player.hp <= 0) {
+            const defeat = consequence.counter.onDefeat()
+            return {
+              text: concat(consequence.text, concat(counter.text, defeat.text)),
+              room: defeat.room,
+            }
+          }
+
+          return {
+            text: concat(
+              concat(consequence.text, counter.text),
+              `Du har              ${args.player.hp} hp\nDin motståndare har ${state.opponentHp} hp`
+            ),
+          }
+        },
+      })
+    ),
+    ...(args.player.healingPotions > 0 && args.player.hp <= args.player.maxHp - healingPotionHp
+      ? [
+          {
+            text: `Drick en helande trolldryck (du har ${args.player.healingPotions} st på dig).`,
+            onChoose: () => {
+              args.player.hp += healingPotionHp
+              args.player.healingPotions--
+              return {}
+            },
+          },
+        ]
+      : []),
+  ]
 }

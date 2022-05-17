@@ -59,6 +59,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
           onChoose: () => {
             player.character = character as Character
             player.hp = hp
+            player.maxHp = hp
             state.stage = "call to action"
             return { text: `[Ababau den ändlige]: ${ababou}` }
           },
