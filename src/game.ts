@@ -2,10 +2,9 @@ import { Player } from "./player"
 import sleep from "./util/sleep"
 import { DeepReadonly, Serializable } from "./util/types"
 import serialize from "serialize-javascript"
-import { writeFile } from "fs/promises"
+import { writeFile, mkdir } from "fs/promises"
 import { createHash } from "crypto"
-import { resolve } from "path"
-import Öken from "./rooms/öken"
+import { dirname } from "path"
 
 export type RoomInfo = {
   text?: string
@@ -34,26 +33,28 @@ type State = {
 
 export type StateInterface = DeepReadonly<Pick<State, "room">> & Pick<State, "player">
 
+export type GameArgs = {
+  room: Room<Serializable>
+  savepoints: Room<Serializable>[]
+  letterDelay: number
+  shouldExit: (input: string) => boolean
+  getErrorMessage: (input: string) => string
+  savepointLoadErrorMessage: string
+  savepointPath: string
+  load: boolean
+}
+
 namespace Game {
   export async function run({
     room: initialRoom,
     savepoints: preliminarySavepoints,
-    letterDelay = 5,
-    shouldExit = (input) => ["exit", "avsluta"].includes(input),
-    getErrorMessage = (input) => `${input} är inte ett tillgängligt val.`,
-    savepointLoadErrorMessage = "Kunde inte ladda sparpunkten...",
-    savepointPath = resolve("savepoint.js"),
+    letterDelay,
+    shouldExit,
+    getErrorMessage,
+    savepointLoadErrorMessage,
+    savepointPath,
     load,
-  }: {
-    room: Room<Serializable>
-    savepoints: Room<Serializable>[]
-    letterDelay?: number
-    shouldExit?: (input: string) => boolean
-    getErrorMessage?: (input: string) => string
-    savepointLoadErrorMessage?: string
-    savepointPath?: string
-    load?: true
-  }) {
+  }: GameArgs) {
     const savepoints = [initialRoom, ...preliminarySavepoints]
 
     let state: State
@@ -65,6 +66,7 @@ namespace Game {
     async function addSavepoint(): Promise<boolean> {
       const { room, ...serializable } = state
       if (savepoints.includes(room)) {
+        await mkdir(dirname(savepointPath), { recursive: true })
         await writeFile(savepointPath, `module.exports = ${serialize({ room: room.name, ...serializable })}`, {
           encoding: "utf-8",
         })
