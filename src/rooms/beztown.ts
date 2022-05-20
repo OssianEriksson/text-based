@@ -1,22 +1,47 @@
 import { stat } from "fs";
 import { Choice, Room } from "../game";
-import Ni from "./ni";
 import Quebec from "./quebec";
 
+type MazeRoom = "Klocktorn" | "Fontän" | "Kant" | "Holt";
+type Stage = "rot" | "gren" | "jämnat" | "box maze" | "residens" | "waiting" | "beazos" | "epic";
+
 type State = {
-  stage: "rot" | "gren" | "jämnat";
+  stage: Stage;
+  mazeRoom: MazeRoom;
+  mazeMap: Map<MazeRoom, MazeRoom[]>;
   visited: boolean;
   riddleTime: boolean;
   knocked: boolean;
+  haveBox: boolean;
+  openedBox: boolean;
+  foundHouse: boolean;
+  varvsWalked: number;
+  askedEpic: boolean;
+  prevStage: Stage;
+  förolämpad: boolean;
 };
 
 const Beztown: Room<State> = function ({ player }) {
   if (!this.state) {
     this.state = {
       stage: "rot",
+      mazeRoom: "Klocktorn",
+      mazeMap: new Map<MazeRoom, MazeRoom[]>([
+        ["Klocktorn", ["Klocktorn", "Fontän", "Kant"]],
+        ["Fontän", ["Fontän", "Klocktorn", "Fontän"]],
+        ["Kant", ["Klocktorn", "Kant", "Holt"]],
+        ["Holt", ["Kant", "Kant", "Fontän"]],
+      ]),
       visited: false,
       riddleTime: false,
       knocked: false,
+      haveBox: false,
+      openedBox: false,
+      foundHouse: false,
+      varvsWalked: 0,
+      askedEpic: false,
+      prevStage: "beazos",
+      förolämpad: false,
     };
   } else {
     this.state.visited = true;
@@ -50,7 +75,7 @@ const Beztown: Room<State> = function ({ player }) {
                 onChoose: () => {
                   state.stage = "gren";
                   return {
-                    text: "Du använder dina tunnlingsfärdigheter för att tunnla in i det och tunnla genom träfibrerna hela vägen upp till toppen. Snabbt jobbat!",
+                    text: "Du använder dina tunnlingsfärdigheter för att tunnla in i trädet och tunnla genom träfibrerna hela vägen upp till toppen. Snabbt jobbat!",
                   };
                 },
               },
@@ -69,20 +94,22 @@ const Beztown: Room<State> = function ({ player }) {
               },
             ]
           : []),
-          ...(!state.knocked
-            ? [
-        {
-          text: "Knacka på.",
-          onChoose: () => {
-            state.riddleTime = true;
-            state.knocked = false;
-            return {
-              text:
-                "Du knackar på trädet. I början händer ingenting men efter ett tag öppnas en liten lucka och en person tittar ut.\n\n" +
-                "[Gåtfrid den Gåtfulle] Gådag, jag är den gåtfulle gåtfrid. Åm du i detta träd vill kåmma upp måste du svara på min gåtfulla gåta. Sådeså! Jag frågar då dig: Vad är likheten mellan ångår från mat åch en långsträckt höjd?",
-            };
-          },
-        }] : []),
+        ...(!state.knocked
+          ? [
+              {
+                text: "Knacka på.",
+                onChoose: () => {
+                  state.riddleTime = true;
+                  state.knocked = false;
+                  return {
+                    text:
+                      "Du knackar på trädet. I början händer ingenting men efter ett tag öppnas en liten lucka och en person tittar ut.\n\n" +
+                      "[Gåtfrid den Gåtfulle] Gådag, jag är den gåtfulle gåtfrid. Åm du i detta träd vill kåmma upp måste du svara på min gåtfulla gåta. Sådeså! Jag frågar då dig: Vad är likheten mellan ångår från mat åch en långsträckt höjd?",
+                  };
+                },
+              },
+            ]
+          : []),
         ...(state.riddleTime
           ? [
               {
@@ -122,37 +149,464 @@ const Beztown: Room<State> = function ({ player }) {
                 onChoose: () => {
                   state.riddleTime = false;
                   return {
-                    text: "[Gåtfrid den Gåtfulle] Rätt svar! Likheten är att bägge heter ås! Varsågåd, vällkåmen till Beztåwn.\n\n" + 
-                    "En stege kommer ner från trädets topp.",
+                    text:
+                      "[Gåtfrid den Gåtfulle] Rätt svar! Likheten är att bägge heter ås! Varsågåd, vällkåmen till Beztåwn.\n\n" +
+                      "En stege kommer ner från trädets topp.",
                   };
                 },
               },
             ]
           : []),
-          ...(state.knocked && (!state.riddleTime)
-            ? [
-        {
-          text: "Klättra upp för stegen.",
-          onChoose: () => {
-            state.riddleTime = true;
-            state.knocked = false;
-            return {
-              text:
-                "Du börjar klättra upp för stegen och kommer till Beztown.",
-            };
-          },
-        }] : []),
+        ...(state.knocked && !state.riddleTime
+          ? [
+              {
+                text: "Klättra upp för stegen.",
+                onChoose: () => {
+                  state.riddleTime = true;
+                  state.knocked = false;
+                  return {
+                    text: "Du börjar klättra upp för stegen och kommer till Beztown.",
+                  };
+                },
+              },
+            ]
+          : []),
       ],
     };
-  } else if (state.stage = "gren") {
-    
+  } else if ((state.stage = "gren")) {
     player.hp -= 5;
     return {
-      text: "Väl uppe i Beztown blir du slagen av hur vacker staden är och tar 5 hp skada. ",
+      text: "Väl uppe i Beztown blir du slagen av hur vacker staden är och tar 5 hp skada. Överallt går amazoner med kartonglådor och du känner att du mest står i vägen. Ingenstans ser du Ababau och amazonerna är för upptagna för att prata med dig. Vad gör du?",
 
       choices: [
-      ]
+        ...(state.haveBox
+          ? [
+              {
+                text: "Öppna lådan.",
+                onChoose: () => {
+                  return {
+                    text:
+                      "Du begår det förskräckliga brottet att öppna en låda som inte är addresserad till dig! Och vad hittar du däri måntro? En ödla? En dödskalle? En integral? Nej, det är ingen mindre än Ababau den ändlige!\n\n" +
+                      "[Ababau den ändlige] Ah! Där är du ju, jag har väntat dig. Jag har spenderat tiden med att undersöka situationen och det visar sig att Lagomgård är i ännu större fara en jag trodde! Men mer om det senare, nu måste du leverera mig till skogsmästaren Beazos, hon är en kraftfull allierad.",
+                  };
+                },
+              },
+            ]
+          : [
+              {
+                text: "Sno en låda och spring iväg.",
+                onChoose: () => {
+                  return {
+                    text: "Du snor en låda från en förbipasserande amazon och springer iväg. Hon blir upprörd men är för upptagen för att springa efter. Du har dock fortfarande ingen aning om var du är.",
+                  };
+                },
+              },
+            ]),
+
+        ...(state.openedBox
+          ? [
+              {
+                text: "Följ Ababaus anvisningar till Beazos.",
+                onChoose: () => {
+                  this.state.stage = "box maze";
+                  return {
+                    text: "Du går iväg in bland virrvarret av lådbärande amazoner.",
+                  };
+                },
+              },
+              {
+                text: "Fråga vad 'skogmästare' betyder.",
+                onChoose: () => {
+                  return {
+                    text: "INSERT_LÅNG_UTLÄGGNING.",
+                  };
+                },
+              },
+            ]
+          : []),
+
+        {
+          text: "Go with the flow.",
+          onChoose: () => {
+            if (player.attributes.includes("smyga") || state.haveBox) {
+              this.state.stage = "box maze";
+              return {
+                text: state.haveBox
+                  ? "Tack vare lådan smälter du in utan problem. Du lyckas obemärkt gå med i flödet av amazoner."
+                  : "Eftersom du är så bra på att stalka lyckas du gå med helt obemärkt. Plötsligt ger någon dig en låda, men du hinner inte fundera över det innan du skjutsas vidare.",
+              };
+            } else {
+              player.hp -= 5;
+              return {
+                text: "Du försöker följa flödet av amazoner, men alla stannar upp och undrar vad du håller på med. Det sociala trycket tvingar dig att gå till sidan och du tar 5 hp skada från mobbning.",
+              };
+            }
+          },
+        },
+      ],
+    };
+  } else if ((state.stage = "box maze")) {
+    var PlaceString = "";
+
+    if (state.mazeRoom == "Klocktorn") {
+      PlaceString = "Bredvid dig ser du ett hissnande högt klocktorn! Dock finns ingen väg upp i det...";
+    } else if (state.mazeRoom == "Fontän") {
+      PlaceString = "Du verkar ha kommit till ett torg med en varaktigt vacker fontän. Det glimmrar sagolikt i den.";
+    } else if (state.mazeRoom == "Kant") {
+      PlaceString =
+        "Du går rakt fram när du plötsligt märker att trädet tog slut för 5 steg sedan, varpå du snabbt backar 5 steg innan gravitationen lägger märke till ditt misstag. Du befinner dig uppenbarligen vid trädets kant.";
+    } else if (state.mazeRoom == "Holt") {
+      PlaceString =
+        "Pllötsligt stöter du på en lång tegelbyggnad med en trappnedgång. Trapporna verkar leda till en skum lokal, men du lyckas inte se in genom de förtäckta fönstren, mycket misstänkt. Dessutom står det 'HOLT' i stora bokstäver på fönstren. Det hela känns en aning bekant.";
     }
+
+    return {
+      text:
+        "Du har helt tappat bort dig i vimlet av amazoner och lådor. Fortfarande med låda i hand ser du dig omkring. " +
+        PlaceString,
+
+      choices: [
+        {
+          text: "Gå åt vänster.",
+          onChoose: () => {
+            state.mazeRoom = state.mazeMap[state.mazeRoom][0];
+            return {
+              text: "Du går åt vänster.",
+            };
+          },
+        },
+        {
+          text: "Fortsätt fram.",
+          onChoose: () => {
+            state.mazeRoom = state.mazeMap[state.mazeRoom][1];
+            return {
+              text: "Du går vidare.",
+            };
+          },
+        },
+        {
+          text: "Gå åt höger.",
+          onChoose: () => {
+            state.mazeRoom = state.mazeMap[state.mazeRoom][2];
+            return {
+              text: "Du går åt höger.",
+            };
+          },
+        },
+        ...(state.mazeRoom == "Klocktorn"
+          ? [
+              {
+                text: "Försök klättra upp i tornet",
+                onChoose: () => {
+                  if (player.attributes.includes("stege från holt")) {
+                    state.foundHouse = true;
+                    return {
+                      text:
+                        "Med hjälp av stegen från Holt lyckas du klättra upp till toppen av tornet. Högst upp har du en utmärkt vy över hela trädet. Du njuter i stillsamhet över den underbart vackra utsikten, när Ababau plötsligt dyker upp ur din låda!\n\n" +
+                        "[Ababau den ändlige]: Där! Vi ska till det episkt estetiska huset där borta! Där väntar oss en kraftfull allierad. Seså, snabba ryck!\n\n" +
+                        "Du har nu fått din destination!",
+                    };
+                  } else {
+                    return {
+                      text: "Du försöker klättra upp för tornet, men väggarna är för hala! (Varför är de hala? Läbbigt!) Om du bara hade något att klättra på!",
+                    };
+                  }
+                },
+              },
+            ]
+          : []),
+        ...(state.mazeRoom == "Fontän"
+          ? [
+              {
+                text: "Bada i fontänen",
+                onChoose: () => {
+                  if (player.attributes.includes("snorkel")) {
+                    player.attributes.push("punch");
+                    return {
+                      text: "Med hjälp av snorkeln lyckas du utforska fontänen och hittar... en flaska punch? 'Vad ska jag med den till?' tänker du medan du plockar på dig den.",
+                    };
+                  } else {
+                    player.hp -= 5;
+                    return {
+                      text: "Du försöker bada i fontänen, men eftersom du är så dålig på att bada får du en kallsup och tar 5 hp skada (pga pinsamhet).",
+                    };
+                  }
+                },
+              },
+            ]
+          : []),
+        ...(state.mazeRoom == "Kant"
+          ? [
+              {
+                text: "Utmana gravitationen!",
+                onChoose: () => {
+                  player.attributes.push("snorkel");
+                  return {
+                    text:
+                      "Du utmanar gravitationen.\n\n" +
+                      "Gravitationen vinner.\n\n" +
+                      "Som tur är landar du på en annan gren 2 meter nedanför. Medan du klättrar upp hittar du förvånansvärt nog en snorkel gömd bland löven. Vad gör den här? KKlåfingrig som du är tar du med den.",
+                  };
+                },
+              },
+            ]
+          : []),
+        ...(state.mazeRoom == "Holt"
+          ? [
+              {
+                text: "Knacka på.",
+                onChoose: () => {
+                  if (player.attributes.includes("punch")) {
+                    player.attributes.push("stege från holt");
+                    return {
+                      text: "Du knackar på, först blir du avvisad men när de känner doften av punch blir du istället varmt välkommen. När du kommer in i den skumma lokalen inser du att folket här faktiskt är konstigare än du någonsin hade kunnat ana! Du försöker artigt slingra dig därifrån, men inte förrän det punchglada folket lyckas tvinga på dig en stege som tack! Väl ute så vilar du någon minut för att återhämta dig från traumat, därefter fortsätter du på jakten efter... något.",
+                    };
+                  } else {
+                    return {
+                      text: "Du knackar på, men får till svar att du måste betala ??kr för att komma in. Tyvärr tog du inte med dig några svenska pengar och de accepterar nog inte guldmynt. Hmm, var någonstants skulle du kunna hitta pengar häromkring?",
+                    };
+                  }
+                },
+              },
+            ]
+          : []),
+        ...(state.foundHouse
+          ? [
+              {
+                text: "Gå till det episka huset.",
+                onChoose: () => {
+                  state.stage = "residens";
+                  return {
+                    text: "Med ditt lokalsinne återfått beger du dig mot det episka huset som Ababau pekade ut. Äntligen lyckas du lämna virrvarret av lådbärande amazoner!",
+                  };
+                },
+              },
+            ]
+          : []),
+      ],
+    };
+  } else if ((state.stage = "residens")) {
+    return {
+      text: "Efter ett tag kommer du till stor och övedrivet episk bygnad där det står 'Skogmästarens residens'. Vad gör du?",
+
+      choices: [
+        {
+          text: "Gå in.",
+          onChoose: () => {
+            state.stage = "waiting";
+            return {
+              text: "Du går in i den överdrivet episka byggnaden. Inuti finns en massa episka statyer som föreställer strider mot drakar och ondskefulla gudar som förvisas till skumma dimensioner. Du går upp för en underbart episk trappa, därefter fram till en oöverträffbart episk dörr där du ser en ofattbart episk post-it lapp där det står: 'Episkt möte pågår'.",
+            };
+          },
+        },
+
+        {
+          text: "Gå ett varv till.",
+          onChoose: () => {
+            this.state.varvsWalked += 1;
+
+            var extraText = "";
+
+            if (this.state.varvsWalked == 3) {
+              player.attributes.push("silly walk");
+              extraText = "Grattis, du har gått runt efter amazoner så mycket att du lärt dig attributen 'silly walk'!";
+            }
+
+            return {
+              text:
+                extraText +
+                "Du följer efter amazonerna ett varv runt staden. Till slut kommer du dock tillbaka till det episka huset.",
+            };
+          },
+        },
+      ],
+    };
+  } else if ((state.stage = "waiting")) {
+    return {
+      text: "Vad gör du?",
+
+      choices: [
+        {
+          text: "Vänta.",
+          onChoose: () => {
+            state.stage = "beazos";
+            return {
+              text: "Du hinner inte vänta förrän dörren öppnas en fruktansvärt episk amazon kommer ut!",
+            };
+          },
+        },
+
+        {
+          text: "Gå in.",
+          onChoose: () => {
+            state.stage = "beazos";
+            return {
+              text: "Du hinner inte gå in förrän dörren öppnas en fruktansvärt episk amazon kommer ut!",
+            };
+          },
+        },
+      ],
+    };
+  } else if ((state.stage = "beazos")) {
+    return {
+      text: "[Skogmästare Beazos] Ha! Skogmästaren Beazos är jag! Vad hit dig för, du människa som sorgligt oepisk är?",
+
+      choices: [
+        {
+          text: "Börja förklara varför du är här.",
+          onChoose: () => {
+            return {
+              text:
+                "Du börjar förklara din situation, men blir snabbt avbruten av Ababau som hoppar fram ur din låda och tar över!\n\n" +
+                "LÄGG IN DIALOG\n\n" +
+                "Du känner hur du börjar lösas upp i en vaniljdoftande ånga. Plötsligt materialiseras du på en grässlätt med Beztown bakom dig.\n\n" +
+                "Grattis, du är äntligen ute ur skogen!",
+              room: Quebec,
+            };
+          },
+        },
+
+        ...(!state.askedEpic
+          ? [
+              {
+                text: "Be henne att lära dig var episk.",
+                onChoose: () => {
+                  state.askedEpic = true;
+                  state.prevStage = "beazos";
+                  state.stage = "epic";
+                  return {
+                    text: "",
+                  };
+                },
+              },
+            ]
+          : []),
+        {
+          text: "Fråga vad 'skogmästare' betyder.",
+          onChoose: () => {
+            return {
+              text: "INSERT_LÅNG_UTLÄGGNING.",
+            };
+          },
+        },
+      ],
+    };
+  } else if ((state.stage = "epic")) {
+    const wrongString =
+      "Ack! Fel så har du. Episk att vara dig för är inget!\n\n" + "Du får inte lära dig att vara episk. Snyft.";
+
+    return {
+      text:
+        "Imponerad av Beazos läskigt starka episkhet ber du henne att lära dig alla sina hemligheter.\n\n" +
+        "[Skogmästare Beazos] Ha! Lära dig att episk vara du vill? Välnå, imponerad är jag din fråga så plötslig över! Men lätt det inte blir, dig säga jag må! Att det epsika förstå ligger utmaningen i! Jag säga, lyssna noga nu du! Sju åtta minus gånger plus fem minus 9, vad det blir?",
+
+      choices: [
+        {
+          text: "Tja... -36?",
+          onChoose: () => {
+            state.stage = "beazos";
+            return {
+              text: wrongString,
+            };
+          },
+        },
+        {
+          text: "Hmm (du kliar din haka)... -14!",
+          onChoose: () => {
+            state.stage = "beazos";
+            return {
+              text: wrongString,
+            };
+          },
+        },
+        {
+          text: "Det finns bara ett logiskt svar: 4!",
+          onChoose: () => {
+            player.attributes.push("epic");
+            state.stage = "beazos";
+            return {
+              text:
+                "[Beazos] Rätt det helt är! Märktut! Mig du inte besviken gör! Du jag allt jag kan lära ska! Lyssna ihåg kom och!\n\n" +
+                "Beazos lär dig allt om att vara episk!",
+            };
+          },
+        },
+        {
+          text: "Aha! 60 såklart!",
+          onChoose: () => {
+            state.stage = state.prevStage;
+            return {
+              text: wrongString,
+            };
+          },
+        },
+      ],
+    };
+  } else if ((state.stage = "jämnat")) {
+    return {
+      text: "Amazonerna verkar upprörda. Vad säger du?",
+
+      choices: [
+        {
+          text: "Det var inte jag! Jag lovar!",
+          onChoose: () => {
+            state.förolämpad = true;
+            return {
+              text:
+                "Amazonerna verkar förvånade över ditt svar.\n\n" +
+                "[Arg amazon]: Eh, vi frågade inte om det var du. Det krävs en stor armé eller ett ofattbart finkänsligt massförstörelsevapen för att åstadkomma detta. Idén att du skulle ha förstört Beztown helt själv är fullkomligt löjligt.\n\n" +
+                "Amazonerna skrattar högt.",
+            };
+          },
+        },
+        ...(state.förolämpad
+          ? [
+              {
+                text: "Bli förolämpad och svara att du VISST kan ha förstört Beztown!",
+                onChoose: () => {
+                  state.stage = "beazos";
+                  return {
+                    text:
+                      "Du framhåller envist att du utan problem kan förstöra 10 Beztowns på en gång. Du är minsann en hjälte som åkallats för att rädda världen, sådeså!\n\n" +
+                      "[Arg amazon]: Va! Varför sa du inte att du är hjälten som ska rädda världen? Då måste du genast gå och prata med Skogmästare Beazos! Och när du ändå håller på kan du fånga den ondskefulla fiende som förstörde vår älskade stad!" +
+                      "Du beger till Beazos, på vägen får du en mystisk låda av en passerande amazon.",
+                  };
+                },
+              },
+            ]
+          : []),
+        {
+          text: "Skyll ifrån dig",
+          onChoose: () => {
+            return {
+              text:
+                "[Du]: Det var hon!\n\n" +
+                "[Arg amazon]: Aha! Självklart, jag har alltid tyckt att hon varit lite udda. Hon måste vara en spion!\n\n" +
+                "Amazonerna arresterar den du pekade på." +
+                "[Arg amazon]: Tack för hjälpen, men det måste vara fler som ligger bakom detta. Vi måste hitta resten av förrövarna!",
+            };
+          },
+        },
+        {
+          text: "Säg att det hände av sig självt.",
+          onChoose: () => {
+            return {
+              text:
+                "[Arg amazon]: Du menar att vår stad som stod helt stadigt för bara några minuter sedan skulle ha fallit ihop och organiserat sig i en fin hög helt spontant?\n\n" +
+                "Amazonerna verkar inte övertygade.",
+            };
+          },
+        },
+        {
+          text: "Nu ska vi inte börja lägga skuld på folk va, kan vi inte alla bli vänner och...",
+          onChoose: () => {
+            return {
+              text: "[Arg amazon]: Håll käft!",
+            };
+          },
+        },
+      ],
+    };
   }
 };
 
