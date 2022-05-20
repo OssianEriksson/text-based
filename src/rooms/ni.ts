@@ -1,18 +1,19 @@
 import { Choice, Room } from "../game"
+import Träsk from "./träsk"
 
 type State = {
   emptyCamp: boolean
   canFlee: boolean
-  campHasGold: boolean
+  campHasBeenSearched: boolean
   visited: boolean
 }
 
-const Ni: Room<State> = function ({ visitedRooms, player }) {
+const Ni: Room<State> = function ({ player }) {
   if (!this.state) {
     this.state = {
       emptyCamp: false,
       canFlee: true,
-      campHasGold: true,
+      campHasBeenSearched: true,
       visited: false,
     }
   } else {
@@ -28,10 +29,11 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
         {
           text: "Sök igenom lägret.",
           onChoose: () => {
-            if (state.campHasGold) {
-              state.campHasGold = false
+            if (state.campHasBeenSearched) {
+              state.campHasBeenSearched = false
               player.gold += 10
-              return { text: "Du hittar 10 guldmynt!" }
+              player.healingPotions++
+              return { text: "Du hittar 10 guldmynt och en helande trolldryck!" }
             } else {
               return { text: "Du hittar ingenting nytt av värde." }
             }
@@ -41,7 +43,7 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
           text: "Gå tillbaks upp ur sänkan.",
           onChoose: () => ({
             text: "Du klättar ur sänkan och går tillbaks in i träsket.",
-            room: visitedRooms[visitedRooms.indexOf(Ni) - 1],
+            room: Träsk,
           }),
         },
       ],
@@ -52,7 +54,7 @@ const Ni: Room<State> = function ({ visitedRooms, player }) {
     text: "Fly från sänkan.",
     onChoose: () => ({
       text: "Du vänder om så snabbt du kan och rusar tillbaks genom dimman. Snart når du kanten på sänkan och klättrar tacksamt upp och går tillbaks in i träsket.",
-      room: visitedRooms[visitedRooms.indexOf(Ni) - 1],
+      room: Träsk,
     }),
   }
 

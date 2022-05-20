@@ -1,12 +1,13 @@
 import { Choice, Room } from "../game"
+import Träsk from "./träsk"
 import Öken from "./öken"
 
-const Quebec: Room = function ({ player, visitedRooms }) {
+const Quebec: Room = function ({ player }) {
   const returnChoice: Choice = {
     text: "Vänd tillbaks och gå därifrån.",
     onChoose: () => ({
       text: "Du lämar slottet bakom dig och återvänder tillbaks till träsket.",
-      room: visitedRooms[visitedRooms.indexOf(Quebec) - 1],
+      room: Träsk,
     }),
   }
 
