@@ -12,10 +12,8 @@ function getValue(parts: string[]) {
     console.error(`Option ${parts[0]} requires a value, i.e. ${parts[0]}=...`)
     process.exit(1)
   }
-  return parts[2]
+  return parts[1]
 }
-
-const savepointDir = "savepoints"
 
 const args: GameArgs = {
   room: Sittningslokal,
