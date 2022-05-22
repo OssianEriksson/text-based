@@ -2,7 +2,17 @@ import { Choice, Room } from "../game"
 import Träsk from "./träsk"
 import Öken from "./öken"
 
-const Quebec: Room = function ({ player }) {
+type State = { hasAskedForInteGraal: boolean }
+
+const Quebec: Room<State> = function ({ player }) {
+  if (!this.state) {
+    this.state = {
+      hasAskedForInteGraal: false,
+    }
+  }
+
+  const state = this.state as State
+
   const returnChoice: Choice = {
     text: "Vänd tillbaks och gå därifrån.",
     onChoose: () => ({
@@ -15,50 +25,57 @@ const Quebec: Room = function ({ player }) {
     choices: [
       {
         text: "Be om hjälp med att hitta inte-graalen.",
-        onChoose: () => ({
-          text:
-            "Du ropar till soldaten: Gå och säg till din herre att vi har blivit utvalda av Gud till en helig uppgift, och om han vill ge oss mat och rum för natten kan han ansluta sig till oss i vårt sökande efter den heliga inte-graalen!\n\n" +
-            "[Soldat]: Tja, jag ska fhråga 'onom jag throhr inthe 'an ehr så sygen, ehh, 'an 'ar redan en sehr dy.\n\n" +
-            "Du frågar förvånat om soldaten verkligen är säker på att han redan har en.\n\n" +
-            "[Soldat]: Oh ja, den ehr veldigt fin!",
-        }),
+        onChoose: () => {
+          state.hasAskedForInteGraal = true
+          return {
+            text:
+              "Du ropar till soldaten: Gå och säg till din herre att vi har blivit utvalda av Gud till en helig uppgift, och om han vill ge oss mat och rum för natten kan han ansluta sig till oss i vårt sökande efter den heliga inte-graalen!\n\n" +
+              "[Soldat]: Tja, jag ska fhråga 'onom jag throhr inthe 'an ehr så sygen, ehh, 'an 'ar redan en sehr dy.\n\n" +
+              "Du frågar förvånat om soldaten verkligen är säker på att han redan har en.\n\n" +
+              "[Soldat]: Oh ja, den ehr veldigt fin!",
+          }
+        },
       },
-      {
-        text: "Fråga om du kan få passera igenom slottet",
-        onChoose: () => ({
-          text:
-            "[Soldat]: Så klahrt inte, du är lagomgård-typ. Kanske om du kan betala oss i guld, två guldmynt bohrde räcka..." +
-            (player.gold < 2 ? `\n\nDu känner efter i dina fickor men du har bara ${player.gold} guldmynt.` : ""),
-          room: () => ({
-            choices: [
-              {
-                text: "Fråga vilken typ soldaten är.",
-                onChoose: () => ({
-                  text:
-                    "[Soldat]: Jag ehr Quebecansk! Detta ehr staden Quebec! Vad vi göhr hehr ehr inte ditt phroblem!",
-                  room: MainConversation,
-                }),
-              },
-              ...(player.gold >= 2
-                ? [
+      ...(state.hasAskedForInteGraal
+        ? [
+            {
+              text: "Fråga om du kan få passera igenom slottet",
+              onChoose: () => ({
+                text:
+                  "[Soldat]: Så klahrt inte, du är lagomgård-typ. Kanske om du kan betala oss i guld, två guldmynt bohrde räcka... För fem kan dy få en inte-graal på köpet!" +
+                  (player.gold < 5 ? `\n\nDu känner efter i dina fickor men du har bara ${player.gold} guldmynt.` : ""),
+                room: () => ({
+                  choices: [
                     {
-                      text: "Betala två guldmynt för att passera över lavafloden.",
-                      onChoose: () => {
-                        player.gold -= 2
-                        return {
-                          text:
-                            "Du visar upp två guldmynt och efter en minut öppnas porten för dig. Efter att du betalat dina två guldmynt blir du ledd genom slottet och sedan utknuffad genom en bakdörr på andra sidan lavafloden. Dörren slås igen med en smäll och det enda ljudet som hörs kommer innifrån Quebec. Du upptar direkt din vandring åt öster.",
-                          room: Öken,
-                        }
-                      },
-                    } as Choice,
-                  ]
-                : []),
-              returnChoice,
-            ],
-          }),
-        }),
-      },
+                      text: "Fråga vilken typ soldaten är.",
+                      onChoose: () => ({
+                        text:
+                          "[Soldat]: Jag ehr Quebecansk! Detta ehr staden Quebec! Vad vi göhr hehr ehr inte ditt phroblem!",
+                        room: MainConversation,
+                      }),
+                    },
+                    ...(player.gold >= 5
+                      ? [
+                          {
+                            text: "Betala fem guldmynt för att passera över lavafloden och få en inte-graal på köpet!",
+                            onChoose: () => {
+                              player.gold -= 5
+                              return {
+                                text:
+                                  "Du visar upp fem guldmynt och efter en minut öppnas porten för dig. Efter att du betalat dina fem guldmynt blir du ledd genom slottet och sedan utknuffad genom en bakdörr på andra sidan lavafloden tillsammans med inte-graalen som du stoppar på dig. Dörren slås igen med en smäll och det enda ljudet som hörs kommer innifrån Quebec. Du upptar direkt din vandring åt öster.",
+                                room: Öken,
+                              }
+                            },
+                          } as Choice,
+                        ]
+                      : []),
+                    returnChoice,
+                  ],
+                }),
+              }),
+            },
+          ]
+        : []),
       returnChoice,
     ],
   })
