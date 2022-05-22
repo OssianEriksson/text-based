@@ -229,7 +229,7 @@ export const VetenskapspersonA: Room = function (args) {
         }),
       },
       {
-        text: "Lägg inte-graalen på ett bord brevid dvärghen.",
+        text: "Skriv om inte-graalen så den kommer förstöra hela berget och försök att i smyg lägga inte-graalen på ett bord brevid dvärghen.",
         onChoose: () =>
           player.attributes.includes("smyga")
             ? {

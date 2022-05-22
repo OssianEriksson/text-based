@@ -26,7 +26,7 @@ const LarpDvärghBattle: Room<LarpDvärghBattleState> = function (args) {
     choices: battleChoices(
       args,
       state,
-      generatePlayerAttacks(args, state, VetenskapspersonB, [
+      generatePlayerAttacks(args, state, VetenskapspersonA, [
         {
           onChoose: () => {
             args.player.hp -= 15
@@ -58,7 +58,7 @@ const LarpDvärgh: Room<State> = function ({ player }) {
       {
         text: "Gå och prata med vetenskapspersonhen",
         onChoose: () => ({
-          room: VetenskapspersonA,
+          room: VetenskapspersonB,
         }),
       },
     ],
@@ -204,12 +204,12 @@ const LarpDvärgh: Room<State> = function ({ player }) {
         }),
       },
       {
-        text: "Försök lura bort dvärghen med förföring.",
+        text: "Försök lura bort dvärghen.",
         onChoose: () =>
-          player.attributes.includes("förföra") || player.attributes.includes("smyga")
+          player.attributes.includes("tänka logiskt")
             ? {
-                text: 'Du roppar flörtigt åt dvärghen att hen ska komma och hjälpa dig med din Warhammer-karaktär och dvärghen svarar omdelbart på dina rop efter hjälp, du tror att det var eftersom du lade till att du inte lyckat måla din Warhammer karaktärer rätt. När hen springer iväg för att hjälpa "dig" går du lungt in genom dörren.',
-                room: VetenskapspersonA,
+                text: "Tack vare din förmåga att tänka logiskt lyckas du inse att du inte kan förföra dvärghen. Du inser istället dvärghens verkliga svaghet och ropar därför åt hen att hen ska komma och hjälpa dig med din Warhammer-karaktär och dvärghen svarar omdelbart på dina rop efter hjälp, du tror att det var eftersom du lade till att du inte lyckat måla din Warhammer karaktärer rätt. När hen springer iväg för att hjälpa dig går du lungt in genom dörren.",
+                room: LarpDvärghBattle,
               }
             : {
                 text:
@@ -234,7 +234,7 @@ const LarpDvärgh: Room<State> = function ({ player }) {
       {
         text: "Försök ta dvärghens hacka.",
         onChoose: () =>
-          player.attributes.includes("smyga")
+          !player.attributes.includes("smyga")
             ? {
                 text:
                   "Du är inte tillräckligt bra på att smyga, så Dvärghen upptäcker dig och begär veta varför du vill ta hens hacka, hen verkar något obekväm med händelsen.\n\n" +
