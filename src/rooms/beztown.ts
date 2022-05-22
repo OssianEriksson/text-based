@@ -1,5 +1,4 @@
-import { stat } from "fs"
-import { Choice, Room } from "../game"
+import { Room } from "../game"
 import Quebec from "./quebec"
 
 type MazeRoom = "Klocktorn" | "Fontän" | "Kant" | "Holt"
