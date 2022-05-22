@@ -17,7 +17,7 @@ function getValue(parts: string[]) {
 
 const args: GameArgs = {
   room: Sittningslokal,
-  savepoints: [SkogStart, Beztown, Öken, Träsk, LarpDvärgh],
+  savepoints: [SkogStart, Beztown, Träsk, Öken, LarpDvärgh],
   letterDelay: 5,
   shouldExit: (input) => ["exit", "avsluta"].includes(input),
   getErrorMessage: (input) => `${input} är inte ett tillgängligt val.`,

@@ -1,5 +1,5 @@
 import { Room } from "../game"
-import Quebec from "./quebec"
+import Träsk from "./träsk"
 
 type MazeRoom = "Klocktorn" | "Fontän" | "Kant" | "Holt"
 type Stage = "rot" | "gren" | "jämnat" | "box maze" | "residens" | "waiting" | "beazos" | "epic"
@@ -460,9 +460,9 @@ const Beztown: Room<State> = function ({ player }) {
                 text:
                   "Du börjar förklara din situation, men blir snabbt avbruten av Ababau som hoppar fram ur din låda och tar över!\n\n" +
                   "LÄGG IN DIALOG\n\n" +
-                  "Du känner hur du börjar lösas upp i en vaniljdoftande ånga. Plötsligt materialiseras du på en grässlätt med Beztown bakom dig.\n\n" +
+                  "Du känner hur du börjar lösas upp i en vaniljdoftande ånga. Plötsligt materialiseras du i ett träsk med Beztown bakom dig.\n\n" +
                   "Grattis, du är äntligen ute ur skogen!",
-                room: Quebec,
+                room: Träsk,
               }
             },
           },
