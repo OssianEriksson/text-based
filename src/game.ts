@@ -56,6 +56,7 @@ namespace Game {
     load,
   }: GameArgs) {
     const savepoints = [initialRoom, ...preliminarySavepoints]
+    let lastSavepoint: Room<Serializable> | undefined = undefined
 
     let state: State
 
@@ -65,11 +66,12 @@ namespace Game {
 
     async function addSavepoint(): Promise<boolean> {
       const { room, ...serializable } = state
-      if (savepoints.includes(room)) {
+      if (savepoints.includes(room) && lastSavepoint != room) {
         await mkdir(dirname(savepointPath), { recursive: true })
         await writeFile(savepointPath, `module.exports = ${serialize({ room: room.name, ...serializable })}`, {
           encoding: "utf-8",
         })
+        lastSavepoint = room
         return true
       }
       return false

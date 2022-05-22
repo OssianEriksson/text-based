@@ -6,6 +6,7 @@ import SkogStart from "./rooms/skog-start"
 import Träsk from "./rooms/träsk"
 import Öken from "./rooms/öken"
 import Beztown from "./rooms/beztown"
+import { VetenskapspersonA, VetenskapspersonB } from "./rooms/vetenskapsperson"
 
 function getValue(parts: string[]) {
   if (parts.length < 2) {
@@ -17,7 +18,7 @@ function getValue(parts: string[]) {
 
 const args: GameArgs = {
   room: Sittningslokal,
-  savepoints: [SkogStart, Beztown, Träsk, Öken, LarpDvärgh],
+  savepoints: [SkogStart, Beztown, Träsk, Öken, LarpDvärgh, VetenskapspersonA, VetenskapspersonB],
   letterDelay: 5,
   shouldExit: (input) => ["exit", "avsluta"].includes(input),
   getErrorMessage: (input) => `${input} är inte ett tillgängligt val.`,
