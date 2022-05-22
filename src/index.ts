@@ -8,6 +8,7 @@ import Öken from "./rooms/öken"
 import Beztown from "./rooms/beztown"
 import { VetenskapspersonA, VetenskapspersonB } from "./rooms/vetenskapsperson"
 import { createGameOverRoom } from "./helpers/gameOver"
+import AbabouFajt from "./rooms/ababou-fajt"
 
 function getValue(parts: string[]) {
   if (parts.length < 2) {
@@ -20,7 +21,7 @@ function getValue(parts: string[]) {
 const args: GameArgs = {
   room: Sittningslokal,
   gameOverRoom: createGameOverRoom("Du har tagit så mycket skada att du dör..."),
-  savepoints: [SkogStart, Beztown, Träsk, Öken, LarpDvärgh, VetenskapspersonA, VetenskapspersonB],
+  savepoints: [SkogStart, Beztown, Träsk, Öken, LarpDvärgh, VetenskapspersonA, VetenskapspersonB, AbabouFajt],
   letterDelay: 5,
   shouldExit: (input) => ["exit", "avsluta"].includes(input),
   getErrorMessage: (input) => `${input} är inte ett tillgängligt val.`,

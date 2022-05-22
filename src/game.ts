@@ -202,7 +202,7 @@ namespace Game {
 
       if (consequence.room == "load savepoint") {
         if (!loadSavepoint(true)) {
-          display(savepointLoadErrorMessage)
+          await display(savepointLoadErrorMessage)
         }
       } else if (consequence.room == "reset") {
         reset()
@@ -210,6 +210,8 @@ namespace Game {
         state.room = consequence.room
       }
     }
+
+    process.stdin.pause()
   }
 }
 
