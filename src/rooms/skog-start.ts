@@ -1,5 +1,5 @@
 import { Choice, Room } from "../game"
-import StigISkogen from "./stigISkogen"
+import StigISkogen from "./stig-i-skogen"
 
 type State = {
   stage: "introduction" | "speak to amazon"

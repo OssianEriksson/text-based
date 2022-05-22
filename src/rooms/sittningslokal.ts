@@ -1,7 +1,7 @@
 import { Choice, Consequence, Room, RoomInfo } from "../game"
 import { createGameOverRoom } from "../helpers/gameOver"
 import { Attribute, Character } from "../player"
-import SkogStart from "./skogStart"
+import SkogStart from "./skog-start"
 
 type State = {
   stage: "introduction" | "call to action" | "abilities" | "way out"
