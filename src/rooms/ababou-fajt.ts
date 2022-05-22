@@ -40,7 +40,7 @@ const AbabouFajt: Room<AbabouBattleState> = function (args) {
           text:
             "Plötsligt orkar Ababou inte attackera dig längre. Hans kropp fadar ut tills dess bara hans långa klädnad som sakta faller till marken finns kvar.\n\n" +
             "Ababaou är död, och du diskuterar med dvärgarna vad du skall göra. De försäkrar dig om att utan Häxmästaren Ababaou kan de skydda sig från Amazonerna länge nog att de kan få Amazonerna själva att industrialiseras och överge magin.\n\n" +
-            "Du börjar nu bli trött och känner att saker verkar ordna sig här i lagomgård. Du börjar därför tänka på hur du ska kunna ta dig hem igen. Då kommer du ihåg inte-graalen som du fortfarande inte har använt. Som i varje välkonstruerat problem måste varje förutsättning användas, och med ett aldrig tidigare skådat drag av genialitet lyckas du formulera om integralen så den beskriver interdimensionell hemtransport av heroiska krigare.",
+            "Du börjar nu bli trött och känner att saker verkar ordna sig här i lagomgård. Du börjar därför tänka på hur du ska kunna ta dig hem igen. Då kommer du ihåg att du fortfarnde har inte-graalen med dig! Med ett aldrig tidigare skådat drag av genialitet lyckas du formulera om integralen så den beskriver interdimensionell hemtransport av heroiska krigare.",
           choices: [
             {
               text: "Använd integralen för att resa hem.",
