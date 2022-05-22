@@ -6,6 +6,7 @@ type State = {
   visited: boolean
   dialogueQuest: Choice[]
   letatUnderTräd: boolean
+  letatUnderStenar: boolean
   letatIGräs: boolean
   stulitGräs: boolean
 }
@@ -17,6 +18,7 @@ const StigISkogen: Room<State> = function ({ player }) {
       visited: false,
       dialogueQuest: [],
       letatUnderTräd: false,
+      letatUnderStenar: false,
       letatIGräs: false,
       stulitGräs: false,
     }
@@ -96,16 +98,21 @@ const StigISkogen: Room<State> = function ({ player }) {
               }
             },
           },
-          {
-            text: "Leta under stenarna.",
-            onChoose: () => {
-              return {
-                text:
-                  "Du letar under stenarna men hittar ingenting.\n\n" +
-                  "[Lena den letande] Inte där heller, bara att fortsätta.",
-              }
-            },
-          },
+          ...(!state.letatUnderStenar
+            ? [
+                {
+                  text: "Leta under stenarna.",
+                  onChoose: () => {
+                    player.healingPotions++
+                    return {
+                      text:
+                        "Du letar under stenarna och hittar en helande trolltryck!.\n\n" +
+                        "[Lena den letande] Vackert fynd! Snart hittar vi den!.",
+                    }
+                  },
+                },
+              ]
+            : []),
           ...(!state.letatUnderTräd
             ? [
                 {

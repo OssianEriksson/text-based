@@ -339,20 +339,12 @@ const SkogStart: Room<State> = function ({ player }) {
     choices.push({
       text: "Lämna samtalet.",
       onChoose: () => {
-        const talkedToKristin = state.talkedToKristin
         state.talkedToKristin = true
         state.stage = "introduction"
-        if (!talkedToKristin) {
-          player.healingPotions++
-        }
-
         return {
           text:
             "[Kristin den Krattande] Lycka till på färden, vill du förresten till Beztown ligger det åt det hållet.\n\n" +
-            "Kristina pekar mot en dold stig som går genom skogen." +
-            (talkedToKristin
-              ? ""
-              : "\n\n[Kristin den Krattande] Du får en överbliven helande trolldryck av mig om du stöter på problem under färden."),
+            "Kristina pekar mot en dold stig som går genom skogen.",
         }
       },
     })
