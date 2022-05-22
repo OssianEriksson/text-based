@@ -5,6 +5,7 @@ import Sittningslokal from "./rooms/sittningslokal"
 import SkogStart from "./rooms/skogStart"
 import Träsk from "./rooms/träsk"
 import Öken from "./rooms/öken"
+import Beztown from "./rooms/beztown"
 
 function getValue(parts: string[]) {
   if (parts.length < 2) {
@@ -18,7 +19,7 @@ const savepointDir = "savepoints"
 
 const args: GameArgs = {
   room: Sittningslokal,
-  savepoints: [SkogStart, Öken, Träsk, LarpDvärgh],
+  savepoints: [SkogStart, Beztown, Öken, Träsk, LarpDvärgh],
   letterDelay: 5,
   shouldExit: (input) => ["exit", "avsluta"].includes(input),
   getErrorMessage: (input) => `${input} är inte ett tillgängligt val.`,
