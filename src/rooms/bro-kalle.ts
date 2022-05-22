@@ -25,7 +25,7 @@ const BroKalle: Room<State> = function (args) {
       opponentConfused: false,
       argumentPath: "before",
       battle: {
-        opponentHp: 1,
+        opponentHp: 2e-13,
       },
     }
   }
@@ -146,7 +146,8 @@ const BroKalle: Room<State> = function (args) {
           {
             text: "Förför honom genom att vädja till hans flödande dynamik och heta hypertermofili.",
             onChoose: () => ({
-              text: "[Arkén Kalle]: Ah, du tänkte säkert att du kunde förföra mig med dina smickrande vetenskapliga begrepp, men det du inte vet är att jag förutsåg ditt drag och inte låter mig luras! Inse att jag kan alla dina drag!",
+              text:
+                "[Arkén Kalle]: Ah, du tänkte säkert att du kunde förföra mig med dina smickrande vetenskapliga begrepp, men det du inte vet är att jag förutsåg ditt drag och inte låter mig luras! Inse att jag kan alla dina drag!",
               counter: opponentAttack,
             }),
             onWin,
@@ -209,7 +210,8 @@ const BroKalle: Room<State> = function (args) {
                     state.battle.opponentHp = 0
 
                     return {
-                      text: "Du inser att en Arké inte kan prata, än mindre förnimmas på något väsentligt vis och absolut omöjligen blockera din väg! Du bestämmer dig för att ignorera Kalle och gå förbi.",
+                      text:
+                        "Du inser att en Arké inte kan prata, än mindre förnimmas på något väsentligt vis och absolut omöjligen blockera din väg! Du bestämmer dig för att ignorera Kalle och gå förbi.",
                       counter: opponentAttack,
                     }
                   },
@@ -238,11 +240,13 @@ const BroKalle: Room<State> = function (args) {
           ...(state.argumentPath == "last"
             ? [
                 {
-                  text: "Om han kan förutse alla drag i duellen borde han också förutse att han kommer dö av ålder innan han hinner åsamka dig någon märkbar skada.",
+                  text:
+                    "Om han kan förutse alla drag i duellen borde han också förutse att han kommer dö av ålder innan han hinner åsamka dig någon märkbar skada.",
                   onChoose: () => {
                     state.battle.opponentHp = 0
                     return {
-                      text: "[Arkén Kalle]: HAHAHAHAHA... *tänker efter*... fan också. Okej, okej, jag vet när jag har förlorat en duell i logik. Du vinner, stick iväg innan jag ändrar mig.",
+                      text:
+                        "[Arkén Kalle]: HAHAHAHAHA... *tänker efter*... fan också. Okej, okej, jag vet när jag har förlorat en duell i logik. Du vinner, stick iväg innan jag ändrar mig.",
                       counter: opponentAttack,
                     }
                   },

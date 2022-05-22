@@ -21,7 +21,7 @@ const BroToffoleau: Room<State> = function (args) {
       againMsg: "",
       stillMsg: "",
       battle: {
-        opponentHp: 1,
+        opponentHp: 1.5e-13,
       },
     }
   }
@@ -56,7 +56,8 @@ const BroToffoleau: Room<State> = function (args) {
 
   if (state.stage == "introduction") {
     return {
-      text: "Efter att ha lyckats undfly Amöban Möbius fortsätter du din vandring och kommer snabbt fram till en ny bro. Den här gången är det en mycket smal bro i sen gotisk stil som löper över en ravin fylld med vassa pålar. Det finns ingen levande varelse så långt du kan se och ingen annan väg över.",
+      text:
+        "Efter att ha lyckats undfly Amöban Möbius fortsätter du din vandring och kommer snabbt fram till en ny bro. Den här gången är det en mycket smal bro i sen gotisk stil som löper över en ravin fylld med vassa pålar. Det finns ingen levande varelse så långt du kan se och ingen annan väg över.",
       choices: [
         {
           text: "Försök gå över bron.",
@@ -132,7 +133,8 @@ const BroToffoleau: Room<State> = function (args) {
           {
             text: "Förför honom genom att vädja till hans imponerande rustning och spartanska tofflor.",
             onChoose: () => ({
-              text: "[Toffeldjuret Toffoleau]: No no no, Amöban Möbius kanske dina trick går på, men ditt smicker biter inte på Toffoleau!",
+              text:
+                "[Toffeldjuret Toffoleau]: No no no, Amöban Möbius kanske dina trick går på, men ditt smicker biter inte på Toffoleau!",
               counter: opponentAttack,
             }),
             onWin,
