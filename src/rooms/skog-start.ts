@@ -1,4 +1,5 @@
 import { Choice, Room } from "../game"
+import Beztown from "./beztown"
 import StigISkogen from "./stig-i-skogen"
 
 type State = {
@@ -212,11 +213,20 @@ const SkogStart: Room<State> = function ({ player }) {
       {
         text: "Gå rakt fram i godtycklig riktning",
         onChoose: () => {
-          return {
-            text:
-              "Du går rakt fram, men tappar snabbt bort dig.\n\n" +
-              "[Du] Varför ser alla träd likadana ut? Åh, den där stenen påminner om fem stycken jag passerat tidigare. Ah, det här känns rätt!\n\n" +
-              "Du kommer fram till en glänta, men upptäcker snabbt att du är tilbaka där du startade. Attans!",
+          if (player.attributes.includes("GPS")) {
+            return {
+              text:
+                "Du går rakt fram, men tappar snabbt bort dig.\n\n" +
+                "Dock har du med dig din GPS och ställer in den på Beztown och fortsätter enligt dess anvisningar genom skogen.",
+              room: Beztown,
+            }
+          } else {
+            return {
+              text:
+                "Du går rakt fram, men tappar snabbt bort dig.\n\n" +
+                "[Du] Varför ser alla träd likadana ut? Åh, den där stenen påminner om fem stycken jag passerat tidigare. Ah, det här känns rätt!\n\n" +
+                "Du kommer fram till en glänta, men upptäcker snabbt att du är tilbaka där du startade. Attans!",
+            }
           }
         },
       },
