@@ -35,6 +35,7 @@ export type StateInterface = DeepReadonly<Pick<State, "room">> & Pick<State, "pl
 
 export type GameArgs = {
   room: Room<Serializable>
+  gameOverRoom: Room<Serializable>
   savepoints: Room<Serializable>[]
   letterDelay: number
   shouldExit: (input: string) => boolean
@@ -47,6 +48,7 @@ export type GameArgs = {
 namespace Game {
   export async function run({
     room: initialRoom,
+    gameOverRoom,
     savepoints: preliminarySavepoints,
     letterDelay,
     shouldExit,
@@ -75,7 +77,7 @@ namespace Game {
       return false
     }
 
-    function loadSavepoint(): State | undefined {
+    function loadSavepoint(resetHp: boolean = false): State | undefined {
       try {
         const { room: roomName, ...serializable } = require(savepointPath)
         const room = savepoints.find((savepoint) => savepoint.name == roomName)
@@ -84,6 +86,9 @@ namespace Game {
         }
 
         state = { room, ...serializable } as State
+        if (resetHp) {
+          state.player.hp = state.player.maxHp
+        }
         return state
       } catch {
         return undefined
@@ -146,15 +151,15 @@ namespace Game {
             state.states[statesKey] = t
           },
         },
-        {
-          ...state,
-          reset,
-          addSavepoint,
-          loadSavepoint,
-        } as StateInterface
+        { ...state, reset } as StateInterface
       )
 
       await display(info.text)
+
+      if (state.player.hp <= 0) {
+        state.room = gameOverRoom
+        continue
+      }
 
       if (choices.length == 0) {
         break
@@ -194,7 +199,7 @@ namespace Game {
       await display(consequence.text)
 
       if (consequence.room == "load savepoint") {
-        if (!loadSavepoint()) {
+        if (!loadSavepoint(true)) {
           display(savepointLoadErrorMessage)
         }
       } else if (consequence.room == "reset") {

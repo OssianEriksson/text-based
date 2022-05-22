@@ -102,7 +102,7 @@ const BroToffoleau: Room<State> = function (args) {
     }
 
     const ri: RoomInfo = {
-      text: `Toffeldjuret Toffoleau iklädd svart rustning och tofflor står${state.stillMsg} i din väg. Vad gör du? Du har ${player.hp} hp`,
+      text: `Toffeldjuret Toffoleau iklädd svart rustning och tofflor står${state.stillMsg} i din väg. Vad gör du?`,
       choices: [
         swimChoice,
         ...battleChoices(args, state.battle, [

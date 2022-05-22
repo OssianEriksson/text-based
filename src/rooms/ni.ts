@@ -82,6 +82,21 @@ const Ni: Room<State> = function ({ player }) {
           }
         },
       },
+      ...(player.attributes.includes("gräs")
+        ? [
+            {
+              text: "Ge gräset du stal från Lena den Letande till Riddarna av Ni.",
+              onChoose: () => {
+                state.emptyCamp = true
+                return {
+                  text:
+                    "Du räcker fram grästuvan du burit med dig från Amazonas.\n\n" +
+                    "[Riddare som säger Ni]: Jag har sett bättre, men det får duga. Med denna grästuva ska vi ställa upp i lagomgårds formklippningstävling där den säkert kommer att vinna! Vi ger oss av direkt! Farväl!",
+                }
+              },
+            },
+          ]
+        : []),
       {
         text: "Gå tillbaks en bit i sänkan och hämta en buske som du såg.",
         onChoose: () => {

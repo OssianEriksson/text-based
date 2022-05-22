@@ -8,6 +8,7 @@ type State = {
   denyCount: number
   assignedAttributesCount: 0
   wayOutVisited: boolean
+  hasRecievedHealingPotion: boolean
 }
 
 const Sittningslokal: Room<State> = function ({ player }) {
@@ -17,6 +18,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
       denyCount: 0,
       assignedAttributesCount: 0,
       wayOutVisited: false,
+      hasRecievedHealingPotion: false,
     }
   }
 
@@ -254,6 +256,23 @@ const Sittningslokal: Room<State> = function ({ player }) {
                     room: Sittningslokal,
                   }),
                 },
+                ...(!state.hasRecievedHealingPotion
+                  ? [
+                      {
+                        text: "Fråga Ababou om han har någon dricka att bjuda på",
+                        onChoose: () => {
+                          state.hasRecievedHealingPotion = true
+                          player.healingPotions++
+                          return {
+                            text:
+                              "[Ababou den ändlige] Visst, du kan få en helande trolldryck av mig. Men du måste spara den till ett tillfälle när du verkligen behöver den.\n\n" +
+                              "Ababou vandrar fram till dig och lämnar över en liten mystisk flaska som du stoppar på dig, sedan går Ababou tillbaks ut ur lokalen.",
+                            room: Sittningslokal,
+                          }
+                        },
+                      },
+                    ]
+                  : []),
               ],
             }),
           }),

@@ -6,6 +6,7 @@ import SkogStart from "./rooms/skog-start"
 import Träsk from "./rooms/träsk"
 import Öken from "./rooms/öken"
 import Beztown from "./rooms/beztown"
+import { createGameOverRoom } from "./helpers/gameOver"
 
 function getValue(parts: string[]) {
   if (parts.length < 2) {
@@ -17,6 +18,7 @@ function getValue(parts: string[]) {
 
 const args: GameArgs = {
   room: Sittningslokal,
+  gameOverRoom: createGameOverRoom("Du har tagit så mycket skada att du dör..."),
   savepoints: [SkogStart, Beztown, Träsk, Öken, LarpDvärgh],
   letterDelay: 5,
   shouldExit: (input) => ["exit", "avsluta"].includes(input),
