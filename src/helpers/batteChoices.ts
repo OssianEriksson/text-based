@@ -227,6 +227,7 @@ export default function battleChoices(args: StateInterface, state: BattleState, 
 
           const counter = consequence.counter.onChoose()
           if (args.player.hp <= 0) {
+            args.player.hp = 1
             const defeat = consequence.counter.onDefeat()
             return {
               text: concat(consequence.text, concat(counter.text, defeat.text)),

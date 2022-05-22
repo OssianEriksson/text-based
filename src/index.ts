@@ -7,6 +7,7 @@ import Träsk from "./rooms/träsk"
 import Öken from "./rooms/öken"
 import Beztown from "./rooms/beztown"
 import { VetenskapspersonA, VetenskapspersonB } from "./rooms/vetenskapsperson"
+import { createGameOverRoom } from "./helpers/gameOver"
 
 function getValue(parts: string[]) {
   if (parts.length < 2) {
@@ -18,6 +19,7 @@ function getValue(parts: string[]) {
 
 const args: GameArgs = {
   room: Sittningslokal,
+  gameOverRoom: createGameOverRoom("Du har tagit så mycket skada att du dör..."),
   savepoints: [SkogStart, Beztown, Träsk, Öken, LarpDvärgh, VetenskapspersonA, VetenskapspersonB],
   letterDelay: 5,
   shouldExit: (input) => ["exit", "avsluta"].includes(input),
