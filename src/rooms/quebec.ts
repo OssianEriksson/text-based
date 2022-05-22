@@ -18,7 +18,7 @@ const Quebec: Room = function ({ player }) {
         onChoose: () => ({
           text:
             "Du ropar till soldaten: Gå och säg till din herre att vi har blivit utvalda av Gud till en helig uppgift, och om han vill ge oss mat och rum för natten kan han ansluta sig till oss i vårt sökande efter den heliga inte-graalen!\n\n" +
-            "[Soldat]: Tja, jag ska fhråga 'onom jag throhr inthe 'an ehr så sugen, ehh, 'an 'ar redan en sehr du.\n\n" +
+            "[Soldat]: Tja, jag ska fhråga 'onom jag throhr inthe 'an ehr så sygen, ehh, 'an 'ar redan en sehr dy.\n\n" +
             "Du frågar förvånat om soldaten verkligen är säker på att han redan har en.\n\n" +
             "[Soldat]: Oh ja, den ehr veldigt fin!",
         }),
@@ -34,7 +34,8 @@ const Quebec: Room = function ({ player }) {
               {
                 text: "Fråga vilken typ soldaten är.",
                 onChoose: () => ({
-                  text: "[Soldat]: Jag ehr Quebecansk! Detta ehr staden Quebec! Vad vi göhr hehr ehr inte ditt phroblem!",
+                  text:
+                    "[Soldat]: Jag ehr Quebecansk! Detta ehr staden Quebec! Vad vi göhr hehr ehr inte ditt phroblem!",
                   room: MainConversation,
                 }),
               },
@@ -45,7 +46,8 @@ const Quebec: Room = function ({ player }) {
                       onChoose: () => {
                         player.gold -= 2
                         return {
-                          text: "Du visar upp två guldmynt och efter en minut öppnas porten för dig. Efter att du betalat dina två guldmynt blir du ledd genom slottet och sedan utknuffad genom en bakdörr på andra sidan lavafloden. Dörren slås igen med en smäll och det enda ljudet som hörs kommer innifrån Quebec. Du upptar direkt din vandring åt öster.",
+                          text:
+                            "Du visar upp två guldmynt och efter en minut öppnas porten för dig. Efter att du betalat dina två guldmynt blir du ledd genom slottet och sedan utknuffad genom en bakdörr på andra sidan lavafloden. Dörren slås igen med en smäll och det enda ljudet som hörs kommer innifrån Quebec. Du upptar direkt din vandring åt öster.",
                           room: Öken,
                         }
                       },
@@ -69,7 +71,7 @@ const Quebec: Room = function ({ player }) {
         onChoose: () => ({
           text:
             "Det slipper ur dig att du är Ababou den Ändliges sändebud och att dessa män är dina riddare av den hyperboliska stolen. Du blir förvånad av att du tydligen måste ha tappart bort dina riddare någonstans på vägen... Du återfår dock snabbt fattningen och frågar vems slott detta är?\n\n" +
-            "[Soldat]: Detta ehr min 'ehrre Guy de Lombards kubisktiska slott!",
+            "[Soldat]: Detta ehr min 'ehrre Guy de Lombards kybisktiska slott!",
           room: MainConversation,
         }),
       },
