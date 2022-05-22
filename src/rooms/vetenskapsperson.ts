@@ -182,7 +182,7 @@ const VetenskapspersonBattle: Room<VetenskapspersonBattleState> = function (args
 
 export const VetenskapspersonA: Room = function ({ player }) {
   return {
-    text: "En bit in i berget kommer du in i ett laboratorium, En väggen har massa fula tavlor med orangea löv på sig och en annan har en whiteboardtavla med massa ekvationer, de andra har massa dragskåp och någravanliga skåp. Mitt i allt står en dvärg med vilt långt skägg och hår.",
+    text: "En bit in i berget kommer du in i ett laboratorium, En väggen har massa fula tavlor med orangea löv på sig och en annan har en whiteboardtavla med massa ekvationer, de andra har massa dragskåp och någravanliga skåp. Mitt i allt står en dvärgh med vilt långt skägg och hår.",
     choices: [
       {
         text: "Attackera dvärghen!",
@@ -267,7 +267,7 @@ export const VetenskapspersonB: Room = function () {
   })
 
   return {
-    text: "Du kommer in i ett laboratorium, En väggen har massa fula tavlor med orangea löv på sig och en annan har en whiteboardtavla med massa ekvationer, de andra har massa dragskåp och någravanliga skåp. Mitt i allt står en dvärg med vilt långt skägg och hår. Du presenterar dig, får veta att dvärghen heter Slartibartfast, och berättar sedan varför du är här...",
+    text: "Du kommer in i ett laboratorium, En väggen har massa fula tavlor med orangea löv på sig och en annan har en whiteboardtavla med massa ekvationer, de andra har massa dragskåp och någravanliga skåp. Mitt i allt står en dvärgh med vilt långt skägg och hår. Du presenterar dig, får veta att dvärghen heter Slartibartfast, och berättar sedan varför du är här...",
     choices: [
       {
         text: "Säg 'Amazonerna ha skickat mig för att döda er, men jag vill inte göra detta. Jag vill stoppa er miljöförstörelse med hjälp av den heliga inte-graalen.'",

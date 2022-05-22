@@ -244,12 +244,14 @@ const Sittningslokal: Room<State> = function ({ player }) {
                   text: "Drick en Trocadero.",
                   onChoose: () => ({
                     text: 'Drickan får dig att känna dig helt sockrig och god inombords. Tänderna nästan klibbar mot varandra på helt rätt sätt. "Trocadero sitter alltid fint" ropar du över rummet till Ababou som nickar instämmande.',
+                    room: Sittningslokal,
                   }),
                 },
                 {
                   text: "Drick en Trocadero Zero.",
                   onChoose: () => ({
                     text: "Den magra utvattnade blaskan ålar sig ned i strupen på dig och lämnar dig torr och sträv i halsen. Om detta är Trocadero, tänker du, hur magra upplevelser får man då inte av Coca-Cola och andra mineralvatten?",
+                    room: Sittningslokal,
                   }),
                 },
               ],

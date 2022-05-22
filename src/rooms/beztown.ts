@@ -116,7 +116,7 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Svara: 'Dom består bägge av materia!'",
                   onChoose: () => {
                     return {
-                      text: "[Gåtfrid den Gåtfulle] Åjdå, det blev lite fel där va. Försök igen, eller är du för korkad?",
+                      text: "[Gåtfrid den Gåtfulle] Åjdå, det blev lite fel där va. Försök igen, eller är du för kårkad?",
                     }
                   },
                 },
@@ -124,7 +124,7 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Svara: 'Det är trivialt!'",
                   onChoose: () => {
                     return {
-                      text: "[Gåtfrid den Gåtfulle] För mig ja, men inte för dig. Försök igen, eller är du för korkad?",
+                      text: "[Gåtfrid den Gåtfulle] För mig ja, men inte för dig. Försök igen, eller är du för kårkad?",
                     }
                   },
                 },
@@ -132,7 +132,7 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Svara: 'Bägge går att äta!'",
                   onChoose: () => {
                     return {
-                      text: "[Gåtfrid den Gåtfulle] Eh, nej. Inget av dem går att äta. Försök igen, eller är du för korkad?",
+                      text: "[Gåtfrid den Gåtfulle] Eh, nej. Inget av dem går att äta. Försök igen, eller är du för kårkad?",
                     }
                   },
                 },
@@ -140,7 +140,7 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Svara: 'Mat ångor är typ moln, höjder är nära moln, där har vi det!'",
                   onChoose: () => {
                     return {
-                      text: "[Gåtfrid den Gåtfulle] Bra gissning, men fel. Försök igen, eller är du för korkad?",
+                      text: "[Gåtfrid den Gåtfulle] Bra gissning, men fel. Försök igen, eller är du för kårkad?",
                     }
                   },
                 },
@@ -184,6 +184,7 @@ const Beztown: Room<State> = function ({ player }) {
                 {
                   text: "Öppna lådan.",
                   onChoose: () => {
+                    state.openedBox = true
                     return {
                       text:
                         "Du begår det förskräckliga brottet att öppna en låda som inte är addresserad till dig! Och vad hittar du däri måntro? En ödla? En dödskalle? En integral? Nej, det är ingen mindre än Ababau den ändlige!\n\n" +
@@ -196,6 +197,7 @@ const Beztown: Room<State> = function ({ player }) {
                 {
                   text: "Sno en låda och spring iväg.",
                   onChoose: () => {
+                    state.haveBox = true
                     return {
                       text: "Du snor en låda från en förbipasserande amazon och springer iväg. Hon blir upprörd men är för upptagen för att springa efter. Du har dock fortfarande ingen aning om var du är.",
                     }
@@ -257,7 +259,7 @@ const Beztown: Room<State> = function ({ player }) {
           "Du går rakt fram när du plötsligt märker att trädet tog slut för 5 steg sedan, varpå du snabbt backar 5 steg innan gravitationen lägger märke till ditt misstag. Du befinner dig uppenbarligen vid trädets kant."
       } else if (state.mazeRoom == "Holt") {
         PlaceString =
-          "Pllötsligt stöter du på en lång tegelbyggnad med en trappnedgång. Trapporna verkar leda till en skum lokal, men du lyckas inte se in genom de förtäckta fönstren, mycket misstänkt. Dessutom står det 'HOLT' i stora bokstäver på fönstren. Det hela känns en aning bekant."
+          "Plötsligt stöter du på en lång tegelbyggnad med en trappnedgång. Trapporna verkar leda till en skum lokal, men du lyckas inte se in genom de förtäckta fönstren, mycket misstänkt. Dessutom står det 'HOLT' i stora bokstäver på fönstren. Det hela känns en aning bekant."
       }
 
       return {
@@ -345,7 +347,7 @@ const Beztown: Room<State> = function ({ player }) {
                       text:
                         "Du utmanar gravitationen.\n\n" +
                         "Gravitationen vinner.\n\n" +
-                        "Som tur är landar du på en annan gren 2 meter nedanför. Medan du klättrar upp hittar du förvånansvärt nog en snorkel gömd bland löven. Vad gör den här? KKlåfingrig som du är tar du med den.",
+                        "Som tur är landar du på en annan gren 2 meter nedanför. Medan du klättrar upp hittar du förvånansvärt nog en snorkel gömd bland löven. Vad gör den här? Klåfingrig som du är tar du med den.",
                     }
                   },
                 },
@@ -410,7 +412,7 @@ const Beztown: Room<State> = function ({ player }) {
               if (state.varvsWalked == 3) {
                 player.attributes.push("silly walk")
                 extraText =
-                  "Grattis, du har gått runt efter amazoner så mycket att du lärt dig attributen 'silly walk'!"
+                  "Grattis, du har gått runt efter amazoner så mycket att du lärt dig attributen 'silly walk'! "
               }
 
               return {
@@ -432,7 +434,7 @@ const Beztown: Room<State> = function ({ player }) {
             onChoose: () => {
               state.stage = "beazos"
               return {
-                text: "Du hinner inte vänta förrän dörren öppnas en fruktansvärt episk amazon kommer ut!",
+                text: "Du hinner inte vänta förrän dörren öppnas och en fruktansvärt episk amazon kommer ut!",
               }
             },
           },
@@ -442,7 +444,7 @@ const Beztown: Room<State> = function ({ player }) {
             onChoose: () => {
               state.stage = "beazos"
               return {
-                text: "Du hinner inte gå in förrän dörren öppnas en fruktansvärt episk amazon kommer ut!",
+                text: "Du hinner inte gå in förrän dörren öppnas och en fruktansvärt episk amazon kommer ut!",
               }
             },
           },
@@ -470,7 +472,7 @@ const Beztown: Room<State> = function ({ player }) {
           ...(!state.askedEpic
             ? [
                 {
-                  text: "Be henne att lära dig var episk.",
+                  text: "Be henne att lära dig vara episk.",
                   onChoose: () => {
                     state.askedEpic = true
                     state.prevStage = "beazos"
@@ -583,7 +585,7 @@ const Beztown: Room<State> = function ({ player }) {
                 text:
                   "[Du]: Det var hon!\n\n" +
                   "[Arg amazon]: Aha! Självklart, jag har alltid tyckt att hon varit lite udda. Hon måste vara en spion!\n\n" +
-                  "Amazonerna arresterar den du pekade på." +
+                  "Amazonerna arresterar den du pekade på.\n\n" +
                   "[Arg amazon]: Tack för hjälpen, men det måste vara fler som ligger bakom detta. Vi måste hitta resten av förrövarna!",
               }
             },

@@ -106,7 +106,7 @@ const BroMöbius: Room<State> = function (args) {
         }),
       },
       {
-        text: "Förvirra honom genom att citera _______ termoföreläsningar.",
+        text: "Förvirra honom genom att citera termoföreläsningar.",
         onChoose: () => ({
           text:
             "Du börjar gå igenom ruskigt förvirrande innehåll från termon, men Möbius verkar helt opåverkad.\n\n" +
@@ -206,7 +206,7 @@ const BroMöbius: Room<State> = function (args) {
         onChoose: () => ({
           text:
             "Du försöker förklara för Möbius att du inte dödat hans bror, men han tror dig inte!\n\n" +
-            "[Amöban Möbius]: HA! Försök inte, jag såg minsann hur du skoningslöst trampade ihjäl honom precis innan du klev upp på bron. Jag såg onskan i dina ögon när du illvilligt klämde livet ur honom!",
+            "[Amöban Möbius]: HA! Försök inte, jag såg minsann hur du skoningslöst trampade ihjäl honom precis innan du klev upp på bron. Jag såg ondskan i dina ögon när du illvilligt klämde livet ur honom!",
         }),
       },
       swimChoice,

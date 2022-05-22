@@ -61,7 +61,7 @@ const BroKalle: Room<State> = function (args) {
   if (state.stage == "introduction") {
     return {
       text:
-        "Duellen mot Toffoleau lämnar dig skakad när du fortsätter genom skogen. Efter ett tag ser du en god och en dålig nyhet. Den goda nyheten är att du ser skogens slut på andra sidan en å, den dåliga är att ån består av lava. Det måste vara en gren av den stora lavaflod du nyligen passerat över.\n\n" +
+        "Duellen mot Toffoleau lämnar dig skakad när du fortsätter genom öknen. Efter ett tag ser du en god och en dålig nyhet. Den goda nyheten är att du ser öknens slut på andra sidan en å, den dåliga är att ån består av lava. Det måste vara en gren av den stora lavaflod du nyligen passerat över.\n\n" +
         "Över lavaån går en lagom bred bro i art nouveau stil. Det finns återigen ingen levande varelse så långt du kan se och ingen annan väg över.",
       choices: [
         swimChoice,
@@ -122,7 +122,7 @@ const BroKalle: Room<State> = function (args) {
             onWin,
           },
           {
-            text: "Förvirra honom genom att citera _______ linjär-algebra-föreläsning.",
+            text: "Förvirra honom genom att citera linjär-algebra-föreläsning.",
             onChoose: () => {
               if (player.attributes.includes("lösa gåtor")) {
                 state.opponentConfused = true

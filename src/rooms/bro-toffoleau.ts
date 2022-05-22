@@ -120,7 +120,7 @@ const BroToffoleau: Room<State> = function (args) {
             onWin,
           },
           {
-            text: "Förvirra honom genom att citera _______ numerisk-analys-föreläsningar.",
+            text: "Förvirra honom genom att citera numerisk-analys-föreläsningar.",
             onChoose: () => ({
               text:
                 "Du börjar gå igenom ruskigt förvirrande innehåll från numalgen, men Toffoleau står emot.\n\n" +

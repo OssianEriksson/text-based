@@ -83,7 +83,7 @@ const StigISkogen: Room<State> = function ({ player }) {
       }
     case "quest":
       return {
-        text: "Jag har tyvärr råkat tappa bort en kraftfull vetenskaplig kvantkristall. Den borde ligga här någonstans. Säg till om du hittar något som utstrålar vetenskaplighet.",
+        text: "[Lena den Letande]: Jag har tyvärr råkat tappa bort en kraftfull vetenskaplig kvantkristall. Den borde ligga här någonstans. Säg till om du hittar något som utstrålar vetenskaplighet.",
 
         choices: [
           {

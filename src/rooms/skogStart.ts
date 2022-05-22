@@ -130,7 +130,7 @@ const SkogStart: Room<State> = function ({ player }) {
           onChoose: () => {
             state.dialogueBeztown.shift()
             return {
-              text: "[Kristin den Krattande] Ah, om du letar efter Beztown måste du vara hjälten som är sänd för att rädda Blank! Så underbart att du kom, nu är Blank onekligen räddat!",
+              text: "[Kristin den Krattande] Ah, om du letar efter Beztown måste du vara hjälten som är sänd för att rädda Lagomgård! Så underbart att du kom, nu är Lagomgård onekligen räddat!",
             }
           },
         },
@@ -203,7 +203,7 @@ const SkogStart: Room<State> = function ({ player }) {
       state.isFirstText = false
       text =
         "Efter den omtumlande resan vaknar du upp i en skog. Du känner inte igen din omgivning och ser dig omkring efter Ababau.\n\n" +
-        "[Ababau den ändlige]: Med hjälp av min magnificilienta magi har jag förflyttat dig till landet Blank som står på randen till undergång. Det första du måste göra är att ta dig till staden Beztown. Jag skulle kunna leda dig dit, men jag har ett superviktigt ärende att uträtta, så ses där.\n\n" +
+        "[Ababau den ändlige]: Med hjälp av min magnificilienta magi har jag förflyttat dig till landet Lagomgård som står på randen till undergång. Det första du måste göra är att ta dig till staden Beztown. Jag skulle kunna leda dig dit, men jag har ett superviktigt ärende att uträtta, så ses där.\n\n" +
         "Ababau försvinner i ett moln av chokladdoftande ånga. Du står ensam kvar i skogen utan någon aning om vilket håll du ska gå åt. Vad gör du?"
     } else {
       text = "Du står kvar i skogen. Vad gör du?"
