@@ -188,7 +188,7 @@ const Beztown: Room<State> = function ({ player }) {
                     return {
                       text:
                         "Du begår det förskräckliga brottet att öppna en låda som inte är addresserad till dig! Och vad hittar du däri måntro? En ödla? En dödskalle? En integral? Nej, det är ingen mindre än Ababau den ändlige!\n\n" +
-                        "[Ababau den ändlige] Ah! Där är du ju, jag har väntat dig. Jag har spenderat tiden med att undersöka situationen och det visar sig att Lagomgård är i ännu större fara en jag trodde! Men mer om det senare, nu måste du leverera mig till skogsmästaren Beazos, hon är en kraftfull allierad.",
+                        "[Ababau den ändlige] Ah! Där är du ju, jag har väntat dig. Jag har spenderat tiden med att undersöka situationen och det visar sig att Lagomgård är i ännu större fara en jag trodde! Men mer om det senare, nu måste du leverera mig till skogmästaren Beazos, hon är en kraftfull allierad.",
                     }
                   },
                 },
@@ -220,7 +220,11 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Fråga vad 'skogmästare' betyder.",
                   onChoose: () => {
                     return {
-                      text: "INSERT_LÅNG_UTLÄGGNING.",
+                      text:
+                        "[Ababou den ändlige] Du förstår Amazonernas samhälle är ett högst decentraliserat sådant, det är så stort att de måste ha flera steg mellan deras högsta råd och de representanter som väljs lokalt. Skogen är uppdelad i biomer, bimoerna i dungor, dunorna i träd och träden i grenar.\n\n" +
+                        "[Ababou den ändlige] Varje gren som är stor nog väljer ett Grenråd som väljer en Talkvinna och en Grenmästare. Rådet väljer senare bort några från sitt eget råd till nästa råd, det vill säga till Trädrådet. Trädrådet väljer en Talkvinna och en trädmästare, och naturligtvis väljer de även några från sitt råd att representera dem i Dungrådet. Dungrådet fungerar likadant och och har en Dungmästare. Biområdet fungerar lite annorlunda i det att de också väljer en representant var till Mångfaldskogsrådet. Mångfaldskogsrådet är idag oviktigt. Men förr användes det för att avgöra svåra beslut i det högsta rådet och var viktigt för att Amazoner i olika biomer inte blev dåligt behandlade på grund av att de tillhörde en mindre biom, som förstås har mindre represenatation i det högsta rådet då de har lägre befolkningsmängd.\n\n" +
+                        "[Ababou den ändlige] Mångfaldskogsrådet har ingen mästare och ingen talkvinna, anledninegn till detta är för att ingen biom skall ses som högre än någon annan (även om det i praktiken finns biomer som ses som bättre än andra) och för att den nordligaste biomen ville att Talkvinnan skulle kallas Tallkvinna som de görs i deras Biområd, Dungråd, Trädråd och Grenråd. Bimoråden väljer hur som helst sina represenatanter till det högsta rådet, Skogsrå't som väljer ens Skogmästare, men ingen Talkvinna, på grund av samma anledning som Mångfaldskogsrådet inte har någon.\n\n" +
+                        "[Ababou den ändlige] Skogmästaren Beazos har bra koll på vad som behöver göras för att stoppa miljöförstörelsen som drabbat skogen, även om Skogsrå't är långsamma på att inse det, så många är från biom som det inte påverkar, men Beazos växte upp här i Beztown och fick genomlida Burukaveels förskräliga styre när hon var ett barn, hon kommer att hjälpa oss att rädda Lagomgård.",
                     }
                   },
                 },
@@ -461,14 +465,15 @@ const Beztown: Room<State> = function ({ player }) {
               return {
                 text:
                   "Du börjar förklara din situation, men blir snabbt avbruten av Ababau som hoppar fram ur din låda och tar över!\n\n" +
-                  "LÄGG IN DIALOG\n\n" +
+                  "[Ababau den ändlige] Var hälsad Skogmästare Beazos, jag har kommit med en episk hjälte för att rädda Amazonas från den mörke herrens efterträdare, när hjälten har funnit den heliga inte-graalen skall denne använda inte-graalen för att förgöra det ensammare berget.\n\n" +
+                  "[Skogmästare Beazos] Burukaveels efterträdare dödas skall, du hjälte med min välsignelse för att utrota dvärgharna gå.\n\n" +
+                  "[Ababau den ändlige] Jag skickar nu dig ut ur skogen, när du funnit inte-graalen ta den då till dvärgharnas laboratorium så att den får som störst sprängkraft.\n\n" +
                   "Du känner hur du börjar lösas upp i en vaniljdoftande ånga. Plötsligt materialiseras du i ett träsk med Beztown bakom dig.\n\n" +
                   "Grattis, du är äntligen ute ur skogen!",
                 room: Träsk,
               }
             },
           },
-
           ...(!state.askedEpic
             ? [
                 {
@@ -484,14 +489,14 @@ const Beztown: Room<State> = function ({ player }) {
                 },
               ]
             : []),
-          {
-            text: "Fråga vad 'skogmästare' betyder.",
-            onChoose: () => {
-              return {
-                text: "INSERT_LÅNG_UTLÄGGNING.",
-              }
-            },
-          },
+          // {
+          //   text: "Fråga vad 'skogmästare' betyder.",
+          //   onChoose: () => {
+          //     return {
+          //       text: "INSERT_LÅNG_UTLÄGGNING.",
+          //     }
+          //   },
+          // },
         ],
       }
     case "epic":
