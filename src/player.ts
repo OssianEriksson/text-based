@@ -19,6 +19,7 @@ export type Attribute =
   | "snorkel"
   | "punch"
   | "stege från holt"
+  | "stalinist"
 
 export type Character = "fysiker" | "matematiker" | "rippad" // | "programmerare"
 
