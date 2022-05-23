@@ -25,6 +25,7 @@ const args: GameArgs = {
   letterDelay: 5,
   shouldExit: (input) => ["exit", "avsluta"].includes(input),
   shouldRemoteSet: (input) => ["sync"].includes(input),
+  shouldRemoteClear: (input) => ["clear"].includes(input),
   getErrorMessage: (input) => `${input} är inte ett tillgängligt val.`,
   savepointLoadErrorMessage: "Kunde inte ladda sparpunkten...",
   savepointPath: resolve("savepoints/savepoint.js"),

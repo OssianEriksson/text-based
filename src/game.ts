@@ -41,6 +41,7 @@ export type GameArgs = {
   letterDelay: number
   shouldExit: (input: string) => boolean
   shouldRemoteSet: (input: string) => boolean
+  shouldRemoteClear: (input: string) => boolean
   getErrorMessage: (input: string) => string
   savepointLoadErrorMessage: string
   savepointPath: string
@@ -57,6 +58,7 @@ namespace Game {
     shouldExit,
     shouldRemoteSet,
     getErrorMessage,
+    shouldRemoteClear,
     savepointLoadErrorMessage,
     savepointPath,
     load,
@@ -219,6 +221,10 @@ namespace Game {
           break mainLoop
         } else if (shouldRemoteSet(input)) {
           remote("set", totalPushedOutput)
+          continue
+        } else if (shouldRemoteClear(input)) {
+          remote("set", "")
+          totalPushedOutput = ""
           continue
         }
 
