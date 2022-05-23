@@ -54,7 +54,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
       text:
         "Du befinner dig på en sittning med phaddergruppen 256. Det är trevligt men lite tråkigt och du känner hur lusten för ett episkt äventyr bubblar inom dig (eller är det bara förrätten?)\n\n" +
         "Plötsligt dyker en mystisk gubbe upp från tomma intet och börjar prata högt.\n\n" +
-        "[Ababau den ändlige]: Mitt namn är Ababau den ändlige. Jag söker någon med ett heroiskt intellekt som kan rädda världen. Finns här någon sådan?",
+        "[Ababou den ändlige]: Mitt namn är Ababou den ändlige. Jag söker någon med ett heroiskt intellekt som kan rädda världen. Finns här någon sådan?",
       choices: Object.entries(choiceScaffolds).map(
         ([character, { text, ababou, hp }]): Choice => ({
           text,
@@ -63,7 +63,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
             player.hp = hp
             player.maxHp = hp
             state.stage = "call to action"
-            return { text: `[Ababau den ändlige]: ${ababou}` }
+            return { text: `[Ababou den ändlige]: ${ababou}` }
           },
         })
       ),
@@ -71,30 +71,31 @@ const Sittningslokal: Room<State> = function ({ player }) {
   } else if (state.stage == "call to action") {
     const denialStages: { text: string; choiceText: string }[] = [
       {
-        text: "[Ababau den ändlige]: Det heliga riket Lagomgård svävar i stor och omedelbar fara och bara du kan rädda det. Om du gör detta kommer du prisas som episk hjälte till tidens ända och få ett oöverträffbart CV. Vad säger du, vill du joina det hypersfäriska bordet och rädda världen?",
+        text:
+          "[Ababou den ändlige]: Det heliga riket Lagomgård svävar i stor och omedelbar fara och bara du kan rädda det. Om du gör detta kommer du prisas som episk hjälte till tidens ända och få ett oöverträffbart CV. Vad säger du, vill du joina det hypersfäriska bordet och rädda världen?",
         choiceText: "Mjäh, låter jobbigt. Nån annan får göra det.",
       },
       {
-        text: "[Ababau den ändlige]: Va! Men bara du kan göra det! Utan dig kommer Lagomgård att gå under!",
+        text: "[Ababou den ändlige]: Va! Men bara du kan göra det! Utan dig kommer Lagomgård att gå under!",
         choiceText: "Njaa, det är nog inget för mig asså. Sorry.",
       },
       {
         text:
-          "[Ababau den ändlige]: *Ababau fnyser* Jag förväntade mig mer av dig. Om du inte tänker göra det får jag helt enkelt hitta någon annan. Adjö, din fegis!\n\n" +
-          "Ababau den ändlige löses upp i ett moln av jordgubbsdoftande ånga och du glömmer honom snabbt. När sittningen dock är slut och du är på väg ut dyker Ababau den ändlige upp igen utanför dörren.\n\n" +
-          "[Ababau den ändlige]: Jag har letat i 300 parallella universum och det finns ingen annan som kan göra det! Du kommer ha flera triljoner liv på ditt samvete om du tackar nej! Du måste säga ja!",
+          "[Ababou den ändlige]: *Ababou fnyser* Jag förväntade mig mer av dig. Om du inte tänker göra det får jag helt enkelt hitta någon annan. Adjö, din fegis!\n\n" +
+          "Ababou den ändlige löses upp i ett moln av jordgubbsdoftande ånga och du glömmer honom snabbt. När sittningen dock är slut och du är på väg ut dyker Ababou den ändlige upp igen utanför dörren.\n\n" +
+          "[Ababou den ändlige]: Jag har letat i 300 parallella universum och det finns ingen annan som kan göra det! Du kommer ha flera triljoner liv på ditt samvete om du tackar nej! Du måste säga ja!",
         choiceText: "Nej, jag har tenta snart, det är viktigare. Sluta tjata.",
       },
       {
         text:
-          "Du kör iväg Ababau och går hem. När du väl kommit hem och precis öppnat dörren möter du dock Ababau den ändlige i din hall. Hur kom han in där?\n\n" +
-          "[Ababau den ändlige]: Snälla, kan du inte rädda Lagomgård? Snälla snälla jättesnälla? Med socker på?",
+          "Du kör iväg Ababou och går hem. När du väl kommit hem och precis öppnat dörren möter du dock Ababou den ändlige i din hall. Hur kom han in där?\n\n" +
+          "[Ababou den ändlige]: Snälla, kan du inte rädda Lagomgård? Snälla snälla jättesnälla? Med socker på?",
         choiceText: "Nej, ett nej är ett nej. Försvinn härifrån!",
       },
       {
         text:
           "Efter att du kört iväg den irriterande trollkarlen ännu en gång känner du nöden kalla och försvinner in till in din peronliga porslinstron. Innan du hinner uträtta dina bihov ser du dock två stora lysande ögon stirra in genom badrumsfönstret.\n\n" +
-          "[Ababau den ändlige]: Snäääääääääälla!",
+          "[Ababou den ändlige]: Snäääääääääälla!",
         choiceText: "Ring polisen och rapportera att en skum filur stalkar dig.",
       },
     ]
@@ -109,7 +110,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
           onChoose: () => {
             state.stage = "abilities"
             return {
-              text: "[Ababau den ändlige]: Fantastiskt att du ställer upp!",
+              text: "[Ababou den ändlige]: Fantastiskt att du ställer upp!",
             }
           },
         },
@@ -122,8 +123,8 @@ const Sittningslokal: Room<State> = function ({ player }) {
             }
             return {
               text:
-                "Polisen kommer och arresterar Ababau den ändlige som ropar:\n\n" +
-                "[Ababau den arresterade]: Inser du vad du har gjort! Nu kommer Lagomgård gå under!",
+                "Polisen kommer och arresterar Ababou den ändlige som ropar:\n\n" +
+                "[Ababou den arresterade]: Inser du vad du har gjort! Nu kommer Lagomgård gå under!",
               room: createGameOverRoom(),
             }
           },
@@ -162,7 +163,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
 
     if (state.assignedAttributesCount >= 2) {
       return {
-        text: `[Ababau den ändlige]: Jasså, du kan både ${player.attributes.join(
+        text: `[Ababou den ändlige]: Jasså, du kan både ${player.attributes.join(
           " och "
         )}. Du råkar inte ha fler förmågor?`,
         choices: options.map((option) => ({
@@ -171,7 +172,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
             assignAttribute(option)
             state.stage = "way out"
             return {
-              text: `[Ababau den ändlige]: Du är då rungande lärd, även för att vara ${player.character}. Res dig upp och kom med ut. Vi har stora saker att utföra.`,
+              text: `[Ababou den ändlige]: Du är då rungande lärd, även för att vara ${player.character}. Res dig upp och kom med ut. Vi har stora saker att utföra.`,
             }
           },
         })),
@@ -182,7 +183,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
       }
 
       return {
-        text: `[Ababau den ändlige]: Så, du säger att du är ${player.character}, då måste du vara duktig på ${assumption}?`,
+        text: `[Ababou den ändlige]: Så, du säger att du är ${player.character}, då måste du vara duktig på ${assumption}?`,
         choices: options.map((option) => ({
           text: `Ja, och jag har också en del erfarenhet av att ${option}!`,
           onChoose: () => {
@@ -202,27 +203,31 @@ const Sittningslokal: Room<State> = function ({ player }) {
           text: "Se efter vad som finns kvar att dricka.",
           onChoose: () => ({
             room: () => ({
-              text: "Du låter blicken svepa över borden. Din undersökning resulterar i fyndet av flera potentiellt drickbara substanser.",
+              text:
+                "Du låter blicken svepa över borden. Din undersökning resulterar i fyndet av flera potentiellt drickbara substanser.",
               choices: [
                 {
                   text: "Svep en flaska tabasko.",
                   onChoose: () => {
                     const drinkTabaskoWeak = (): Consequence => {
                       return {
-                        text: "Du korkar upp tabaskoflaskan och häller upp innehållet i ett glas. Ababou den ändlige tittar bekymrat på dig från dörröppningen, men säger ingenting. Du tar en klunk och försöker ta en andra men det går inte och du inser att du begått ett stort misstag. Hostande tar du dig själv om bröstet och kollapsar på golvet. Du uppfattar att Ababou håller på att läma sin post vid dörrkarmen för att komma in och hämta dig, men du reser dig stapplande och gestikulerar åt honom att stanna där han står.",
+                        text:
+                          "Du korkar upp tabaskoflaskan och häller upp innehållet i ett glas. Ababou den ändlige tittar bekymrat på dig från dörröppningen, men säger ingenting. Du tar en klunk och försöker ta en andra men det går inte och du inser att du begått ett stort misstag. Hostande tar du dig själv om bröstet och kollapsar på golvet. Du uppfattar att Ababou håller på att läma sin post vid dörrkarmen för att komma in och hämta dig, men du reser dig stapplande och gestikulerar åt honom att stanna där han står.",
                         room: Sittningslokal,
                       }
                     }
 
                     if (player.character == "rippad") {
                       return {
-                        text: "För en så rippad individ som du är en flaska tabasko ingen match. Tvärt om känner du dig mer styrkt än förut.",
+                        text:
+                          "För en så rippad individ som du är en flaska tabasko ingen match. Tvärt om känner du dig mer styrkt än förut.",
                         room: Sittningslokal,
                       }
                     } else if (player.attributes.includes("tänka logiskt")) {
                       return {
                         room: () => ({
-                          text: "Eftersom du är logiskt tänkande funderar du en extra gång över om tabasko verkligen är nyttigt för dig.",
+                          text:
+                            "Eftersom du är logiskt tänkande funderar du en extra gång över om tabasko verkligen är nyttigt för dig.",
                           choices: [
                             {
                               text: "Drick tabaskon.",
@@ -245,14 +250,16 @@ const Sittningslokal: Room<State> = function ({ player }) {
                 {
                   text: "Drick en Trocadero.",
                   onChoose: () => ({
-                    text: 'Drickan får dig att känna dig helt sockrig och god inombords. Tänderna nästan klibbar mot varandra på helt rätt sätt. "Trocadero sitter alltid fint" ropar du över rummet till Ababou som nickar instämmande.',
+                    text:
+                      'Drickan får dig att känna dig helt sockrig och god inombords. Tänderna nästan klibbar mot varandra på helt rätt sätt. "Trocadero sitter alltid fint" ropar du över rummet till Ababou som nickar instämmande.',
                     room: Sittningslokal,
                   }),
                 },
                 {
                   text: "Drick en Trocadero Zero.",
                   onChoose: () => ({
-                    text: "Den magra utvattnade blaskan ålar sig ned i strupen på dig och lämnar dig torr och sträv i halsen. Om detta är Trocadero, tänker du, hur magra upplevelser får man då inte av Coca-Cola och andra mineralvatten?",
+                    text:
+                      "Den magra utvattnade blaskan ålar sig ned i strupen på dig och lämnar dig torr och sträv i halsen. Om detta är Trocadero, tänker du, hur magra upplevelser får man då inte av Coca-Cola och andra mineralvatten?",
                     room: Sittningslokal,
                   }),
                 },
@@ -265,7 +272,7 @@ const Sittningslokal: Room<State> = function ({ player }) {
                           player.healingPotions++
                           return {
                             text:
-                              "[Ababou den ändlige] Visst, du kan få en helande trolldryck av mig. Men du måste spara den till ett tillfälle när du verkligen behöver den.\n\n" +
+                              "[Ababou den ändlige]: Visst, du kan få en helande trolldryck av mig. Men du måste spara den till ett tillfälle när du verkligen behöver den.\n\n" +
                               "Ababou vandrar fram till dig och lämnar över en liten mystisk flaska som du stoppar på dig, sedan går Ababou tillbaks ut ur lokalen.",
                             room: Sittningslokal,
                           }
@@ -297,10 +304,10 @@ const Sittningslokal: Room<State> = function ({ player }) {
         //   },
         // },
         {
-          text: "Följ med Ababau",
+          text: "Följ med Ababou",
           onChoose: () => {
             return {
-              text: "Du följer med Ababau på en episk resa genom tid och rum!",
+              text: "Du följer med Ababou på en episk resa genom tid och rum!",
               room: SkogStart,
             }
           },

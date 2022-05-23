@@ -27,7 +27,8 @@ const Integrallösning: Room = ({ player }) => {
         text,
         onChoose: () => ({
           room: () => ({
-            text: "Eftersom du är logiskt tänkande funderar du extra noga på om det där verkligen var rätt svar. Är du säker?",
+            text:
+              "Eftersom du är logiskt tänkande funderar du extra noga på om det där verkligen var rätt svar. Är du säker?",
             choices,
           }),
         }),
@@ -39,7 +40,8 @@ const Integrallösning: Room = ({ player }) => {
         text,
         onChoose: () => ({
           room: () => ({
-            text: "Eftersom du är bra på att lösa gåtor funderar du extra noga på om det där verkligen var rätt svar. Är du säker?",
+            text:
+              "Eftersom du är bra på att lösa gåtor funderar du extra noga på om det där verkligen var rätt svar. Är du säker?",
             choices,
           }),
         }),
@@ -67,7 +69,8 @@ const Integrallösning: Room = ({ player }) => {
       {
         text: "2 arctanh⁻¹(tan(π/8))",
         onChoose: () => ({
-          text: "Det var rätt lösning! Allt fungerar, ni kommer nu att kunna få nog med energi. Just när ni ska jubla hör ni oväsen. Du går ut ur berget för att ta reda på var uppståndelsen beror på.",
+          text:
+            "Det var rätt lösning! Allt fungerar, ni kommer nu att kunna få nog med energi. Just när ni ska jubla hör ni oväsen. Du går ut ur berget för att ta reda på var uppståndelsen beror på.",
           room: AbabouFajt,
         }),
       },
@@ -80,7 +83,7 @@ const Integrallösning: Room = ({ player }) => {
 const AbabouEnd: Room = () => ({
   text:
     "Väl utanför berget vänder du dig om och ser hur hela berget kollapsar med ett brak. Dvärgarna är utrotade. Ababaou har dykt upp och går fram till dig med ett belåtet uttryck.\n\n" +
-    "[Ababou]: Du har räddat Amazonerna och utrotat de fruktansvärda dvärgarna och deras fruktansvärda vetenskap. Nu är det dags för dig att resa hem.\n\n",
+    "[Ababou]: Du har räddat Amazonerna och utrotat de fruktansvärda dvärgarna och deras fruktansvärda vetenskap. Nu är det dags för dig att resa hem.",
   choices: [
     {
       text: "Låt Ababou föra dig tillbaks till sittningen",
@@ -157,19 +160,22 @@ const VetenskapspersonBattle: Room<VetenskapspersonBattleState> = function (args
               if (args.player.character == "fysiker" || args.player.character == "matematiker") {
                 args.player.hp -= 5
                 return {
-                  text: "Slartibartfast kontrar med att föreläsa om elektrodynamik, men du hänger nästan med och tar bara 5 hp skada.",
+                  text:
+                    "Slartibartfast kontrar med att föreläsa om elektrodynamik, men du hänger nästan med och tar bara 5 hp skada.",
                 }
               }
 
               if (args.player.character == "rippad") {
                 return {
-                  text: "Slartibartfast kontrar med att föreläsa om elektrodynamik, men du bryr dig inte om sådant trams.",
+                  text:
+                    "Slartibartfast kontrar med att föreläsa om elektrodynamik, men du bryr dig inte om sådant trams.",
                 }
               }
 
               args.player.hp -= 15
               return {
-                text: "Slartibartfast kontrar med att föreläsa om elektrodynamik och du fattar ingenting. Du tar 15 hp skada av skammen.",
+                text:
+                  "Slartibartfast kontrar med att föreläsa om elektrodynamik och du fattar ingenting. Du tar 15 hp skada av skammen.",
               }
             },
             onDefeat,
@@ -181,10 +187,10 @@ const VetenskapspersonBattle: Room<VetenskapspersonBattleState> = function (args
 }
 
 const anarkismDescription = ({ player }: StateInterface) =>
-  `[Slartibartfast] Vi ser stater som något som förtrycker, för att en stat skall kunna fungera måste den utöva våld mot sin befolkning, hur skall man annars kunne fängsla någon, tvinga någon betala skatter, eller se till att lagar följs. Vi har ett samhälle utan sådan våld, ingen är högre än någon annan. Vi har normer och kultur förstås och de som inte passar in ger sig ofta av för att söka lycka någon ananstans.\n\n` +
-  `[Slartibartfast] Vid flera tillfällen varje år håller vi ett val där alla får rösta, utan åldesgräns, efetrsom barnen blir uppfostarde av samhälleyt i stort snarare än några få som tvingar dem till sina egna åsikter. Naturligtvis är barnens föräldrar viktiga för barnet, men föräldrarna har ingen makt över banret, de är inte bättre bara på grund av sin ålder och genetik.\n\n` +
-  `[Slartibartfast] När vi då håller ett val så kan vem som helst föreslå en \"lag\" och givet att tillräkligt många är viliga att rösa om den kan vi rösta om den. Varje lag som går igenom måste ha minst 40 % av hela bergets befolkning som röstar för den och mer än 50 % av de som röstar måste vara för den, om det är en grundlag som skall ändras eller läggas till så måste minst 50 % av hela befolkningen rösta för den. Lagar som valts blir inte tvingade på oss, vi väljer huruvida vi följer våra lagar, men vi kan inte tvinga folk att vara trevliga mot de som inte följer våra lagar...\n\n` +
-  `[Slartibartfast] Gälande arbete så finns produktionsmedel tillgängig för var dvärgh, men för att de skall kunan användas måste dvärghen ha kunskap nog att använda dem, detta gör vi med mer eller mindre komplserade algoritmer, om du inte kan lösa det går det inte att använda produktionsmdelet som det är tänkt att göra alls. Se till exmepel mitt uran här utan rimlig förståsle skulle ingen kunana göra något farigt då det är oanrikat, bara en med kunaskp kan använda det. \n\n` +
+  `[Slartibartfast]: Vi ser stater som något som förtrycker, för att en stat skall kunna fungera måste den utöva våld mot sin befolkning, hur skall man annars kunne fängsla någon, tvinga någon betala skatter, eller se till att lagar följs. Vi har ett samhälle utan sådan våld, ingen är högre än någon annan. Vi har normer och kultur förstås och de som inte passar in ger sig ofta av för att söka lycka någon ananstans.\n\n` +
+  `[Slartibartfast]: Vid flera tillfällen varje år håller vi ett val där alla får rösta, utan åldesgräns, efetrsom barnen blir uppfostarde av samhälleyt i stort snarare än några få som tvingar dem till sina egna åsikter. Naturligtvis är barnens föräldrar viktiga för barnet, men föräldrarna har ingen makt över banret, de är inte bättre bara på grund av sin ålder och genetik.\n\n` +
+  `[Slartibartfast]: När vi då håller ett val så kan vem som helst föreslå en \"lag\" och givet att tillräkligt många är viliga att rösa om den kan vi rösta om den. Varje lag som går igenom måste ha minst 40 % av hela bergets befolkning som röstar för den och mer än 50 % av de som röstar måste vara för den, om det är en grundlag som skall ändras eller läggas till så måste minst 50 % av hela befolkningen rösta för den. Lagar som valts blir inte tvingade på oss, vi väljer huruvida vi följer våra lagar, men vi kan inte tvinga folk att vara trevliga mot de som inte följer våra lagar...\n\n` +
+  `[Slartibartfast]: Gälande arbete så finns produktionsmedel tillgängig för var dvärgh, men för att de skall kunan användas måste dvärghen ha kunskap nog att använda dem, detta gör vi med mer eller mindre komplserade algoritmer, om du inte kan lösa det går det inte att använda produktionsmdelet som det är tänkt att göra alls. Se till exmepel mitt uran här utan rimlig förståsle skulle ingen kunana göra något farigt då det är oanrikat, bara en med kunaskp kan använda det. \n\n` +
   `[Slartibartfast] ${
     player.attributes.includes("stalinist")
       ? "Vi har bygt vårt samhälle efter de idéer som Khorloogiin Choibalsan hade och vi har utveckalt vidare från de bra saker som Burukaveel gjorde, han var en stor man men inte perfekt, hans förtryck av de orignella dvärgharna är orsaken till att de dog ut under det andra alviska kriget. Så vi byggde ett samhäle utan förtyck."
@@ -194,7 +200,8 @@ const anarkismDescription = ({ player }: StateInterface) =>
 export const VetenskapspersonA: Room = function (args) {
   const { player } = args
   return {
-    text: "En bit in i berget kommer du in i ett laboratorium, En väggen har massa fula tavlor med orangea löv på sig och en annan har en whiteboardtavla med massa ekvationer, de andra har massa dragskåp och någravanliga skåp. Mitt i allt står en dvärgh med vilt långt skägg och hår.",
+    text:
+      "En bit in i berget kommer du in i ett laboratorium, En väggen har massa fula tavlor med orangea löv på sig och en annan har en whiteboardtavla med massa ekvationer, de andra har massa dragskåp och någravanliga skåp. Mitt i allt står en dvärgh med vilt långt skägg och hår.",
     choices: [
       {
         text: "Attackera dvärghen!",
@@ -215,7 +222,8 @@ export const VetenskapspersonA: Room = function (args) {
                     text: `${anarkismDescription(args)}\n\n`,
                     choices: [
                       {
-                        text: "Påpeka för dvärghen att du menade om kärnkraften... du har ju den heliga inte-graalen om ni behöver hjä...",
+                        text:
+                          "Påpeka för dvärghen att du menade om kärnkraften... du har ju den heliga inte-graalen om ni behöver hjä...",
                         onChoose: () => ({
                           room: Integrallösning,
                         }),
@@ -229,11 +237,13 @@ export const VetenskapspersonA: Room = function (args) {
         }),
       },
       {
-        text: "Skriv om inte-graalen så den kommer förstöra hela berget och försök att i smyg lägga inte-graalen på ett bord brevid dvärghen.",
+        text:
+          "Skriv om inte-graalen så den kommer förstöra hela berget och försök att i smyg lägga inte-graalen på ett bord brevid dvärghen.",
         onChoose: () =>
           player.attributes.includes("smyga")
             ? {
-                text: "Du lyckas lägga inte-graalen på bordet tack vare dina speciella förmågor. Du springer sedan ut ur berget samma väg du kom.",
+                text:
+                  "Du lyckas lägga inte-graalen på bordet tack vare dina speciella förmågor. Du springer sedan ut ur berget samma väg du kom.",
                 room: AbabouEnd,
               }
             : {
@@ -242,11 +252,13 @@ export const VetenskapspersonA: Room = function (args) {
               },
       },
       {
-        text: "Skriv om inte-graalen så den kommer förstöra hela berget och säg till dvärgen att du är där för att hjälpa och kan lösa alla dvärgharnas problem.",
+        text:
+          "Skriv om inte-graalen så den kommer förstöra hela berget och säg till dvärgen att du är där för att hjälpa och kan lösa alla dvärgharnas problem.",
         onChoose: () =>
           player.attributes.includes("lösa gåtor") || player.attributes.includes("tänka logiskt")
             ? {
-                text: "Du lyckas lura vetenskapspersonhen att din förändring av integralen är till det bättre, men när han böjer sig ned för att titta på den smiter du ut ur rummet och springer ut ut berget samma väg som du kom.",
+                text:
+                  "Du lyckas lura vetenskapspersonhen att din förändring av integralen är till det bättre, men när han böjer sig ned för att titta på den smiter du ut ur rummet och springer ut ut berget samma väg som du kom.",
                 room: AbabouEnd,
               }
             : {
@@ -262,7 +274,7 @@ export const VetenskapspersonA: Room = function (args) {
 
 export const VetenskapspersonB: Room = function (args) {
   const NuclearRoom: Room = () => ({
-    text: "[Slartibartfast] Integralen kan vara till hjälp för att utveckla kärnkraft åt oss dvärghar!",
+    text: "[Slartibartfast]: Integralen kan vara till hjälp för att utveckla kärnkraft åt oss dvärghar!",
     choices: [
       {
         text: "Kärnkraft? Nej tack!",
@@ -279,10 +291,12 @@ export const VetenskapspersonB: Room = function (args) {
   })
 
   return {
-    text: "Du kommer in i ett laboratorium, En väggen har massa fula tavlor med orangea löv på sig och en annan har en whiteboardtavla med massa ekvationer, de andra har massa dragskåp och någravanliga skåp. Mitt i allt står en dvärgh med vilt långt skägg och hår. Du presenterar dig, får veta att dvärghen heter Slartibartfast, och berättar sedan varför du är här...",
+    text:
+      "Du kommer in i ett laboratorium, En väggen har massa fula tavlor med orangea löv på sig och en annan har en whiteboardtavla med massa ekvationer, de andra har massa dragskåp och någravanliga skåp. Mitt i allt står en dvärgh med vilt långt skägg och hår. Du presenterar dig, får veta att dvärghen heter Slartibartfast, och berättar sedan varför du är här...",
     choices: [
       {
-        text: "Säg 'Amazonerna ha skickat mig för att döda er, men jag vill inte göra detta. Jag vill stoppa er miljöförstörelse med hjälp av den heliga inte-graalen.'",
+        text:
+          "Säg 'Amazonerna ha skickat mig för att döda er, men jag vill inte göra detta. Jag vill stoppa er miljöförstörelse med hjälp av den heliga inte-graalen.'",
         onChoose: () => ({ room: NuclearRoom }),
       },
       {

@@ -51,7 +51,8 @@ const BroMöbius: Room<State> = function (args) {
 
   if (state.stage == "introduction") {
     return {
-      text: "Du kommer fram till en kort men bred bro i tidig antik stil med höga marmorkolonner och statyer föreställande lättklädda mikroorganismer. Bron går över en djup och bred å med en stark ström. Det finns ingen levande varelse så långt du kan se och ingen annan väg över.",
+      text:
+        "Du kommer fram till en kort men bred bro i tidig antik stil med höga marmorkolonner och statyer föreställande lättklädda mikroorganismer. Bron går över en djup och bred å med en stark ström. Det finns ingen levande varelse så långt du kan se och ingen annan väg över.",
       choices: [
         {
           text: "Försök gå över bron.",
@@ -127,7 +128,8 @@ const BroMöbius: Room<State> = function (args) {
             }
           : {
               onChoose: () => ({
-                text: "[Amöban Möbius]: Ah, jag hör att du inser vilken episk krigare jag är. I så fall borde du också inse att du är chanslös. Det är bara att ge upp!",
+                text:
+                  "[Amöban Möbius]: Ah, jag hör att du inser vilken episk krigare jag är. I så fall borde du också inse att du är chanslös. Det är bara att ge upp!",
               }),
             }),
       },

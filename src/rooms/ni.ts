@@ -53,7 +53,8 @@ const Ni: Room<State> = function ({ player }) {
   const fleeChoice: Choice = {
     text: "Fly från sänkan.",
     onChoose: () => ({
-      text: "Du vänder om så snabbt du kan och rusar tillbaks genom dimman. Snart når du kanten på sänkan och klättrar tacksamt upp och går tillbaks in i träsket.",
+      text:
+        "Du vänder om så snabbt du kan och rusar tillbaks genom dimman. Snart når du kanten på sänkan och klättrar tacksamt upp och går tillbaks in i träsket.",
       room: Träsk,
     }),
   }
@@ -72,13 +73,15 @@ const Ni: Room<State> = function ({ player }) {
           if (player.attributes.includes("vara uthållig")) {
             state.emptyCamp = true
             return {
-              text: "Riddarna som säger Ni försöker bryta ned dig genom att ropa Ni upprepade gånger, men du är uthållig och står emot deras krafter. Till slut ger riddarna upp och flyr.",
+              text:
+                "Riddarna som säger Ni försöker bryta ned dig genom att ropa Ni upprepade gånger, men du är uthållig och står emot deras krafter. Till slut ger riddarna upp och flyr.",
             }
           }
 
           state.canFlee = false
           return {
-            text: "Riddarna som säger Ni börjar ropa Ni om och om igen och du känner att du inte är uthållig nog att stå emot deras krafter. Du faller ihop skakandes ihop på marken. Du är inte längre stark nog att fly därifrån.",
+            text:
+              "Riddarna som säger Ni börjar ropa Ni om och om igen och du känner att du inte är uthållig nog att stå emot deras krafter. Du faller ihop skakandes ihop på marken. Du är inte längre stark nog att fly därifrån.",
           }
         },
       },

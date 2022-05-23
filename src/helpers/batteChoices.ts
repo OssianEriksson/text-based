@@ -57,6 +57,18 @@ export function generatePlayerAttacks(
             }),
             onWin,
           },
+          {
+            text: `Använd baguetten för att slå ${state.opponentName}.`,
+            onChoose: () => {
+              const damage = args.player.attributes.includes("fajtas") ? 20 : 25
+              state.opponentHp -= damage
+              return {
+                text: `Du klubbar till ${state.opponentName} med baguetten och gör ${damage} hp skada!\n\n`,
+                counter: randomCounter(),
+              }
+            },
+            onWin,
+          },
         ]
       : []),
     {
@@ -96,9 +108,10 @@ export function generatePlayerAttacks(
           {
             text: `Hugg ${state.opponentName} med excalibur!`,
             onChoose: () => {
-              state.opponentHp -= 30
+              const damage = args.player.attributes.includes("fajtas") ? 30 : 35
+              state.opponentHp -= damage
               return {
-                text: "Du gör 30 hp skada!",
+                text: `Du gör ${damage} hp skada!`,
                 counter: randomCounter(),
               }
             },
@@ -111,9 +124,10 @@ export function generatePlayerAttacks(
           {
             text: `Peta på ${state.opponentName} med din pinne!`,
             onChoose: () => {
-              state.opponentHp -= 45
+              const damage = args.player.attributes.includes("fajtas") ? 40 : 45
+              state.opponentHp -= damage
               return {
-                text: "Pinnen gör 45 hp skada!",
+                text: `Pinnen gör ${damage} hp skada!`,
                 counter: randomCounter(),
               }
             },
@@ -151,7 +165,9 @@ export function generatePlayerAttacks(
           }
         } else {
           return {
-            text: `Du viftar så förföriskt du kan på ögonlocken, men ${state.opponentName} låter sig ändå inte luras.`,
+            text: `Du viftar så förföriskt du kan på ögonlocken, men ${state.opponentName} låter sig ändå inte luras${
+              hasAttribute ? ", trots att du annars brukar vara bra på förföring" : ""
+            }.`,
             counter: randomCounter(),
           }
         }

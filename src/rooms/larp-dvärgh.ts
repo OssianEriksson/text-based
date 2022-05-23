@@ -53,7 +53,8 @@ const LarpDvärgh: Room<State> = function ({ player }) {
   const state = this.state as State
 
   const regretRoom: Room = () => ({
-    text: "[Dvärgh]: En familjemdelem till mig, Slartibartfast, jobbar på ett stort vetensakpligt problem. Du kan prata med hen, det kan hjälpa oss dvärgar i kommande generationer!",
+    text:
+      "[Dvärgh]: En familjemdelem till mig, Slartibartfast, jobbar på ett stort vetensakpligt problem. Du kan prata med hen, det kan hjälpa oss dvärgar i kommande generationer!",
     choices: [
       {
         text: "Gå och prata med vetenskapspersonhen",
@@ -65,7 +66,8 @@ const LarpDvärgh: Room<State> = function ({ player }) {
   })
 
   const regretChoice: Choice = {
-    text: "Förlåt för att jag varit jobbig, finns det något jag kan göra för er? Jag insåg inte vilken sida jag stödde.",
+    text:
+      "Förlåt för att jag varit jobbig, finns det något jag kan göra för er? Jag insåg inte vilken sida jag stödde.",
     onChoose: () => ({ room: regretRoom }),
   }
 
@@ -74,17 +76,17 @@ const LarpDvärgh: Room<State> = function ({ player }) {
     return {
       text:
         "[Dvärgh]: Vi var en gång en del av ett stort land, som skulle rädda hela Lagomgård från magisk degeneration... men jag måste börja tidigare.\n\n" +
-        "[Dvärgh]: En man som då kallades Zhou Enlai, en obildad soldat tillhörande det förskräkliga orkiska riket. Han tvingades nämligen avbryta sin utbildning för att gå med i armen under det första alviska kriget (EW1) eftersom hans stamm, en av de flera människostammar som förtrycktes under det förfärliga riket, var så nära gränsen till svartalfernas förfallande rike.\n\n" +
-        "[Dvärgh]: Nåväl, han dödade många alver under kriget och visade sig vara den bästa generalen riket någonsin skådat, men han hade drömmar om något bättre. Du måste förstå att det reaktionära riket riskerade rejälkollaps redan riktigt tidigt under EW1 och riket hade inte ännu gått under tack vare Buruka... jag menar Enlai, han hade ju inte ännu bytt namn. Var var jag? Ja juste. Det var då, när han tillfälligt var i rikets huvudstad, NAMN, för att diskutera militärstrategi med de förfärliga fem, ledarna för riket, som han mötte en ork, den mest perfekta orken i vår historia, den enastående Khorloogiin Choibalsan. Hen, för Choibalsan tillhörde N-by:n, den störste men mest förtryckta av orkstammar, övertalade honom om vad som måste göras för att bli av med lidandet.\n\n" +
-        '[Dvärgh]: Tillbaka på fronten höll Enlai tal för sina trupper om hur staten borde ha mångfall, förlita sig på Choibalsans idéer och gå ifrån magi och till en mer upplyst tid. Men då han fokuserade på detta tog alverna ner mark, framförallt amasonerna, och han han fick problem med de fruktansvärda fem och fick fly med sina trupper då de fem skulle avsätta honom. Han skrev till sin vän Choibalsan, men nu med ett hemligt namn som han strupper givit honom, Burukaveel, ty hans vilja var starkare än stål. Choibalsan använde kollapsen på den västra fronten som argument för att de fruktansvärda fem hade misslyckats och efter mycket om och men, efter att vissa andra tagit till våld för att kopiera den falska "demokratin" som alverna förespråkade, där endast de som bodde som högst i trädtopparna hade makt och där magi hedrades över allt annat, även intelekt, lyckades hen använda Burukaveel och hans armé för att ta makten. De krossade de falska revolutionärerna och flera av dem flydde till alverna.\n\n' +
-        '[Dvärgh]: Inbördeskriget var långt och hårt, men tillslut vann vi och Burukaveel ledde sina trupper mot de invaderande alverna, han tog Beztown! Men när ett fredsavtal skrivits var Choibalsan redan död. Alverna ljuger när de säger att en ork dödade henom för att hen ville ha mer demokrati, nej vi vet alla att hen jobbade för Amasonerna, eller svartalverna, vem spelar ingen roll, för de anade inte vad som skulle ske. Burukaveel tvingades ta makten, alla andra som stod nära Choibalsan var för inkompetenta och några köpta av alver dessutom, han fick göar sig av med dem. Burukaveel var den bäste ledaren någonsin, Choibalsan kanske hade varit bättre om hen haft chansen att styra längre. Under Choibalsans begravning läser Burukaveel en dikt tillägnat henom och henoms liv. Inte mycket finns kvar av den, men vi vet nu från det vi funnit att Khorloogiin Choibalsan och var ett "falkst" namn, men vi har ingen aning om vad hens namn var vi födseln.\n\n' +
-        "[Dvärgh]: Burukaveel, solen av de förenade follkgruppernas stammar för vetenskaplig utveckling (FFSV) ledde oss till storhet och arbetade outtröttligt från dess han fick makten vid 23 års ålder tills dess att han blev mördad av amasonerna.\n\n" +
-        "[Dvärgh]: Den demokratin Burukaveel framförde var bättre än den alverna förutspråkade. Hen, jag menar han och hans allierade gav oss lagar och vi hade folkomröstning om allt, nästan alla deltog.\n\n" +
-        "[Dvärgh]: Men 50 år senare i sltet av det andra alviska kriget (EW2) lyckades alverna förgöra vår stat, det härliga FFSV, genom list. En ung man som låtsades tillhöra oss smög in och dödade den store Burukaveel i sin sömn. han ångrade den senare och dog för några år sedan. Det är hemskt. När vår ledare dött lyckades alverna ta hela Amasonen och flera stammar togsöver av magikerälskande svin och unionen kollapsade. I dessa områden skyller man fortfarande på Burukaveel för all misär, trotts att magin regerat lika lång tid som han regerade.\n\n" +
-        "[Dvärgh]: Enbart N-by höll kvar i vår anti-magiska ideologi, vi flydde hit till det ensammare berget. Många i vår stam hade forskat om dvärgarna och vi beslutade oss för att låtsas vara dvärgar. Men tillslut så insåg vi att vi var det på riktigt. Att vara en dvärgh är inte att avra enras, det är en kultur, vissa anser inte att vi ska ha yxor och hackor eller växa skägg. Dessa revisionärer vet inte vad de talar om. N-by är död, länge leve dvärgarna! Det var 60 år sedan FFSV:s fall, alla orker (kullturmässigt, inte etniskt) har gått över till magins sida, men om vi arbetar för ett mångkulturelt och icke-magskt samhälle så ska resten av världen bli till Khorloogiin-Burukaveelister! Länge leve FFSV!...\n\n" +
+        "[Dvärgh]: En man som då kallades Zhou Enlai, en obildad soldat tillhörande det förskräkliga orkiska riket. Han tvingades nämligen avbryta sin utbildning för att gå med i armén under det första alviska kriget (EW1) eftersom hans stam, en av de flera människostammar som förtrycktes under det förfärliga riket, var så nära gränsen till svartalvernas förfallande rike.\n\n" +
+        "[Dvärgh]: Nåväl, han dödade många alver under kriget och visade sig vara den bästa generalen riket någonsin skådat, men han hade drömmar om något bättre. Du måste förstå att det reaktionära riket riskerade totalkollaps redan riktigt tidigt under EW1 och riket hade inte ännu gått under tack vare Buruka... jag menar Enlai, han hade ju inte ännu bytt namn. Var var jag? Ja juste. Det var då, när han tillfälligt var i rikets huvudstad, Largashbur, för att diskutera militärstrategier med de förfärliga fem, ledarna för riket, som han mötte en ork, den mest perfekta orken i vår historia, den enastående Khorloogiin Choibalsan. Hen, för Choibalsan tillhörde N-by:n, den största men mest förtryckta av orkstammar, övertalade honom om vad som måste göras för att bli av med lidandet.\n\n" +
+        '[Dvärgh]: Tillbaka på fronten höll Enlai tal för sina trupper om hur staten borde ha mångfald, förlita sig på Choibalsans idéer och gå ifrån magi och till en mer upplyst tid. Men då han fokuserade på detta tog alverna mer mark, framförallt från amazonerna, och han han fick problem med de fruktansvärda fem och fick fly med sina trupper då de fem skulle avsätta honom. Han skrev till sin vän Choibalsan, men nu under ett hemligt namn som hans trupper givit honom, Burukaveel, ty hans vilja var starkare än stål. Choibalsan använde kollapsen på den västra fronten som argument för att de fruktansvärda fem hade misslyckats och efter mycket om och men, efter att vissa andra tagit till våld för att kopiera den falska "demokratin" som alverna förespråkade, där endast de som bodde som högst i trädtopparna hade makt och där magi hedrades över allt annat, även intellekt, lyckades hen använda Burukaveel och hans armé för att ta makten. De krossade de falska revolutionärerna och flera av dem flydde till alverna.\n\n' +
+        '[Dvärgh]: Inbördeskriget var långt och hårt, men till slut vann vi och Burukaveel ledde sina trupper mot de invaderande alverna, han tog Beztown! Men när ett fredsavtal skrivits var Choibalsan redan död. Alverna ljuger när de säger att en ork dödade henom för att hen ville ha mer demokrati, nej vi vet alla att hen jobbade för amazonerna, eller svartalverna, vem spelar ingen roll, för de anade inte vad som skulle ske. Burukaveel tvingades ta makten, alla andra som stod nära Choibalsan var för inkompetenta och några köpta av alver dessutom, han fick göra sig av med dem. Burukaveel var den bäste ledaren någonsin, Choibalsan kanske hade varit bättre om hen haft chansen att styra längre. Under Choibalsans begravning läser Burukaveel en dikt tillägnat henom och henoms liv. Inte mycket finns kvar av den, men vi vet nu från det vi funnit att Khorloogiin Choibalsan också var ett "falskt" namn, men vi har ingen aning om vad hens namn var vi födseln.\n\n' +
+        "[Dvärgh]: Burukaveel, solen av de förenade folkgruppernas stammar för vetenskaplig utveckling (FFSV) ledde oss till storhet och arbetade outtröttligt från dess han fick makten vid 23 års ålder tills dess att han blev mördad av amazonerna.\n\n" +
+        "[Dvärgh]: Den demokratin Burukaveel framförde var bättre än den alverna förspråkade. Hen, jag menar han och hans allierade gav oss lagar och vi hade folkomröstning om allt, nästan alla deltog.\n\n" +
+        "[Dvärgh]: Men 50 år senare i slutet av det andra alviska kriget (EW2) lyckades alverna förgöra vår stat, det härliga FFSV, genom list. En ung man som låtsades tillhöra oss smög in och dödade den store Burukaveel i sin sömn. Han ångrade sig senare och dog för några år sedan. Det är hemskt. När vår ledare dött lyckades alverna ta hela amazonas och flera stammar togs över av magikerälskande svin och unionen kollapsade. I dessa områden skyller man fortfarande på Burukaveel för all misär, trotts att magin regerat lika lång tid som han regerade.\n\n" +
+        "[Dvärgh]: Enbart N-by höll kvar i vår anti-magiska ideologi, vi flydde hit till det ensammare berget. Många i vår stam hade forskat om dvärgarna och vi beslutade oss för att låtsas vara dvärgar. Men till slut insåg vi att vi var dvärghar på riktigt. Att vara en dvärgh är inte att vara en ras, det är en kultur, vissa anser inte att vi ska ha yxor och hackor eller växa skägg. Dessa revisionärer vet inte vad de talar om. N-by är död, länge leve dvärgarna! Det var 60 år sedan FFSV:s fall, alla orker (kulturmässigt, inte etniskt) har gått över till magins sida, men om vi arbetar för ett mångkulturellt och icke-magskt samhälle så ska resten av världen bli till Khorloogiin-Burukaveelister! Länge leve FFSV!...\n\n" +
         "[Dvärgh]: Det värsta med FFSV:s fall är att de originella dvärgarna dödades av alverna, vi vet inte allt som vi borde veta om dem på grund av detta, de var också icke-binära, och troligtvis kortare, men det kanske var att de inte hade nog med mat... Vi kan inte deras språk och vet enbart lite av deras kultur, vilken vi nu använder själva. Vår historia är en sorglig en, men ändå bra, vi har fått smaka på storhet och kommer få det igen. Dock om du vill veta mer får du ta och läsa en bok.\n\n" +
-        "Du säger att du förstår, att det dvärghen berättar är hemskt och att den där Burukaveel verkar ha vart riktigt bra. Du uttrycker att du borde ägna hela mitt liv för att försvarar honom mot all kritik, speciellt på nätet!\n\n" +
-        "Dvärghen blir skiner upp när du sympatiserar med hen, och säger att det finns någonting du kan göra för att hjälpa.",
+        "Du säger att du förstår, att det dvärghen berättar är hemskt och att den där Burukaveel verkar ha vart riktigt bra. Du uttrycker att du borde ägna hela ditt liv åt att försvara Burukaveel mot all kritik, speciellt på nätet!\n\n" +
+        "Dvärghen skiner upp när du sympatiserar med hen, och säger att det finns någonting du kan göra för att hjälpa.",
       room: regretRoom,
     }
   }
@@ -114,7 +116,8 @@ const LarpDvärgh: Room<State> = function ({ player }) {
               {
                 text: "Svara 'Jag är döden, och du är mitt offer.'",
                 onChoose: () => ({
-                  text: "[Dvärgh]: Jag har inte dig något gjort din magikerälskare. Eran tyrani har skadat orker i evigheter, nu kommer ni och anfaller oss också!",
+                  text:
+                    "[Dvärgh]: Jag har inte dig något gjort din magikerälskare. Eran tyrani har skadat orker i evigheter, nu kommer ni och anfaller oss också!",
                   room: () => ({
                     choices: [
                       {
@@ -127,13 +130,15 @@ const LarpDvärgh: Room<State> = function ({ player }) {
                         text: "Svara 'Vad menar du med att vi har anfallit orker?'",
                         onChoose: () => ({
                           room: () => ({
-                            text: "[Dvärgh]: Vi är dvärgar, men våra syskon i den stora öknen blir konstant anfallna av magikerälskare som dig.",
+                            text:
+                              "[Dvärgh]: Vi är dvärgar, men våra syskon i den stora öknen blir konstant anfallna av magikerälskare som dig.",
                             choices: [
                               {
                                 text: "Svara 'Vadå syskon, sen när är orker släkt med dvärgar?'",
                                 onChoose: () => ({
                                   room: () => ({
-                                    text: "[Dvärgh]: Vi är orker rasmässigt, men vi är dvärgar kulturmässigt, allt har att göra med den store Burukaveel.",
+                                    text:
+                                      "[Dvärgh]: Vi är orker rasmässigt, men vi är dvärgar kulturmässigt, allt har att göra med den store Burukaveel.",
                                     choices: [
                                       {
                                         text: "Svara 'Ni är orker? Eww...' och gå till attack!",
@@ -152,13 +157,16 @@ const LarpDvärgh: Room<State> = function ({ player }) {
                                 text: "Svara 'Vadå magiker, jag är ingen magiker?'",
                                 onChoose: () => ({
                                   room: () => ({
-                                    text: "[Dvärgh, sarkastiskt]: Aha, förlåt för förolämpningen, min bästa person, men vad har du annars här att göra?",
+                                    text:
+                                      "[Dvärgh, sarkastiskt]: Aha, förlåt för förolämpningen, min bästa person, men vad har du annars här att göra?",
                                     choices: [
                                       {
-                                        text: "Ni skövlar skog från Amazonerna, och förstör världen, jag måste ta hand om er.",
+                                        text:
+                                          "Ni skövlar skog från Amazonerna, och förstör världen, jag måste ta hand om er.",
                                         onChoose: () => ({
                                           room: () => ({
-                                            text: "[Dvärgh]: Och det ger dig rätt att bara gå in hit och göra vad du än tänkt göra? Vi gör vad vi måste för att överleva utan magi och med vetenskap.",
+                                            text:
+                                              "[Dvärgh]: Och det ger dig rätt att bara gå in hit och göra vad du än tänkt göra? Vi gör vad vi måste för att överleva utan magi och med vetenskap.",
                                             choices: [regretChoice],
                                           }),
                                         }),
@@ -208,7 +216,8 @@ const LarpDvärgh: Room<State> = function ({ player }) {
         onChoose: () =>
           player.attributes.includes("tänka logiskt")
             ? {
-                text: "Tack vare din förmåga att tänka logiskt lyckas du inse att du inte kan förföra dvärghen. Du inser istället dvärghens verkliga svaghet och ropar därför åt hen att hen ska komma och hjälpa dig med din Warhammer-karaktär och dvärghen svarar omdelbart på dina rop efter hjälp, du tror att det var eftersom du lade till att du inte lyckat måla din Warhammer karaktärer rätt. När hen springer iväg för att hjälpa dig går du lungt in genom dörren.",
+                text:
+                  "Tack vare din förmåga att tänka logiskt lyckas du inse att du inte kan förföra dvärghen. Du inser istället dvärghens verkliga svaghet och ropar därför åt hen att hen ska komma och hjälpa dig med din Warhammer-karaktär och dvärghen svarar omdelbart på dina rop efter hjälp, du tror att det var eftersom du lade till att du inte lyckat måla din Warhammer karaktärer rätt. När hen springer iväg för att hjälpa dig går du lungt in genom dörren.",
                 room: LarpDvärghBattle,
               }
             : {
@@ -242,7 +251,8 @@ const LarpDvärgh: Room<State> = function ({ player }) {
                 room: LarpDvärghBattle,
               }
             : {
-                text: "Du lyckades med dina smygförmågor sno hackan och du gör en tunnel med den och behöver inte bli upptäkt genom att använda dörren!",
+                text:
+                  "Du lyckades med dina smygförmågor sno hackan och du gör en tunnel med den och behöver inte bli upptäkt genom att använda dörren!",
                 room: VetenskapspersonA,
               },
       },

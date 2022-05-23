@@ -72,7 +72,8 @@ const AbabouFajt: Room<AbabouBattleState> = function (args) {
               if (args.player.character == "rippad") {
                 args.player.hp -= 5
                 return {
-                  text: "Ababou börjar rita förvirrande grafer med sin trollstav, men du bryr dig inte om sådant trams och tar bara 5 hp skada.",
+                  text:
+                    "Ababou börjar rita förvirrande grafer med sin trollstav, men du bryr dig inte om sådant trams och tar bara 5 hp skada.",
                 }
               }
 

@@ -116,7 +116,7 @@ const Beztown: Room<State> = function ({ player }) {
                     return {
                       text:
                         "Du knackar på trädet. I början händer ingenting men efter ett tag öppnas en liten lucka och en person tittar ut.\n\n" +
-                        "[Gåtfrid den Gåtfulle] Gådag, jag är den gåtfulle gåtfrid. Åm du i detta träd vill kåmma upp måste du svara på min gåtfulla gåta. Sådeså! Jag frågar då dig: Vad är likheten mellan ångår från mat åch en långsträckt höjd?",
+                        "[Gåtfrid den Gåtfulle]: Gådag, jag är den gåtfulle gåtfrid. Åm du i detta träd vill kåmma upp måste du svara på min gåtfulla gåta. Sådeså! Jag frågar då dig: Vad är likheten mellan ångår från mat åch en långsträckt höjd?",
                     }
                   },
                 },
@@ -137,7 +137,8 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Svara: 'Det är trivialt!'",
                   onChoose: () => {
                     return {
-                      text: "[Gåtfrid den Gåtfulle] För mig ja, men inte för dig. Försök igen, eller är du för kårkad?",
+                      text:
+                        "[Gåtfrid den Gåtfulle]: För mig ja, men inte för dig. Försök igen, eller är du för kårkad?",
                     }
                   },
                 },
@@ -146,7 +147,7 @@ const Beztown: Room<State> = function ({ player }) {
                   onChoose: () => {
                     return {
                       text:
-                        "[Gåtfrid den Gåtfulle] Eh, nej. Inget av dem går att äta. Försök igen, eller är du för kårkad?",
+                        "[Gåtfrid den Gåtfulle]: Eh, nej. Inget av dem går att äta. Försök igen, eller är du för kårkad?",
                     }
                   },
                 },
@@ -154,7 +155,7 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Svara: 'Mat ångor är typ moln, höjder är nära moln, där har vi det!'",
                   onChoose: () => {
                     return {
-                      text: "[Gåtfrid den Gåtfulle] Bra gissning, men fel. Försök igen, eller är du för kårkad?",
+                      text: "[Gåtfrid den Gåtfulle]: Bra gissning, men fel. Försök igen, eller är du för kårkad?",
                     }
                   },
                 },
@@ -164,7 +165,7 @@ const Beztown: Room<State> = function ({ player }) {
                     state.riddleTime = false
                     return {
                       text:
-                        "[Gåtfrid den Gåtfulle] Rätt svar! Likheten är att bägge heter ås! Varsågåd, vällkåmen till Beztåwn.\n\n" +
+                        "[Gåtfrid den Gåtfulle]: Rätt svar! Likheten är att bägge heter ås! Varsågåd, vällkåmen till Beztåwn.\n\n" +
                         "En stege kommer ner från trädets topp.",
                     }
                   },
@@ -193,7 +194,7 @@ const Beztown: Room<State> = function ({ player }) {
       }
       return {
         text: firstStageVisit
-          ? "Väl uppe i Beztown blir du slagen av hur vacker staden är och tar 5 hp skada. Överallt går amazoner med kartonglådor och du känner att du mest står i vägen. Ingenstans ser du Ababau och amazonerna är för upptagna för att prata med dig. Vad gör du?"
+          ? "Väl uppe i Beztown blir du slagen av hur vacker staden är och tar 5 hp skada. Överallt går amazoner med kartonglådor och du känner att du mest står i vägen. Ingenstans ser du Ababou och amazonerna är för upptagna för att prata med dig. Vad gör du?"
           : "Vad gör du?",
 
         choices: [
@@ -206,8 +207,8 @@ const Beztown: Room<State> = function ({ player }) {
                       state.openedBox = true
                       return {
                         text:
-                          "Du begår det förskräckliga brottet att öppna en låda som inte är addresserad till dig! Och vad hittar du däri måntro? En ödla? En dödskalle? En integral? Nej, det är ingen mindre än Ababau den ändlige!\n\n" +
-                          "[Ababau den ändlige] Ah! Där är du ju, jag har väntat dig. Jag har spenderat tiden med att undersöka situationen och det visar sig att Lagomgård är i ännu större fara en jag trodde! Men mer om det senare, nu måste du leverera mig till skogsmästaren Beazos, hon är en kraftfull allierad.",
+                          "Du begår det förskräckliga brottet att öppna en låda som inte är addresserad till dig! Och vad hittar du däri måntro? En ödla? En dödskalle? En integral? Nej, det är ingen mindre än Ababou den ändlige!\n\n" +
+                          "[Ababou den ändlige]: Ah! Där är du ju, jag har väntat dig. Jag har spenderat tiden med att undersöka situationen och det visar sig att Lagomgård är i ännu större fara en jag trodde! Men mer om det senare, nu måste du leverera mig till skogsmästaren Beazos, hon är en kraftfull allierad.",
                       }
                     },
                   },
@@ -229,7 +230,7 @@ const Beztown: Room<State> = function ({ player }) {
           ...(state.openedBox
             ? [
                 {
-                  text: "Följ Ababaus anvisningar till Beazos.",
+                  text: "Följ Ababous anvisningar till Beazos.",
                   onChoose: () => {
                     state.firstStageVisit = true
                     state.stage = "box maze"
@@ -243,10 +244,10 @@ const Beztown: Room<State> = function ({ player }) {
                   onChoose: () => {
                     return {
                       text:
-                        "[Ababou den ändlige] Du förstår Amazonernas samhälle är ett högst decentraliserat sådant, det är så stort att de måste ha flera steg mellan deras högsta råd och de representanter som väljs lokalt. Skogen är uppdelad i biomer, bimoerna i dungor, dunorna i träd och träden i grenar.\n\n" +
-                        "[Ababou den ändlige] Varje gren som är stor nog väljer ett Grenråd som väljer en Talkvinna och en Grenmästare. Rådet väljer senare bort några från sitt eget råd till nästa råd, det vill säga till Trädrådet. Trädrådet väljer en Talkvinna och en trädmästare, och naturligtvis väljer de även några från sitt råd att representera dem i Dungrådet. Dungrådet fungerar likadant och och har en Dungmästare. Biområdet fungerar lite annorlunda i det att de också väljer en representant var till Mångfaldskogsrådet. Mångfaldskogsrådet är idag oviktigt. Men förr användes det för att avgöra svåra beslut i det högsta rådet och var viktigt för att Amazoner i olika biomer inte blev dåligt behandlade på grund av att de tillhörde en mindre biom, som förstås har mindre represenatation i det högsta rådet då de har lägre befolkningsmängd.\n\n" +
-                        "[Ababou den ändlige] Mångfaldskogsrådet har ingen mästare och ingen talkvinna, anledninegn till detta är för att ingen biom skall ses som högre än någon annan (även om det i praktiken finns biomer som ses som bättre än andra) och för att den nordligaste biomen ville att Talkvinnan skulle kallas Tallkvinna som de görs i deras Biområd, Dungråd, Trädråd och Grenråd. Bimoråden väljer hur som helst sina represenatanter till det högsta rådet, Skogsrå't som väljer ens Skogmästare, men ingen Talkvinna, på grund av samma anledning som Mångfaldskogsrådet inte har någon.\n\n" +
-                        "[Ababou den ändlige] Skogmästaren Beazos har bra koll på vad som behöver göras för att stoppa miljöförstörelsen som drabbat skogen, även om Skogsrå't är långsamma på att inse det, så många är från biom som det inte påverkar, men Beazos växte upp här i Beztown och fick genomlida Burukaveels förskräliga styre när hon var ett barn, hon kommer att hjälpa oss att rädda Lagomgård.",
+                        "[Ababou den ändlige]: Du förstår Amazonernas samhälle är ett högst decentraliserat sådant, det är så stort att de måste ha flera steg mellan deras högsta råd och de representanter som väljs lokalt. Skogen är uppdelad i biomer, bimoerna i dungor, dunorna i träd och träden i grenar.\n\n" +
+                        "[Ababou den ändlige]: Varje gren som är stor nog väljer ett Grenråd som väljer en Talkvinna och en Grenmästare. Rådet väljer senare bort några från sitt eget råd till nästa råd, det vill säga till Trädrådet. Trädrådet väljer en Talkvinna och en trädmästare, och naturligtvis väljer de även några från sitt råd att representera dem i Dungrådet. Dungrådet fungerar likadant och och har en Dungmästare. Biområdet fungerar lite annorlunda i det att de också väljer en representant var till Mångfaldskogsrådet. Mångfaldskogsrådet är idag oviktigt. Men förr användes det för att avgöra svåra beslut i det högsta rådet och var viktigt för att Amazoner i olika biomer inte blev dåligt behandlade på grund av att de tillhörde en mindre biom, som förstås har mindre represenatation i det högsta rådet då de har lägre befolkningsmängd.\n\n" +
+                        "[Ababou den ändlige]: Mångfaldskogsrådet har ingen mästare och ingen talkvinna, anledninegn till detta är för att ingen biom skall ses som högre än någon annan (även om det i praktiken finns biomer som ses som bättre än andra) och för att den nordligaste biomen ville att Talkvinnan skulle kallas Tallkvinna som de görs i deras Biområd, Dungråd, Trädråd och Grenråd. Bimoråden väljer hur som helst sina represenatanter till det högsta rådet, Skogsrå't som väljer ens Skogmästare, men ingen Talkvinna, på grund av samma anledning som Mångfaldskogsrådet inte har någon.\n\n" +
+                        "[Ababou den ändlige]: Skogmästaren Beazos har bra koll på vad som behöver göras för att stoppa miljöförstörelsen som drabbat skogen, även om Skogsrå't är långsamma på att inse det, så många är från biom som det inte påverkar, men Beazos växte upp här i Beztown och fick genomlida Burukaveels förskräliga styre när hon var ett barn, hon kommer att hjälpa oss att rädda Lagomgård.",
                     }
                   },
                 },
@@ -332,8 +333,8 @@ const Beztown: Room<State> = function ({ player }) {
                       state.foundHouse = true
                       return {
                         text:
-                          "Med hjälp av stegen från Holt lyckas du klättra upp till toppen av tornet. Högst upp har du en utmärkt vy över hela trädet. Du njuter i stillsamhet över den underbart vackra utsikten, när Ababau plötsligt dyker upp ur din låda!\n\n" +
-                          "[Ababau den ändlige]: Där! Vi ska till det episkt estetiska huset där borta! Där väntar oss en kraftfull allierad. Seså, snabba ryck!\n\n" +
+                          "Med hjälp av stegen från Holt lyckas du klättra upp till toppen av tornet. Högst upp har du en utmärkt vy över hela trädet. Du njuter i stillsamhet över den underbart vackra utsikten, när Ababou plötsligt dyker upp ur din låda!\n\n" +
+                          "[Ababou den ändlige]: Där! Vi ska till det episkt estetiska huset där borta! Där väntar oss en kraftfull allierad. Seså, snabba ryck!\n\n" +
                           "Du har nu fått din destination!",
                       }
                     } else {
@@ -414,7 +415,7 @@ const Beztown: Room<State> = function ({ player }) {
                     state.stage = "residens"
                     return {
                       text:
-                        "Med ditt lokalsinne återfått beger du dig mot det episka huset som Ababau pekade ut. Äntligen lyckas du lämna virrvarret av lådbärande amazoner!",
+                        "Med ditt lokalsinne återfått beger du dig mot det episka huset som Ababou pekade ut. Äntligen lyckas du lämna virrvarret av lådbärande amazoner!",
                     }
                   },
                 },
@@ -494,7 +495,7 @@ const Beztown: Room<State> = function ({ player }) {
     case "beazos":
       return {
         text:
-          "[Skogmästare Beazos] Ha! Skogmästaren Beazos är jag! Vad hit dig för, du människa som sorgligt oepisk är?",
+          "[Skogmästare Beazos]: Ha! Skogmästaren Beazos är jag! Vad hit dig för, du människa som sorgligt oepisk är?",
 
         choices: [
           {
@@ -502,10 +503,10 @@ const Beztown: Room<State> = function ({ player }) {
             onChoose: () => {
               return {
                 text:
-                  "Du börjar förklara din situation, men blir snabbt avbruten av Ababau som hoppar fram ur din låda och tar över!\n\n" +
-                  "[Ababau den ändlige] Var hälsad Skogmästare Beazos, jag har kommit med en episk hjälte för att rädda Amazonas från den mörke herrens efterträdare, när hjälten har funnit den heliga inte-graalen skall denne använda inte-graalen för att förgöra det ensammare berget.\n\n" +
-                  "[Skogmästare Beazos] Burukaveels efterträdare dödas skall, du hjälte med min välsignelse för att utrota dvärgharna gå.\n\n" +
-                  "[Ababau den ändlige] Jag skickar nu dig ut ur skogen, när du funnit inte-graalen ta den då till dvärgharnas laboratorium så att den får som störst sprängkraft.\n\n" +
+                  "Du börjar förklara din situation, men blir snabbt avbruten av Ababou som hoppar fram ur din låda och tar över!\n\n" +
+                  "[Ababou den ändlige]: Var hälsad Skogmästare Beazos, jag har kommit med en episk hjälte för att rädda Amazonas från den mörke herrens efterträdare, när hjälten har funnit den heliga inte-graalen skall denne använda inte-graalen för att förgöra det ensammare berget.\n\n" +
+                  "[Skogmästare Beazos]: Burukaveels efterträdare dödas skall, du hjälte med min välsignelse för att utrota dvärgharna gå.\n\n" +
+                  "[Ababou den ändlige]: Jag skickar nu dig ut ur skogen, när du funnit inte-graalen ta den då till dvärgharnas laboratorium så att den får som störst sprängkraft.\n\n" +
                   "Du känner hur du börjar lösas upp i en vaniljdoftande ånga. Plötsligt materialiseras du i ett träsk med Beztown bakom dig.\n\n" +
                   "Grattis, du är äntligen ute ur skogen!",
                 room: Träsk,
@@ -545,8 +546,8 @@ const Beztown: Room<State> = function ({ player }) {
       return {
         text: firstStageVisit
           ? "Imponerad av Beazos läskigt starka episkhet ber du henne att lära dig alla sina hemligheter.\n\n" +
-            "[Skogmästare Beazos] Ha! Lära dig att episk vara du vill? Välnå, imponerad är jag din fråga så plötslig över! Men lätt det inte blir, dig säga jag må! Att det epsika förstå ligger utmaningen i! Jag säga, lyssna noga nu du! Sju åtta minus gånger plus fem minus 9, vad det blir?"
-          : "[Skogmästare Beazos] Sju åtta minus gånger plus fem minus 9, vad det blir?",
+            "[Skogmästare Beazos]: Ha! Lära dig att episk vara du vill? Välnå, imponerad är jag din fråga så plötslig över! Men lätt det inte blir, dig säga jag må! Att det epsika förstå ligger utmaningen i! Jag säga, lyssna noga nu du! Sju åtta minus gånger plus fem minus 9, vad det blir?"
+          : "[Skogmästare Beazos]: Sju åtta minus gånger plus fem minus 9, vad det blir?",
 
         choices: [
           {
@@ -577,7 +578,7 @@ const Beztown: Room<State> = function ({ player }) {
               state.stage = "beazos"
               return {
                 text:
-                  "[Beazos] Rätt det helt är! Märktut! Mig du inte besviken gör! Du jag allt jag kan lära ska! Lyssna ihåg kom och!\n\n" +
+                  "[Beazos]: Rätt det helt är! Märktut! Mig du inte besviken gör! Du jag allt jag kan lära ska! Lyssna ihåg kom och!\n\n" +
                   "Beazos lär dig allt om att vara episk!",
               }
             },

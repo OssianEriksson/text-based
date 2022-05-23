@@ -32,7 +32,7 @@ const SkogStart: Room<State> = function ({ player }) {
           text: "Varför krattar du?",
           onChoose: () => {
             state.dialogueKratta.shift()
-            return { text: "[Kristin den Krattande] Det är min plikt som Amazon!" }
+            return { text: "[Kristin den Krattande]: Det är min plikt som Amazon!" }
           },
         },
 
@@ -40,7 +40,7 @@ const SkogStart: Room<State> = function ({ player }) {
           text: "Men, du krattar ju inte någonting, vad är poängen?",
           onChoose: () => {
             state.dialogueKratta.shift()
-            return { text: "[Kristin den Krattande] Det är min plikt som Amazon!" }
+            return { text: "[Kristin den Krattande]: Det är min plikt som Amazon!" }
           },
         },
 
@@ -48,7 +48,7 @@ const SkogStart: Room<State> = function ({ player }) {
           text: "Fast, om du slutade kratta skulle det ju inte göra någon skillnad alls. Så jag förstår inte varför...",
           onChoose: () => {
             state.dialogueKratta.shift()
-            return { text: "[Kristin den Krattande] Det är min plikt som Amazon!" }
+            return { text: "[Kristin den Krattande]: Det är min plikt som Amazon!" }
           },
         },
 
@@ -56,7 +56,7 @@ const SkogStart: Room<State> = function ({ player }) {
           text: "Kan jag få din kratta!?",
           onChoose: () => {
             state.demandKratta = true
-            return { text: "[Kristin den Krattande] Nej." }
+            return { text: "[Kristin den Krattande]: Nej." }
           },
         },
       ],
@@ -74,7 +74,7 @@ const SkogStart: Room<State> = function ({ player }) {
                   "[Kristin den Krattande] Åh, sicken uthållighet, sicken teknik. Du är verkligen en äkta krattare. Varsågod, jag överlämnar 'Räfs' den legendariska krattan till dig. Med räfs kan du kratta vad som helst.",
               }
             } else {
-              return { text: "[Kristin den Krattande] Ha! Det där biter inte på mig. Du är inte värdig denna kratta" }
+              return { text: "[Kristin den Krattande]: Ha! Det där biter inte på mig. Du är inte värdig denna kratta" }
             }
           },
         },
@@ -89,7 +89,7 @@ const SkogStart: Room<State> = function ({ player }) {
                   "[Kristin den Krattande] Åh, jag hör att du insett krattningens gåtfulla natur. Du är verkligen en äkta krattare. Varsågod, jag överlämnar 'Räfs' den legendariska krattan till dig. Med räfs kan du kratta vad som helst.",
               }
             } else {
-              return { text: "[Kristin den Krattande] Ha! Det där biter inte på mig. Du är inte värdig denna kratta" }
+              return { text: "[Kristin den Krattande]: Ha! Det där biter inte på mig. Du är inte värdig denna kratta" }
             }
           },
         },
@@ -104,7 +104,7 @@ const SkogStart: Room<State> = function ({ player }) {
                   "[Kristin den Krattande] Åh, bara någon som bemästrat tunnlingens ädla konst kan använda krattan till dess fulla potential. Du är verkligen en äkta krattare. Varsågod, jag överlämnar 'Räfs' den legendariska krattan till dig. Med räfs kan du kratta vad som helst.",
               }
             } else {
-              return { text: "[Kristin den Krattande] Ha! Det där biter inte på mig. Du är inte värdig denna kratta" }
+              return { text: "[Kristin den Krattande]: Ha! Det där biter inte på mig. Du är inte värdig denna kratta" }
             }
           },
         },
@@ -131,7 +131,8 @@ const SkogStart: Room<State> = function ({ player }) {
           onChoose: () => {
             state.dialogueBeztown.shift()
             return {
-              text: "[Kristin den Krattande] Ah, om du letar efter Beztown måste du vara hjälten som är sänd för att rädda Lagomgård! Så underbart att du kom, nu är Lagomgård onekligen räddat!",
+              text:
+                "[Kristin den Krattande]: Ah, om du letar efter Beztown måste du vara hjälten som är sänd för att rädda Lagomgård! Så underbart att du kom, nu är Lagomgård onekligen räddat!",
             }
           },
         },
@@ -141,7 +142,8 @@ const SkogStart: Room<State> = function ({ player }) {
           onChoose: () => {
             state.dialogueBeztown.shift()
             return {
-              text: "[Kristin den Krattande] Ah, Beztown, det är Amazonrikets huvudträd. Om du går dit kommer du förstummas av den magnifika arkitekturen och invånarnas stiliga reflexvästar!",
+              text:
+                "[Kristin den Krattande]: Ah, Beztown, det är Amazonrikets huvudträd. Om du går dit kommer du förstummas av den magnifika arkitekturen och invånarnas stiliga reflexvästar!",
             }
           },
         },
@@ -150,7 +152,7 @@ const SkogStart: Room<State> = function ({ player }) {
           text: "Okej, det låter ju fint, men var ligger det?",
           onChoose: () => {
             state.dialogueBeztown.shift()
-            return { text: "[Kristin den Krattande] Var ligger vad?" }
+            return { text: "[Kristin den Krattande]: Var ligger vad?" }
           },
         },
 
@@ -159,7 +161,8 @@ const SkogStart: Room<State> = function ({ player }) {
           onChoose: () => {
             state.dialogueBeztown.shift()
             return {
-              text: "[Kristin den Krattande] Wow, ta det lugnt, du behöver inte skrika. Vad är det du undrar om den ärorika staden Beztown?",
+              text:
+                "[Kristin den Krattande]: Wow, ta det lugnt, du behöver inte skrika. Vad är det du undrar om den ärorika staden Beztown?",
             }
           },
         },
@@ -169,7 +172,8 @@ const SkogStart: Room<State> = function ({ player }) {
           onChoose: () => {
             state.dialogueBeztown.shift()
             return {
-              text: "[Kristin den Krattande] Jaha, varför sa du inte det från början? Det är ju enkelt! Okej, lyssna noga nu. Beztown ligger i utkanten av skogen.",
+              text:
+                "[Kristin den Krattande]: Jaha, varför sa du inte det från början? Det är ju enkelt! Okej, lyssna noga nu. Beztown ligger i utkanten av skogen.",
             }
           },
         },
@@ -179,7 +183,8 @@ const SkogStart: Room<State> = function ({ player }) {
           onChoose: () => {
             state.dialogueBeztown.reverse()
             return {
-              text: "[Kristin den Krattande] Vad är det för dum fråga? Gå bara rakt i godtycklig riktning så kommer du till någon kant.",
+              text:
+                "[Kristin den Krattande]: Vad är det för dum fråga? Gå bara rakt i godtycklig riktning så kommer du till någon kant.",
             }
           },
         },
@@ -188,7 +193,7 @@ const SkogStart: Room<State> = function ({ player }) {
           text: "Men var ligger Beztown?",
           onChoose: () => {
             state.dialogueBeztown.reverse()
-            return { text: "[Kristin den Krattande] Jag sa ju det, Beztown ligger i utkanten av skogen" }
+            return { text: "[Kristin den Krattande]: Jag sa ju det, Beztown ligger i utkanten av skogen" }
           },
         },
       ],
@@ -203,9 +208,9 @@ const SkogStart: Room<State> = function ({ player }) {
     if (state.isFirstText) {
       state.isFirstText = false
       text =
-        "Efter den omtumlande resan vaknar du upp i en skog. Du känner inte igen din omgivning och ser dig omkring efter Ababau.\n\n" +
-        "[Ababau den ändlige]: Med hjälp av min magnificilienta magi har jag förflyttat dig till landet Lagomgård som står på randen till undergång. Det första du måste göra är att ta dig till staden Beztown. Jag skulle kunna leda dig dit, men jag har ett superviktigt ärende att uträtta, så ses där.\n\n" +
-        "Ababau försvinner i ett moln av chokladdoftande ånga. Du står ensam kvar i skogen utan någon aning om vilket håll du ska gå åt. Vad gör du?"
+        "Efter den omtumlande resan vaknar du upp i en skog. Du känner inte igen din omgivning och ser dig omkring efter Ababou.\n\n" +
+        "[Ababou den ändlige]: Med hjälp av min magnificilienta magi har jag förflyttat dig till landet Lagomgård som står på randen till undergång. Det första du måste göra är att ta dig till staden Beztown. Jag skulle kunna leda dig dit, men jag har ett superviktigt ärende att uträtta, så ses där.\n\n" +
+        "Ababou försvinner i ett moln av chokladdoftande ånga. Du står ensam kvar i skogen utan någon aning om vilket håll du ska gå åt. Vad gör du?"
     } else {
       text = "Du står kvar i skogen. Vad gör du?"
     }
@@ -224,7 +229,7 @@ const SkogStart: Room<State> = function ({ player }) {
             return {
               text:
                 "Du går rakt fram, men tappar snabbt bort dig.\n\n" +
-                "[Du] Varför ser alla träd likadana ut? Åh, den där stenen påminner om fem stycken jag passerat tidigare. Ah, det här känns rätt!\n\n" +
+                "[Du]: Varför ser alla träd likadana ut? Åh, den där stenen påminner om fem stycken jag passerat tidigare. Ah, det här känns rätt!\n\n" +
                 "Du kommer fram till en glänta, men upptäcker snabbt att du är tilbaka där du startade. Attans!",
             }
           }
@@ -238,7 +243,8 @@ const SkogStart: Room<State> = function ({ player }) {
         onChoose: () => {
           state.looked = true
           return {
-            text: "Du ser omkring dig en skog i sorgligt skick. Träden är slokna och har tappat många löv. Bredvid dig på marken ser du tre olika föremål, en pinne, en GPS och det heliga svärdet Excalibur. En bit bort ser du en person som krattar något.",
+            text:
+              "Du ser omkring dig en skog i sorgligt skick. Träden är slokna och har tappat många löv. Bredvid dig på marken ser du tre olika föremål, en pinne, en GPS och det heliga svärdet Excalibur. En bit bort ser du en person som krattar något.",
           }
         },
       })
@@ -251,7 +257,7 @@ const SkogStart: Room<State> = function ({ player }) {
             return {
               text:
                 "Du går fram till den krattande personen. Du ser att det är en kvinna iklädd arbetskläder med reflexväst.\n\n" +
-                "[Kristin den Krattande] Jag är Krattaren Kristin, en Amazon. Mitt jobb är att kratta skogen. Vad vill du?",
+                "[Kristin den Krattande]: Jag är Krattaren Kristin, en Amazon. Mitt jobb är att kratta skogen. Vad vill du?",
             }
           },
         })
@@ -273,7 +279,8 @@ const SkogStart: Room<State> = function ({ player }) {
           onChoose: () => {
             state.lookedPinne = true
             return {
-              text: "Det är en till synes helt vanlig pinne från en ask, ca. 0.5m lång, 0.01m i diameter och med några kvistar som sticker ut.",
+              text:
+                "Det är en till synes helt vanlig pinne från en ask, ca. 0.5m lång, 0.01m i diameter och med några kvistar som sticker ut.",
             }
           },
         })
@@ -295,7 +302,8 @@ const SkogStart: Room<State> = function ({ player }) {
           onChoose: () => {
             state.lookedGPS = true
             return {
-              text: "Det är en till synes helt vanlig GPS, av okänd anledning har den utmärkt kontakt och visar din exakta psoition.",
+              text:
+                "Det är en till synes helt vanlig GPS, av okänd anledning har den utmärkt kontakt och visar din exakta psoition.",
             }
           },
         })
@@ -317,7 +325,8 @@ const SkogStart: Room<State> = function ({ player }) {
           onChoose: () => {
             state.lookedExcalibur = true
             return {
-              text: "Det är en till synes helt vanlig Excalibur, den strålar helig energi och du känner hur du lätt kan ha ihjäl otaliga Demon lords med den.",
+              text:
+                "Det är en till synes helt vanlig Excalibur, den strålar helig energi och du känner hur du lätt kan ha ihjäl otaliga Demon lords med den.",
             }
           },
         })
@@ -353,7 +362,7 @@ const SkogStart: Room<State> = function ({ player }) {
         state.stage = "introduction"
         return {
           text:
-            "[Kristin den Krattande] Lycka till på färden, vill du förresten till Beztown ligger det åt det hållet.\n\n" +
+            "[Kristin den Krattande]: Lycka till på färden, vill du förresten till Beztown ligger det åt det hållet.\n\n" +
             "Kristina pekar mot en dold stig som går genom skogen.",
         }
       },
