@@ -5,6 +5,7 @@ import serialize from "serialize-javascript"
 import { writeFile, mkdir } from "fs/promises"
 import { createHash } from "crypto"
 import { dirname } from "path"
+import http from "http"
 
 export type RoomInfo = {
   text?: string
@@ -39,10 +40,12 @@ export type GameArgs = {
   savepoints: Room<Serializable>[]
   letterDelay: number
   shouldExit: (input: string) => boolean
+  shouldRemoteSet: (input: string) => boolean
   getErrorMessage: (input: string) => string
   savepointLoadErrorMessage: string
   savepointPath: string
   load: boolean
+  remotePort: number
 }
 
 namespace Game {
@@ -52,18 +55,42 @@ namespace Game {
     savepoints: preliminarySavepoints,
     letterDelay,
     shouldExit,
+    shouldRemoteSet,
     getErrorMessage,
     savepointLoadErrorMessage,
     savepointPath,
     load,
+    remotePort,
   }: GameArgs) {
     const savepoints = [initialRoom, ...preliminarySavepoints]
     let lastSavepoint: Room<Serializable> | undefined = undefined
+    let totalPushedOutput: string = ""
 
     let state: State
 
     function md5(text: string): string {
       return createHash("md5").update(text).digest("hex")
+    }
+
+    function remote(method: "push" | "set", stdout: string) {
+      if (method == "push") {
+        totalPushedOutput += stdout
+      }
+
+      if (remotePort > 0) {
+        const request = http.request({
+          host: "localhost",
+          port: remotePort,
+          path: `/${method}`,
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        request.on("error", () => {})
+        request.write(JSON.stringify({ stdout, letterDelay }))
+        request.end()
+      }
     }
 
     async function addSavepoint(): Promise<boolean> {
@@ -115,6 +142,21 @@ namespace Game {
       return state
     }
 
+    async function display(text?: string, newlines: number = 2) {
+      if (typeof text === "string") {
+        text += "\n".repeat(newlines)
+
+        remote("push", text)
+
+        for (const letter of text) {
+          process.stdout.write(letter)
+          if (letterDelay > 0) {
+            await sleep(letterDelay)
+          }
+        }
+      }
+    }
+
     if (load) {
       const savepoint = loadSavepoint()
       if (!savepoint) {
@@ -124,18 +166,7 @@ namespace Game {
       state = savepoint
     } else {
       state = reset()
-    }
-
-    async function display(text?: string, newines: number = 2) {
-      if (typeof text === "string") {
-        for (const letter of text) {
-          process.stdout.write(letter)
-          if (letterDelay > 0) {
-            await sleep(letterDelay)
-          }
-        }
-        process.stdout.write("\n".repeat(newines))
-      }
+      remote("set", "")
     }
 
     mainLoop: while (true) {
@@ -173,7 +204,7 @@ namespace Game {
 
       let choice: Choice
       while (true) {
-        process.stdout.write("> ")
+        await display("> ", 0)
         const input = await new Promise<string>((resolve) => {
           const listener = (data: Buffer) => {
             process.stdin.removeListener("data", listener)
@@ -182,8 +213,13 @@ namespace Game {
           process.stdin.on("data", listener)
         })
 
+        remote("push", `${input}\n`)
+
         if (shouldExit(input)) {
           break mainLoop
+        } else if (shouldRemoteSet(input)) {
+          remote("set", totalPushedOutput)
+          continue
         }
 
         const i = Number(input)

@@ -24,10 +24,12 @@ const args: GameArgs = {
   savepoints: [SkogStart, Beztown, Träsk, Öken, LarpDvärgh, VetenskapspersonA, VetenskapspersonB, AbabouFajt],
   letterDelay: 5,
   shouldExit: (input) => ["exit", "avsluta"].includes(input),
+  shouldRemoteSet: (input) => ["sync"].includes(input),
   getErrorMessage: (input) => `${input} är inte ett tillgängligt val.`,
   savepointLoadErrorMessage: "Kunde inte ladda sparpunkten...",
   savepointPath: resolve("savepoints/savepoint.js"),
   load: false,
+  remotePort: -1,
 }
 
 for (const arg of process.argv.slice(2)) {
@@ -41,6 +43,9 @@ for (const arg of process.argv.slice(2)) {
       break
     case "--load":
       args.load = true
+      break
+    case "--port":
+      args.remotePort = parseInt(getValue(parts))
       break
     default:
       console.error(`Invalid option ${parts[0]}`)
