@@ -150,10 +150,14 @@ namespace Game {
 
         remote("push", text)
 
+        let time: number = Date.now()
         for (const letter of text) {
           process.stdout.write(letter)
-          if (letterDelay > 0) {
-            await sleep(letterDelay)
+
+          time += letterDelay
+          const dt = time - Date.now()
+          if (dt > 0) {
+            await sleep(dt)
           }
         }
       }
