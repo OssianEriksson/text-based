@@ -84,8 +84,7 @@ const Beztown: Room<State> = function ({ player }) {
                     state.firstStageVisit = true
                     state.stage = "gren"
                     return {
-                      text:
-                        "Du använder dina tunnlingsfärdigheter för att tunnla in i trädet och tunnla genom träfibrerna hela vägen upp till toppen. Snabbt jobbat!",
+                      text: "Du använder dina tunnlingsfärdigheter för att tunnla in i trädet och tunnla genom träfibrerna hela vägen upp till toppen. Snabbt jobbat!",
                     }
                   },
                 },
@@ -99,8 +98,7 @@ const Beztown: Room<State> = function ({ player }) {
                     state.firstStageVisit = true
                     state.stage = "jämnat"
                     return {
-                      text:
-                        "Du använder räfs den legendariska krattan för att kratta Beztown. Det är fruktansvärt effektivt. Med ett kratttag rasar hela trädet och blir till en gigantisk men mycket prydlig hög av löv och grenar. Alla Amazoner som trillat ner från trädet verkar mycket upprörda.",
+                      text: "Du använder räfs den legendariska krattan för att kratta Beztown. Det är fruktansvärt effektivt. Med ett kratttag rasar hela trädet och blir till en gigantisk men mycket prydlig hög av löv och grenar. Alla Amazoner som trillat ner från trädet verkar mycket upprörda.",
                     }
                   },
                 },
@@ -112,7 +110,7 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Knacka på.",
                   onChoose: () => {
                     state.riddleTime = true
-                    state.knocked = false
+                    state.knocked = true
                     return {
                       text:
                         "Du knackar på trädet. I början händer ingenting men efter ett tag öppnas en liten lucka och en person tittar ut.\n\n" +
@@ -128,8 +126,7 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Svara: 'Dom består bägge av materia!'",
                   onChoose: () => {
                     return {
-                      text:
-                        "[Gåtfrid den Gåtfulle] Åjdå, det blev lite fel där va. Försök igen, eller är du för kårkad?",
+                      text: "[Gåtfrid den Gåtfulle] Åjdå, det blev lite fel där va. Försök igen, eller är du för kårkad?",
                     }
                   },
                 },
@@ -137,8 +134,7 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Svara: 'Det är trivialt!'",
                   onChoose: () => {
                     return {
-                      text:
-                        "[Gåtfrid den Gåtfulle]: För mig ja, men inte för dig. Försök igen, eller är du för kårkad?",
+                      text: "[Gåtfrid den Gåtfulle]: För mig ja, men inte för dig. Försök igen, eller är du för kårkad?",
                     }
                   },
                 },
@@ -146,8 +142,7 @@ const Beztown: Room<State> = function ({ player }) {
                   text: "Svara: 'Bägge går att äta!'",
                   onChoose: () => {
                     return {
-                      text:
-                        "[Gåtfrid den Gåtfulle]: Eh, nej. Inget av dem går att äta. Försök igen, eller är du för kårkad?",
+                      text: "[Gåtfrid den Gåtfulle]: Eh, nej. Inget av dem går att äta. Försök igen, eller är du för kårkad?",
                     }
                   },
                 },
@@ -220,8 +215,7 @@ const Beztown: Room<State> = function ({ player }) {
                   onChoose: () => {
                     state.haveBox = true
                     return {
-                      text:
-                        "Du snor en låda från en förbipasserande amazon och springer iväg. Hon blir upprörd men är för upptagen för att springa efter. Du har dock fortfarande ingen aning om var du är.",
+                      text: "Du snor en låda från en förbipasserande amazon och springer iväg. Hon blir upprörd men är för upptagen för att springa efter. Du har dock fortfarande ingen aning om var du är.",
                     }
                   },
                 },
@@ -268,8 +262,7 @@ const Beztown: Room<State> = function ({ player }) {
               } else {
                 player.hp -= 5
                 return {
-                  text:
-                    "Du försöker följa flödet av amazoner, men alla stannar upp och undrar vad du håller på med. Det sociala trycket tvingar dig att gå till sidan och du tar 5 hp skada från mobbning.",
+                  text: "Du försöker följa flödet av amazoner, men alla stannar upp och undrar vad du håller på med. Det sociala trycket tvingar dig att gå till sidan och du tar 5 hp skada från mobbning.",
                 }
               }
             },
@@ -339,8 +332,7 @@ const Beztown: Room<State> = function ({ player }) {
                       }
                     } else {
                       return {
-                        text:
-                          "Du försöker klättra upp för tornet, men väggarna är för hala! (Varför är de hala? Läbbigt!) Om du bara hade något att klättra på!",
+                        text: "Du försöker klättra upp för tornet, men väggarna är för hala! (Varför är de hala? Läbbigt!) Om du bara hade något att klättra på!",
                       }
                     }
                   },
@@ -355,14 +347,12 @@ const Beztown: Room<State> = function ({ player }) {
                     if (player.attributes.includes("snorkel")) {
                       player.attributes.push("punch")
                       return {
-                        text:
-                          "Med hjälp av snorkeln lyckas du utforska fontänen och hittar... en flaska punch? 'Vad ska jag med den till?' tänker du medan du plockar på dig den.",
+                        text: "Med hjälp av snorkeln lyckas du utforska fontänen och hittar... en flaska punch? 'Vad ska jag med den till?' tänker du medan du plockar på dig den.",
                       }
                     } else {
                       player.hp -= 5
                       return {
-                        text:
-                          "Du försöker bada i fontänen, men eftersom du är så dålig på att bada får du en kallsup och tar 5 hp skada (pga pinsamhet).",
+                        text: "Du försöker bada i fontänen, men eftersom du är så dålig på att bada får du en kallsup och tar 5 hp skada (pga pinsamhet).",
                       }
                     }
                   },
@@ -393,13 +383,11 @@ const Beztown: Room<State> = function ({ player }) {
                     if (player.attributes.includes("punch")) {
                       player.attributes.push("stege från holt")
                       return {
-                        text:
-                          "Du knackar på, först blir du avvisad men när de känner doften av punch blir du istället varmt välkommen. När du kommer in i den skumma lokalen inser du att folket här faktiskt är konstigare än du någonsin hade kunnat ana! Du försöker artigt slingra dig därifrån, men inte förrän det punchglada folket lyckas tvinga på dig en stege som tack! Väl ute så vilar du någon minut för att återhämta dig från traumat, därefter fortsätter du på jakten efter... något.",
+                        text: "Du knackar på, först blir du avvisad men när de känner doften av punch blir du istället varmt välkommen. När du kommer in i den skumma lokalen inser du att folket här faktiskt är konstigare än du någonsin hade kunnat ana! Du försöker artigt slingra dig därifrån, men inte förrän det punchglada folket lyckas tvinga på dig en stege som tack! Väl ute så vilar du någon minut för att återhämta dig från traumat, därefter fortsätter du på jakten efter... något.",
                       }
                     } else {
                       return {
-                        text:
-                          "Du knackar på, men får till svar att du måste betala ??kr för att komma in. Tyvärr tog du inte med dig några svenska pengar och de accepterar nog inte guldmynt. Hmm, var någonstants skulle du kunna hitta pengar häromkring?",
+                        text: "Du knackar på, men får till svar att du måste betala 40kr inträde för att komma in. Tyvärr tog du inte med dig några svenska pengar och de accepterar nog inte guldmynt. Hmm, var någonstants skulle du kunna hitta pengar häromkring?",
                       }
                     }
                   },
@@ -414,8 +402,7 @@ const Beztown: Room<State> = function ({ player }) {
                     state.firstStageVisit = true
                     state.stage = "residens"
                     return {
-                      text:
-                        "Med ditt lokalsinne återfått beger du dig mot det episka huset som Ababou pekade ut. Äntligen lyckas du lämna virrvarret av lådbärande amazoner!",
+                      text: "Med ditt lokalsinne återfått beger du dig mot det episka huset som Ababou pekade ut. Äntligen lyckas du lämna virrvarret av lådbärande amazoner!",
                     }
                   },
                 },
@@ -426,7 +413,7 @@ const Beztown: Room<State> = function ({ player }) {
     case "residens":
       return {
         text: firstStageVisit
-          ? "Efter ett tag kommer du till stor och övedrivet episk bygnad där det står 'Skogmästarens residens'. Vad gör du?"
+          ? "Efter ett tag kommer du till en stor och övedrivet episk bygnad där det står 'Skogmästarens residens'. Vad gör du?"
           : "Du står utanför skogmästarens residens. Vad gör du?",
 
         choices: [
@@ -436,8 +423,7 @@ const Beztown: Room<State> = function ({ player }) {
               state.firstStageVisit = true
               state.stage = "waiting"
               return {
-                text:
-                  "Du går in i den överdrivet episka byggnaden. Inuti finns en massa episka statyer som föreställer strider mot drakar och ondskefulla gudar som förvisas till skumma dimensioner. Du går upp för en underbart episk trappa, därefter fram till en oöverträffbart episk dörr där du ser en ofattbart episk post-it lapp där det står: 'Episkt möte pågår'.",
+                text: "Du går in i den överdrivet episka byggnaden. Inuti finns en massa episka statyer som föreställer strider mot drakar och ondskefulla gudar som förvisas till skumma dimensioner. Du går upp för en underbart episk trappa, därefter fram till en oöverträffbart episk dörr där du ser en ofattbart episk post-it lapp där det står: 'Episkt möte pågår'.",
               }
             },
           },
@@ -494,8 +480,7 @@ const Beztown: Room<State> = function ({ player }) {
       }
     case "beazos":
       return {
-        text:
-          "[Skogmästare Beazos]: Ha! Skogmästaren Beazos är jag! Vad hit dig för, du människa som sorgligt oepisk är?",
+        text: "[Skogmästare Beazos]: Ha! Skogmästaren Beazos är jag! Vad hit dig för, du människa som sorgligt oepisk är?",
 
         choices: [
           {
@@ -506,7 +491,7 @@ const Beztown: Room<State> = function ({ player }) {
                   "Du börjar förklara din situation, men blir snabbt avbruten av Ababou som hoppar fram ur din låda och tar över!\n\n" +
                   "[Ababou den ändlige]: Var hälsad Skogmästare Beazos, jag har kommit med en episk hjälte för att rädda Amazonas från den mörke herrens efterträdare, när hjälten har funnit den heliga inte-graalen skall denne använda inte-graalen för att förgöra det ensammare berget.\n\n" +
                   "[Skogmästare Beazos]: Burukaveels efterträdare dödas skall, du hjälte med min välsignelse för att utrota dvärgharna gå.\n\n" +
-                  "[Ababou den ändlige]: Jag skickar nu dig ut ur skogen, när du funnit inte-graalen ta den då till dvärgharnas laboratorium så att den får som störst sprängkraft.\n\n" +
+                  "[Ababou den ändlige]: Jag skickar dig nu ut ur skogen, när du funnit inte-graalen ta den då till dvärgharnas laboratorium så att den får som störst sprängkraft.\n\n" +
                   "Du känner hur du börjar lösas upp i en vaniljdoftande ånga. Plötsligt materialiseras du i ett träsk med Beztown bakom dig.\n\n" +
                   "Grattis, du är äntligen ute ur skogen!",
                 room: Träsk,

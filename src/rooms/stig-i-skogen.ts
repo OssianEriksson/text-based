@@ -31,8 +31,7 @@ const StigISkogen: Room<State> = function ({ player }) {
   switch (state.stage) {
     case "introduction":
       return {
-        text:
-          "Du går genom den ledsna skogen på den lilla stigen och stöter plötsligt på en till Amazon, återigen klädd i arbetskläder med reflexväst. Hon ser djupt besvärad ut och ett stort utropstecken svävar över hennes huvud.",
+        text: "Du går genom den ledsna skogen på den lilla stigen och stöter plötsligt på en till Amazon, återigen klädd i arbetskläder med reflexväst. Hon ser djupt besvärad ut och ett stort utropstecken svävar över hennes huvud.",
         choices: [
           {
             text: "Ignorera henne.",
@@ -60,14 +59,12 @@ const StigISkogen: Room<State> = function ({ player }) {
             onChoose: () => {
               state.stage = "quest"
               return {
-                text:
-                  "[Lena den Letande] Åh, vad underbart. Jag visste att du var en lättlu- jag menar en pålitlig person.",
+                text: "[Lena den Letande] Åh, vad underbart. Jag visste att du var en lättlu- jag menar en pålitlig person.",
               }
             },
           },
           {
-            text:
-              "Asså, jag vet inte... jag är lite upptagen liksom... har en värld att rädda... en annan gång kanske.",
+            text: "Asså, jag vet inte... jag är lite upptagen liksom... har en värld att rädda... en annan gång kanske.",
             onChoose: () => ({
               text:
                 "[Lena den Letande]: Okej, vem bryr sig.\n\n" + "Lena fortsätte leta och du går vidare genom skogen",
@@ -89,8 +86,7 @@ const StigISkogen: Room<State> = function ({ player }) {
       }
     case "quest":
       return {
-        text:
-          "[Lena den Letande]: Jag har tyvärr råkat tappa bort en kraftfull vetenskaplig kvantkristall. Den borde ligga här någonstans. Säg till om du hittar något som utstrålar vetenskaplighet.",
+        text: "[Lena den Letande]: Jag har tyvärr råkat tappa bort en kraftfull vetenskaplig kvantkristall. Den borde ligga här någonstans. Säg till om du hittar något som utstrålar vetenskaplighet.",
 
         choices: [
           {
@@ -157,6 +153,7 @@ const StigISkogen: Room<State> = function ({ player }) {
           {
             text: "Leta i gräset.",
             onChoose: () => {
+              state.letatIGräs = true
               return {
                 text:
                   "Du försöker letar i gräset men hittar bara insekter och, tja, gräs.\n\n" +
@@ -206,8 +203,7 @@ const StigISkogen: Room<State> = function ({ player }) {
             text: "Begär mer info om kvantkristallen.",
             onChoose: () => {
               return {
-                text:
-                  "[Lena den Letande]: Den vetenskapliga kvantkristallen består av två delar, en som är lite större och en som är lite mindre. Den är ganska stor och har en tendens att befinna sig i närheten av Amazoner. Dessutom utstrålar den en massa vetenskaplighet.",
+                text: "[Lena den Letande]: Den vetenskapliga kvantkristallen består av två delar, en som är lite större och en som är lite mindre. Den är ganska stor och har en tendens att befinna sig i närheten av Amazoner. Dessutom utstrålar den en massa vetenskaplighet.",
               }
             },
           },
